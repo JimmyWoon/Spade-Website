@@ -1,0 +1,44 @@
+<link rel="stylesheet" href="/assets/css/Global.css">
+<link rel="stylesheet" href="/assets/css/TeachingMaterial.css">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+
+<body>
+
+<div class="mainContainer">
+    <div *ngIf="msg !== ''">
+        <div Class="error">
+            <p id="error_message" style="text-align:center;">
+              {{msg}}
+            </p>
+        </div>
+      </div>
+      <form [formGroup]="formGroup" (ngSubmit)="submit()" class="loginForm" enctype="multipart/form-data">
+        <input type="file" (change)="onFileSelected($event)" formControlName="file" id="file" name="file"/>
+        <button type="submit" name="submit" >Submit</button>
+    </form> 
+
+      <!-- <Div *ngIf="material_list.length > 0" class="panel">
+
+        <div *ngFor="let item in material_list" Class="information" style="position:relative;">
+            <i Class="fa fa-book" aria-hidden="true"></i>
+            <Label> {{item.material_title}} </Label>
+            <div class="textB box">
+                <label class="material_info">Field: @item.material_subject</label>
+                <label class="material_info" style="font-style:italic;">By: @item.user_name</label>
+                <label class="material_info">Register Date: @item.date_added</label>
+                <label class="material_info">@item.material_description</label>
+                @Html.ActionLink(item.material_file_name, "Download", "TeachingMaterial", New With {.id = item.id}, Nothing)
+            </div>
+        </div>
+
+        @<ul Class="pagination">
+            @For i = 1 To Model.TotalPages
+                @<li @(If(i = Model.CurrentPage, "class=active-page", ""))>
+                    @Html.ActionLink(i.ToString(), "MaterialList", New With {.page = i})
+                </li>
+            Next
+        </ul>
+    </Div> -->
+</div>
+</body>

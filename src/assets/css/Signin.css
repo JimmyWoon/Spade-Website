@@ -1,0 +1,333 @@
+/*=============== LOGIN FORM ===============*/
+.loginContent,
+.signupContent,
+.loginForm,
+.loginInputs {
+  display: grid;
+}
+
+.loginContent {
+  position: relative;
+  height: calc(100% - var(--footer-height) - var(--header-height));
+  align-items: center;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+  min-height: 500px;
+}
+
+.signupContent {
+  position: relative;
+  height: calc(100% - var(--footer-height) - var(--header-height));
+  align-items: center;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+  min-height: 550px;
+}
+
+.loginImg {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.signupImg {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.signupForm {
+  display: flex;
+  justify-self: center;
+  flex-direction: column;
+  background-color: hsla(244, 16%, 92%, 0.6);
+  border: 2px solid hsla(244, 16%, 92%, 0.75);
+  backdrop-filter: blur(20px);
+  padding: 2rem;
+  border-radius: 1rem;
+  margin-inline: 1.5rem;
+  row-gap: 1.25rem;
+}
+
+.loginForm {
+  background-color: hsla(244, 16%, 92%, 0.6);
+  border: 2px solid hsla(244, 16%, 92%, 0.75);
+  margin-inline: 1.5rem;
+  row-gap: 1.25rem;
+  backdrop-filter: blur(20px);
+  padding: 2rem;
+  border-radius: 1rem;
+}
+
+.inputContainer {
+  margin-bottom: 0.5rem;
+}
+
+.loginTitle {
+  color: var(--title-color);
+  font-size: var(--h2-font-size);
+  margin-bottom: 0.5rem;
+}
+
+.loginTitle span {
+  color: var(--first-color);
+}
+
+.loginDescription {
+  font-size: var(--small-font-size);
+}
+
+.signupInputs {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+}
+
+.loginInputs {
+  row-gap: 0.75rem;
+  margin-bottom: 0.5rem;
+}
+
+.loginLabel {
+  display: block;
+  color: var(--title-color);
+  font-size: var(--smaller-font-size);
+  font-weight: var(--font-semi-bold);
+  margin-bottom: 0.25rem;
+}
+
+.loginInput {
+  width: 100%;
+  padding: 14px 12px;
+  border-radius: 6px;
+  border: 2px solid var(--text-color);
+  background-color: hsla(244, 16%, 92%, 0.6);
+  color: var(--title-color);
+  font-size: var(--smaller-font-size);
+  font-weight: var(--font-medium);
+  transition: border 0.4s;
+  padding-right: 36px;
+}
+
+.loginInput::placeholder {
+  color: var(--text-color);
+}
+
+.loginInput:focus,
+.loginInput:valid {
+  border: 2px solid var(--first-color);
+}
+
+.loginBox {
+  position: relative;
+}
+
+.loginEye {
+  width: max-content;
+  height: max-content;
+  position: absolute;
+  right: 0.75rem;
+  top: 0;
+  bottom: 0;
+  margin: auto 0;
+  font-size: 1.25rem;
+  cursor: pointer;
+}
+
+.loginCheck {
+  display: flex;
+  column-gap: 0.5rem;
+  align-items: center;
+}
+
+.loginButtons {
+  display: flex;
+  column-gap: 0.75rem;
+}
+
+.loginButton {
+  width: 100%;
+  padding: 14px 2rem;
+  border-radius: 6px;
+  background: linear-gradient(180deg, var(--first-color), var(--second-color));
+  color: #fff;
+  font-size: var(--small-font-size);
+  font-weight: var(--font-semi-bold);
+  box-shadow: 0 6px 24px hsla(244, 75%, 48%, 0.5);
+  margin-bottom: 1rem;
+  cursor: pointer;
+}
+
+.loginButton-ghost {
+  background: hsla(244, 16%, 92%, 0.6);
+  border: 2px solid var(--first-color);
+  color: var(--first-color);
+  box-shadow: none;
+  text-align: center;
+}
+
+.error p {
+  background: hsla(0, 58%, 53%, 0.285);
+  padding: 0.5rem;
+  border-radius: 6px;
+  color: hsl(0, 100%, 38%);
+  text-align: center;
+  margin-bottom: 0 !important;
+}
+
+.success p{
+  background: rgba(9, 255, 0, 0.471);
+  padding: 0.5rem;
+  border-radius: 10px;
+  color: #fff;
+  text-align: center;
+  margin-bottom: 0 !important;
+}
+
+/*=============== BREAKPOINTS ===============*/
+/* For small devices */
+@media screen and (max-width: 360px) {
+  .loginImg {
+    height: 100%;
+  }
+
+  .loginButtons {
+    flex-direction: column;
+  }
+}
+
+/* For medium devices */
+@media screen and (min-width: 576px) {
+  .loginForm {
+    width: 450px;
+    justify-self: center;
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .signupInputs {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+    .signupContent {
+        min-height: 780px;
+    }
+}
+
+/* For large devices */
+@media screen and (min-width: 1500px) {
+  .loginContent {
+    margin: auto;
+  }
+
+  .signupContent {
+    margin: auto;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .loginContent {
+    min-height: 600px;
+  }
+
+  .signupContent {
+    min-height: 700px;
+  }
+}
+
+@media screen and (min-width: 1064px) {
+  .loginContent {
+    margin-top: 20px;
+    max-width: 1440px;
+    margin: auto;
+  }
+
+  .signupContent {
+    margin-top: 20px;
+    max-width: 1440px;
+    margin: auto;
+  }
+
+  .loginImg {
+    border-radius: 3.5rem;
+    box-shadow: 0 24px 48x hsla(244, 75%, 36%, 0.45);
+  }
+
+  .signupImg {
+    border-radius: 3.5rem;
+    box-shadow: 0 24px 48x hsla(244, 75%, 36%, 0.45);
+  }
+
+  .loginForm {
+    justify-self: flex-end;
+    margin-right: 4.5rem;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .loginForm {
+    row-gap: 2rem;
+    padding: 3rem;
+    border-radius: 1.25rem;
+    border: 2.5px solid hsla(244, 16%, 92%, 0.75);
+  }
+
+  .signupForm {
+    row-gap: 2rem;
+    padding: 3rem;
+    border-radius: 1.25rem;
+    border: 2.5px solid hsla(244, 16%, 92%, 0.75);
+    width: 70%;
+  }
+
+  .loginDescription,
+  .loginLabel,
+  .loginButton {
+    font-size: var(--normal-font-size);
+  }
+
+  .loginInputs {
+    row-gap: 1.25rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .loginInput {
+    border: 2.5px solid var(--text-color);
+    padding: 1rem;
+    font-size: var(--small-font-size);
+  }
+
+  .loginInput:focus,
+  .loginInput:valid {
+    border: 2.5px solid var(--first-color);
+  }
+
+  .loginButton {
+    padding-block: 1rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .loginButton-ghost {
+    border: 2.5px solid var(--first-color);
+  }
+}
+
+.actionLink {
+    text-decoration: underline;
+    cursor: pointer;
+    color: var(--first-color);
+}
+
+.hide{
+    display:none;
+}
+
+.show{
+    display:inline;
+}

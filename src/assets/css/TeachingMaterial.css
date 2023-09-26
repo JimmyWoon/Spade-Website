@@ -1,0 +1,210 @@
+﻿body {
+    margin-top: var(--header-height);
+}
+.full_width_container {
+    background: linear-gradient(180deg, var(--second-color), var(--first-color-lighten));
+    position: relative;
+}
+.innerContainer{
+    margin-top: 1em;
+    display:flex;
+    flex-direction:column;
+    max-width:70%;
+    margin-left:auto;
+    margin-right:auto;
+    align-items:center;
+    grid-gap:1em;
+    padding-bottom:3em;
+}
+h2 {
+    color: var(--first-color);
+}
+
+.firstButton {
+    padding: 14px 2rem;
+    border-radius: 6px;
+    display: inline-block;
+    background: linear-gradient(180deg, var(--first-color), var(--second-color));
+    color: #fff;
+    font-size: var(--small-font-size);
+    font-weight: var(--font-semi-bold);
+    box-shadow: 0 6px 24px hsla(244, 75%, 48%, 0.5);
+    cursor: pointer;
+    margin: 1.5em 1em 0.5em 0;
+    transition: transform 0.3s ease; /* Add a smooth transition */
+}
+.selectionButton {
+    text-align: center;
+    width: 70%;
+    padding: 14px 15em;
+    border-radius: 6px;
+    color: var(--first-color);
+    background-color: hsla(244, 16%, 92%, 0.6);
+    font-size: var(--small-font-size);
+    font-weight: var(--font-semi-bold);
+    cursor: pointer;
+    margin: 1.5em 0 0.5em 0;
+    box-sizing: border-box;
+    transition: 0.3s;
+    border: 1px solid;
+    flex: 1;
+}
+.firstButton:hover {
+    transform: scale(1.15); /* Increase size by 20% on hover */
+}
+.selectionButton:hover {
+    background-color: var(--second-color);
+    color: lightgray;
+}
+
+
+.hidden {
+    display: none;
+}
+
+
+.cancel {
+    padding: 14px 2rem;
+    border-radius: 6px;
+    background: linear-gradient(180deg, var(--text-color), var(--text-color));
+    color: #fff;
+    font-size: var(--small-font-size);
+    font-weight: var(--font-semi-bold);
+    box-shadow: 0 6px 24px grey;
+    margin-bottom: 1rem;
+    cursor: pointer;
+    margin-right: 1em;
+}
+
+#edit_password {
+    padding: 14px 2rem;
+    border-radius: 6px;
+    background: linear-gradient(180deg, var(--first-color), var(--second-color));
+    color: #fff;
+    font-size: var(--small-font-size);
+    font-weight: var(--font-semi-bold);
+    box-shadow: 0 6px 24px hsla(244, 75%, 48%, 0.5);
+    margin-bottom: 1rem;
+    cursor: pointer;
+}
+
+    #edit_password:hover {
+        transform: scale(1.05);
+    }
+
+.textB {
+    /* margin-left: 1em;
+    background-color: transparent;
+    border: none;
+    border-bottom: 2px solid var(--first-color);
+    color: var(--first-color);
+    font-weight: bold;
+    width: 100%;
+    display: block;
+    margin-top: 1em; */
+    margin-top: 1em;
+    width: 100%;
+    padding: 14px 12px;
+    border-radius: 6px;
+    border: 2px solid var(--first-color);
+    background-color: white;
+    color: var(--title-color);
+    font-size: var(--smaller-font-size);
+    font-weight: var(--font-medium);
+    transition: border 0.4s;
+    padding-right: 36px;
+}
+
+.information i {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.textB:focus {
+    outline: none;
+    color: var(--first-color);
+}
+
+
+
+.information {
+    padding: 1em;
+    color: var(--first-color);
+    background-color: white;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin-bottom: 1em;
+}
+
+    .information:hover {
+        color: var(--first-color-light);
+    }
+
+#role {
+    border: none;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    font-size: larger;
+}
+
+#save {
+    display: none;
+}
+
+#cancelBtn, #saveBtn {
+    display: none;
+}
+
+#edit_password {
+    padding: 14px 2rem;
+    border-radius: 6px;
+    background: linear-gradient(180deg, var(--first-color), var(--second-color));
+    color: #fff;
+    font-size: var(--small-font-size);
+    font-weight: var(--font-semi-bold);
+    box-shadow: 0 6px 24px hsla(244, 75%, 48%, 0.5);
+    margin-bottom: 1rem;
+    cursor: pointer;
+}
+
+    #edit_password:hover {
+        transform: scale(1.05);
+    }
+
+.hidden {
+    display: none !important;
+}
+
+.show {
+    display: inherit;
+}
+
+.error {
+    background: hsla(0, 58%, 53%, 0.285);
+    padding: 1rem;
+    margin-bottom: 1rem;
+    margin-top: 0.5rem;
+    border-radius: 5px;
+}
+
+    .error p {
+        color: hsl(0, 100%, 70%);
+        margin-bottom: 0 !important;
+
+    }
+
+@media (max-width: 1300px) {
+    .selectionButton {
+        padding: 14px 5em;
+    }
+}
+@media (max-width: 500px) {
+    .selectionButton {
+        padding: 14px 2em;
+        font-size:smaller;
+    }
+}

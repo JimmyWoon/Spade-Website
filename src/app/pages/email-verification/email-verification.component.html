@@ -1,0 +1,58 @@
+<link rel="stylesheet" href="/assets/css/Signin.css">
+<link rel="stylesheet" href="/assets/css/Global.css">
+
+<body>
+    <div Class="container body-content">
+        <section class="container">
+            <div class="signupContent">
+                <img src="assets/image/bg-create_user.jpg" alt="login image" class="signupImg">
+        
+                <form [formGroup]="formGroup" (ngSubmit)="submit()" enctype="multipart/form-data" class="signupForm">
+                    <div>
+                        <h1 class="loginTitle">
+                            <span>Register</span> Account
+                        </h1>
+                        <p class="loginDescription">
+                            Please enter your account details.
+                        </p>
+                    </div>
+                    <div *ngIf="msg !== '' && msg !== 'User registered successfully.'">
+                        <div Class="error">
+                            <p id="error_message">
+                                {{msg}}
+                            </p>
+                        </div>
+                    </div>
+        
+                    <div Class="signupInputs">
+                        <div>
+                            <div Class="inputContainer">
+                                <Label for="email" class="loginLabel">Email</Label>
+                                <input type="email" id="email" formControlName="email" placeholder="Enter email" value="@email" class="loginInput" required>
+                            </div>
+                            <div Class="inputContainer">
+                                <label id="request_otp_link"  style="text-decoration: underline; cursor:pointer; color: var(--first-color); ">Request OTP</label>
+                                <!-- (click)="requestOTP()" -->
+                            </div>
+        
+                        </div>
+                        <div>
+                            <div Class="inputContainer">
+                                <Label for="otp_input" class="loginLabel">OTP</Label>
+                                <input type="text" id="otp_input" formControlName="otp" name="otp_input" placeholder="Enter OTP" class="loginInput" required>
+                            </div>
+                        </div>
+                    </div>
+        
+        
+                    <div class="loginButtons">
+                        <button class="loginButton" name="submit" type="submit">Next</button>
+                    </div>
+                </form>
+            </div>
+        </section>
+    
+    
+    </div>
+    
+</body>

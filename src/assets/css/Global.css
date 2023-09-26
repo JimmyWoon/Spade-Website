@@ -1,0 +1,139 @@
+/*=============== GOOGLE FONTS ===============*/
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap");
+
+/*=============== VARIABLES CSS ===============*/
+:root {
+  --header-height: 3rem;
+  --footer-height: 130px;
+  /*========== Colors ==========*/
+  /*Color mode HSL(hue, saturation, lightness)*/
+  --first-color: hsl(244, 75%, 57%);
+  --first-color-light: hsl(244, 60%, 50%);
+  --first-color-lighten: hsl(244, 100%, 97%);
+  --second-color: hsl(249, 64%, 47%);
+  --title-color: hsl(244, 4%, 15%);
+  --text-color: hsl(244, 4%, 36%);
+  --text-color-light: hsl(244, 12%, 75%);
+  --body-color: hsl(244, 0%, 100%);
+  --border-color: hsl(244, 99%, 98%);
+
+  /*========== Font and typography ==========*/
+  /*.5rem = 8px | 1rem = 16px ...*/
+  --body-font: "Poppins", sans-serif;
+  --h1-font-size: 1.5rem;
+  --h2-font-size: 1.25rem;
+  --normal-font-size: 0.938rem;
+  --small-font-size: 0.813rem;
+  --smaller-font-size: 0.75rem;
+
+  /*========== Font weight ==========*/
+  --font-medium: 500;
+  --font-semi-bold: 600;
+
+  /*========== Z index ========*/
+  --z-tooltip: 10;
+  --z-fixed: 100;
+}
+
+/* Responsive typography */
+@media screen and (min-width: 968px) {
+  :root {
+    --header-height: 4rem;
+    --h1-font-size: 2.25rem;
+    --h2-font-size: 1.5rem;
+    --h3-font-size: 1rem;
+    --normal-font-size: .938rem;
+    --small-font-size: 0.875rem;
+    --smaller-font-size: 0.813rem;
+  }
+}
+
+/*=============== BASE ===============*/
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+
+html {
+    scroll-behavior: smooth;
+}
+
+body,
+button,
+input,
+textarea {
+  /* background-color: var(--body-color); */
+  font-family: var(--body-font);
+  font-size: var(--normal-font-size);
+}
+
+body {
+  margin: calc(var(--header-height) + 1.5rem) 0 0 0;
+  background-color: var(--body-color);
+  color: var(--text-color);
+}
+
+.bodyContainer {
+  margin: var(--header-height) 0 0 0;
+}
+
+input,
+button {
+  border: none;
+  outline: none;
+}
+
+h1,
+h2,
+h3 {
+  color: var(--title-color);
+  font-weight: var(--font-semi-bold);
+}
+
+ul {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+.section {
+  padding: 5.5rem 0 1rem;
+}
+
+.mainContainer {
+  max-width: 1440px;
+  margin-left: 1.5rem;
+  margin-right: 1.5rem;
+}
+
+@media screen and (min-width: 1500px) {
+  .mainContainer {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .section {
+    padding: 8rem 0 1rem;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .mainContainer {
+    margin-left: 1rem;
+    margin-right: 1rem;
+  }
+}
+footer {
+    text-align: center;
+    padding: 10px;
+    color: var(--first-color);
+}

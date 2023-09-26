@@ -1,0 +1,47 @@
+<link rel="stylesheet" href="/assets/css/Profile.css">
+<link rel="stylesheet" href="/assets/css/Global.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+<body>
+    <div class="mainContainer">
+        <div style="display:flex; justify-content:flex-end;">
+            <input id="editBtn"  (click)="editClick()" [ngClass]="{'firstButton':true}" name="edit" type="button" value="Edit">
+            <input id="saveBtn"  class="firstButton" name="save" form="userProfileform" type="submit" value="Save">
+            <button id="cancelBtn" (click)="cancelClick()"   class="cancel">Cancel</button>
+    
+        </div>
+        <div *ngIf="msg !== ''">
+            <div Class="error">
+                <p style="text-align:center;" id="error_message">
+                  {{msg}}
+                </p>
+            </div>
+        </div>
+                
+        <form  [formGroup]="formGroup" (ngSubmit)="submit()"   id="userProfileform" class="panel">
+            <input required id="username"   formControlName="username" name="username" class="input__field" type="text" />
+            <i class="fa-solid fa-user" style="margin-bottom:2em; margin-top:2em;"><label style="font-size:medium;">{{user_information.data?.role}}</label></i>
+    
+    
+            <div class="information">
+                <i class="fa fa-address-card" aria-hidden="true"></i>
+                <label>Email </label>
+                <input type="text" disabled="true" required class="textB" name="email" id="email" value="{{user_information.data?.email}}">
+            </div>
+            <input type="checkbox" id="edit_password_btn" name="edit_password_btn" style="display: none;" class="file-input">
+            <label id="edit_password" (click)="passwordClick()" for="edit_password_btn" style="display: none; margin-top:1em; margin-bottom:1em;">
+                <i class="fa-solid fa-lock"></i> &nbsp; Edit password
+            </label>
+    
+            <div id="old_password_div" class="information hidden">
+                <i class="fa fa-lock" aria-hidden="true"></i>
+                <label>Old Passowrd </label>
+                <input type="text" formControlName="old_password" required class="textB"  name="oldpassword" id="oldpassword" value="">
+            </div>
+            <div id="new_password_div" class="information hidden">
+                <i class="fa fa-lock" aria-hidden="true"></i>
+                <label>New Passowrd </label>
+                <input type="text" formControlName="new_password" required class="textB" name="newpassword" id="newpassword" value="">
+            </div>
+        </form>
+    </div>
+</body>

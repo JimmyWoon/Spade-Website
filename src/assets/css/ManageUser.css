@@ -1,0 +1,191 @@
+﻿
+.panel {
+    background-color: var(--first-color-lighten);
+    border-radius: 15px;
+    padding: 2%;
+}
+
+.firstButton {
+    padding: 14px 2rem;
+    border-radius: 6px;
+    background: linear-gradient(180deg, var(--first-color), var(--second-color));
+    color: #fff;
+    font-size: var(--small-font-size);
+    font-weight: var(--font-semi-bold);
+    box-shadow: 0 6px 24px hsla(244, 75%, 48%, 0.5);
+    cursor: pointer;
+    margin-bottom: 1rem;
+    margin-right: 1em;
+}
+
+
+
+.hidden {
+    display: none;
+}
+
+
+.cancel {
+    padding: 14px 2rem;
+    border-radius: 6px;
+    background: linear-gradient(180deg, var(--text-color), var(--text-color));
+    color: #fff;
+    font-size: var(--small-font-size);
+    font-weight: var(--font-semi-bold);
+    box-shadow: 0 6px 24px grey;
+    margin-bottom: 1rem;
+    cursor: pointer;
+    margin-right: 1em;
+}
+
+#edit_password {
+    padding: 14px 2rem;
+    border-radius: 6px;
+    background: linear-gradient(180deg, var(--first-color), var(--second-color));
+    color: #fff;
+    font-size: var(--small-font-size);
+    font-weight: var(--font-semi-bold);
+    box-shadow: 0 6px 24px hsla(244, 75%, 48%, 0.5);
+    margin-bottom: 1rem;
+    cursor: pointer;
+}
+
+    #edit_password:hover {
+        transform: scale(1.05);
+    }
+
+.textB {
+    /* margin-left: 1em;
+    background-color: transparent;
+    border: none;
+    border-bottom: 2px solid var(--first-color);
+    color: var(--first-color);
+    font-weight: bold;
+    width: 100%;
+    display: block;
+    margin-top: 1em; */
+    margin-top: 1em;
+    width: 100%;
+    padding: 14px 12px;
+    border-radius: 6px;
+    border: 2px solid var(--first-color);
+    background-color: white;
+    color: var(--title-color);
+    font-size: var(--smaller-font-size);
+    font-weight: var(--font-medium);
+    transition: border 0.4s;
+    padding-right: 36px;
+}
+
+.information i {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.textB:focus {
+    outline: none;
+    color: var(--first-color);
+}
+
+i {
+    margin-right: 1em;
+}
+
+.information {
+    padding: 1em;
+    color: var(--first-color);
+    background-color: white;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin-bottom: 1em;
+}
+
+    .information:hover {
+        color: var(--first-color-light);
+    }
+
+#role {
+    border: none;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    font-size: larger;
+}
+
+#save {
+    display: none;
+}
+
+#cancelBtn, #saveBtn {
+    display: none;
+}
+
+#edit_password {
+    padding: 14px 2rem;
+    border-radius: 6px;
+    background: linear-gradient(180deg, var(--first-color), var(--second-color));
+    color: #fff;
+    font-size: var(--small-font-size);
+    font-weight: var(--font-semi-bold);
+    box-shadow: 0 6px 24px hsla(244, 75%, 48%, 0.5);
+    margin-bottom: 1rem;
+    cursor: pointer;
+}
+
+#edit_password:hover {
+    transform: scale(1.05);
+}
+
+.hidden {
+    display: none !important;
+}
+.show{
+    display:inherit;
+}
+
+.error {
+    background: hsla(0, 58%, 53%, 0.285);
+    padding: 1rem;
+    margin-bottom: 1rem;
+    margin-top: 0.5rem;
+    border-radius: 5px;
+}
+
+.error p {
+    color: hsl(0, 100%, 70%);
+    margin-bottom: 0 !important;
+
+}
+
+.pagination {
+    margin: 1em 0 0 0;
+    list-style: none;
+    padding: 0;
+    display: flex; /* Use flexbox to display items horizontally */
+}
+
+.pagination li {
+    margin-right: 10px; /* Add margin between items (adjust as needed) */
+}
+
+.active-page {
+    position: relative;
+    color: var(--first-color);
+}
+
+.active-page::after {
+    content: '';
+    position: absolute;
+    bottom: -.1rem;
+    left: 0;
+    width: 50%;
+    height: 2px;
+    background-color: var(--first-color);
+}
+
+.selected-div{
+    background-color: lightpink;
+}

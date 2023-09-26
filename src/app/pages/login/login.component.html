@@ -1,0 +1,67 @@
+<!--=============== REMIXICONS ===============-->
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+
+<!--=============== CSS ===============-->
+<link rel="stylesheet" href="/assets/css/Global.css">
+<link rel="stylesheet" href="/assets/css/Signin.css">
+
+<body>
+  <section class="container">
+    <div class="loginContent">
+      <img src="/assets/image/bg-login.png" alt="login image" class="signupImg">
+
+      <form [formGroup]="formGroup" (ngSubmit)="submit()" class="loginForm">
+        <div>
+          <h1 class="loginTitle">
+            <span>Welcome</span> Back
+          </h1>
+          <p class="loginDescription">
+            Welcome! Please login to continue.
+          </p>
+        </div>
+        <div *ngIf="msg !== '' && msg !== 'User registered successfully.' && msg !== 'Password changed.'; else elseBlock">
+          <div Class="error">
+              <p id="error_message">
+                {{msg}}
+              </p>
+          </div>
+        </div>
+        <ng-template #elseBlock>
+          <div *ngIf="msg!== ''" Class="success">
+            <p>
+              {{msg}}
+            </p>
+          </div>
+        </ng-template>  
+        <div>
+          <div class="loginInputs">
+            <div>
+                <label for="email" class="loginLabel">Email</label>
+                <input type="email" formControlName="email" id="email" name="email" value="{{email}}" placeholder="Enter your email address" class="loginInput" required>
+              </div>
+
+            <div>
+                <label for="password" class="loginLabel">Password</label>
+                <div class="loginBox">
+                    <input type="{{ passwordHidden ? 'password' : 'text' }}" formControlName="password" name="password" placeholder="Enter your password" class="loginInput" id="inputPass" required>
+                    <i class="ri-eye-off-line loginEye" (click)="showPassword()" id="inputIcon"></i>
+                </div>
+            </div>
+
+            <div Class="inputContainer">
+              <a class="actionLink" routerLink="forgot-password" >Forgot Password</a>
+              <!-- @Html.ActionLink("Forgot Password", "ForgotPassword", "Account", Nothing, New With {.class = "actionLink"}) -->
+            </div>
+          </div>
+          <div>
+            <div class="loginButtons">
+                <button type="submit" name="submit" class="loginButton">Log In</button>
+                <a class="actionLink" class="loginButton  loginButton-ghost" routerLink="/email-verification" >Sign Up</a>
+                <!-- @Html.ActionLink("Sign Up", "Signup", "Account", Nothing, New With {.class = "loginButton loginButton-ghost"}) -->
+            </div>
+          </div>
+        </div>    
+      </form>
+    </div>
+  </section>
+</body>
