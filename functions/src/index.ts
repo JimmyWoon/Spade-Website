@@ -7,13 +7,56 @@
  * See a full list of supported triggers at https://firebase.google.com/docs/functions
  */
 
+// import * as cors from 'cors';
 import {onRequest} from "firebase-functions/v2/https";
-import * as logger from "firebase-functions/logger";
+// import * as logger from "firebase-functions/logger";
+const nodemailer = require('nodemailer');
+// const corsHandler = cors({ origin: true });
+
+
+const   email= {
+    MAIL_MAILER:"smtp",
+    MAIL_HOST:"smtp.gmail.com ",
+    MAIL_PORT:587 ,
+    MAIL_USERNAME:"admin@cloudbasha.com" ,
+    MAIL_PASSWORD:"Toddlytic12##" ,
+    MAIL_ENCRYPTION:"tls",
+    MAIL_NO_REPLY_ALIAS:"no_reply@cloudbasha.com",
+  }
 
 // Start writing functions
 // https://firebase.google.com/docs/functions/typescript
 
-// export const helloWorld = onRequest((request, response) => {
-//   logger.info("Hello logs!", {structuredData: true});
-//   response.send("Hello from Firebase!");
-// });
+export const mailer = onRequest((request, response) => {
+    const transporter = nodemailer.createTransport({
+        host: email.MAIL_HOST,
+        service: 'gmail',
+        port : email.MAIL_PORT,
+        auth: {
+          user:'admin@cloudbasha.com',
+          pass:'Toddlytic12##'
+          // user: 'jobsearchsystem666@gmail.com',
+          // pass: 'ccwehgpprkhevtek'
+        }
+      });  
+
+        //     // Define the email options
+      const mailOptions = {
+        from: email.MAIL_USERNAME,
+        to: request.body.to,
+        subject: request.body.subject,
+        text: request.body.message
+      };
+
+
+            // Send the email
+      transporter.sendMail(mailOptions, (error:any, info:any) => {
+        if (error) {
+          console.error('Error sending email:', error);
+        } else {
+          console.log('Email sent:', info.response);
+        }
+      });
+      
+      response.send("Hello from Firebase!");
+});

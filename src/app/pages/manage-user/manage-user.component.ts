@@ -1,8 +1,8 @@
 import { Component, ElementRef, EventEmitter, Input, Output, Renderer2 } from '@angular/core';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Action } from 'rxjs/internal/scheduler/Action';
 import { PagingService } from 'service/paging-service';
 import { IUser } from 'src/app/models/user.model';
 
@@ -23,7 +23,7 @@ export class ManageUserComponent{
   data:IUser[] = [];
   selectedUsers: any[] = [];
 
-  constructor(private router: Router,private formBuilder:FormBuilder,private firestore: AngularFirestore,private pagingService: PagingService,private el: ElementRef, private renderer: Renderer2){
+  constructor(private router: Router,private formBuilder:FormBuilder,private fireAuth: AngularFireAuth,private firestore: AngularFirestore,private pagingService: PagingService,private el: ElementRef, private renderer: Renderer2){
     if (sessionStorage.getItem('user') !== null){
       const sessionData = JSON.parse(sessionStorage.getItem('user')!);
       this.user_information = sessionData;
@@ -42,34 +42,41 @@ export class ManageUserComponent{
 
 
   loadData() {
-    console.log('load data:',this.currentPage);
-    this.pagingService
+    this.fireAuth.signInWithEmailAndPassword(
+      "jimmyechunwoon@gmail.com",
+      "123456"
+    ).then( () => {
+      this.pagingService
       .getDataWithPagination('user', this.pageSize, this.currentPage, this.user_information.id)
       .subscribe({
         next:(data) =>{
             this.data = [];
             const startIndex = (this.currentPage-1)*this.pageSize;
             const endIndex = startIndex + this.pageSize;
-
             this.data = data.slice(startIndex, endIndex);
-            // console.log(data[(this.currentPage-1)*this.pageSize]);
         },
         error: (error) => {
           console.error("Error",error);
         }
       });
+    });
+ 
   }
   goToPage(pageNumber: number) {
     this.currentPage = pageNumber;
-    console.log('current page:' , this.currentPage);
     this.loadData();
   }
   
   getTotalDocumentCount() {
-    // You can implement a method in FirestoreService to get the total count
-    this.pagingService.filterDocumentsWithId('user',this.user_information.id).subscribe((count) => {
+    this.fireAuth.signInWithEmailAndPassword(
+      "jimmyechunwoon@gmail.com",
+      "123456"
+    ).then( () => {    
+      this.pagingService.filterDocumentsWithId('user',this.user_information.id).subscribe((count) => {
       this.totalDocuments = count;
+      });
     });
+
   
   }
 
@@ -77,35 +84,24 @@ export class ManageUserComponent{
     const totalPages = Math.ceil(this.totalDocuments / this.pageSize);
     return Array.from({ length: totalPages }, (_, i) => i + 1);
   }
-  // onUserSelect(user: any){
-  //   console.log('dasdasd',user);
-  //   user.selected = !user.selected;
 
-  //   // Update the selectedUsers array based on the checkbox status
-  //   if (user.selected) {
-  //     this.selectedUsers.push(user);
-  //   } else {
-  //     const index = this.selectedUsers.indexOf(user);
-  //     if (index !== -1) {
-  //       this.selectedUsers.splice(index, 1);
-  //     }
-  //   }
-  // }
 
   async submit(){
     const checkboxes = this.el.nativeElement.querySelectorAll('.checkbox');
     checkboxes.forEach(async(checkbox:HTMLInputElement ) => {
       if (checkbox.checked) {
-        try {
-          const documentRef = this.firestore.collection('user').doc(checkbox.value);
-          await documentRef.update({ 'date_deleted': new Date()});
-        } catch (error) {
-          console.error('Error updating document:', error);
-        } 
-        this.router.navigate(['/manage-user']).then(() => {
-          // After navigation, trigger a page refresh
-          location.reload();
-        });       
+        this.fireAuth.signInWithEmailAndPassword(
+          "jimmyechunwoon@gmail.com",
+          "123456"
+        ).then(async () => { 
+          try {
+            const documentRef = this.firestore.collection('user').doc(checkbox.value);
+            await documentRef.update({ 'date_deleted': new Date()});
+          } catch (error) {
+            console.error('Error updating document:', error);
+          } 
+        });
+        window.location.href = '/manage-user';    
       }
     });
   }

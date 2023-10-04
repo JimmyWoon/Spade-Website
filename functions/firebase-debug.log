@@ -1,0 +1,75 @@
+[debug] [2023-10-01T04:45:36.539Z] ----------------------------------------------------------------------
+[debug] [2023-10-01T04:45:36.543Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\acer\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js functions:shell
+[debug] [2023-10-01T04:45:36.544Z] CLI Version:   12.5.4
+[debug] [2023-10-01T04:45:36.545Z] Platform:      win32
+[debug] [2023-10-01T04:45:36.545Z] Node Version:  v16.17.0
+[debug] [2023-10-01T04:45:36.553Z] Time:          Sun Oct 01 2023 12:45:36 GMT+0800 (Malaysia Time)
+[debug] [2023-10-01T04:45:36.553Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2023-10-01T04:45:36.688Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2023-10-01T04:45:36.689Z] > authorizing via signed-in user (jimmyechunwoon@gmail.com)
+[debug] [2023-10-01T04:45:36.689Z] [iam] checking project spade-3cac3 for permissions ["firebase.projects.get"]
+[debug] [2023-10-01T04:45:36.691Z] > refreshing access token with scopes: []
+[debug] [2023-10-01T04:45:36.694Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
+[debug] [2023-10-01T04:45:36.694Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2023-10-01T04:45:36.856Z] <<< [apiv2][status] POST https://www.googleapis.com/oauth2/v3/token 200
+[debug] [2023-10-01T04:45:36.857Z] <<< [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2023-10-01T04:45:36.873Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/spade-3cac3:testIamPermissions [none]
+[debug] [2023-10-01T04:45:36.873Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/spade-3cac3:testIamPermissions x-goog-quota-user=projects/spade-3cac3
+[debug] [2023-10-01T04:45:36.874Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/spade-3cac3:testIamPermissions {"permissions":["firebase.projects.get"]}
+[debug] [2023-10-01T04:45:38.106Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/spade-3cac3:testIamPermissions 200
+[debug] [2023-10-01T04:45:38.107Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/spade-3cac3:testIamPermissions {"permissions":["firebase.projects.get"]}
+[debug] [2023-10-01T04:45:38.115Z] [functions] Functions Emulator only supports listening on one address (127.0.0.1). Not listening on ::1
+[debug] [2023-10-01T04:45:38.118Z] defaultcredentials: writing to file C:\Users\acer\AppData\Roaming\firebase\jimmyechunwoon_gmail_com_application_default_credentials.json
+[debug] [2023-10-01T04:45:38.121Z] DEBUG: Setting GAC to C:\Users\acer\AppData\Roaming\firebase\jimmyechunwoon_gmail_com_application_default_credentials.json
+[debug] [2023-10-01T04:45:38.122Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/spade-3cac3/adminSdkConfig [none]
+[debug] [2023-10-01T04:45:38.928Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/spade-3cac3/adminSdkConfig 200
+[debug] [2023-10-01T04:45:38.928Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/spade-3cac3/adminSdkConfig {"projectId":"spade-3cac3","storageBucket":"spade-3cac3.appspot.com","locationId":"asia-southeast1"}
+[debug] [2023-10-01T04:45:38.964Z] [functions] Watching "C:\Users\acer\Desktop\Angular\spade\functions" for Cloud Functions...
+[debug] [2023-10-01T04:45:38.975Z] Validating nodejs source
+[debug] [2023-10-01T04:45:41.229Z] > [functions] package.json contents: {
+  "name": "functions",
+  "scripts": {
+    "lint": "eslint --ext .js,.ts .",
+    "build": "tsc",
+    "build:watch": "tsc --watch",
+    "serve": "npm run build && firebase emulators:start --only functions",
+    "shell": "npm run build && firebase functions:shell",
+    "start": "npm run shell",
+    "deploy": "firebase deploy --only functions",
+    "logs": "firebase functions:log"
+  },
+  "engines": {
+    "node": "16"
+  },
+  "main": "lib/index.js",
+  "dependencies": {
+    "firebase-admin": "^11.8.0",
+    "firebase-functions": "^4.3.1",
+    "@types/nodemailer": "^6.4.10"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^5.12.0",
+    "@typescript-eslint/parser": "^5.12.0",
+    "eslint": "^8.9.0",
+    "eslint-config-google": "^0.14.0",
+    "eslint-plugin-import": "^2.25.4",
+    "firebase-functions-test": "^3.1.0",
+    "typescript": "^4.9.0"
+  },
+  "private": true
+}
+[debug] [2023-10-01T04:45:41.229Z] Building nodejs source
+[debug] [2023-10-01T04:45:41.230Z] Failed to find version of module node: reached end of search path C:\Users\acer\Desktop\Angular\spade\functions\node_modules
+[info] +  functions: Using node@16 from host. 
+[debug] [2023-10-01T04:45:41.234Z] Could not find functions.yaml. Must use http discovery
+[debug] [2023-10-01T04:45:41.250Z] Found firebase-functions binary at 'C:\Users\acer\Desktop\Angular\spade\functions\node_modules\.bin\firebase-functions'
+[info] Serving at port 8198
+
+[debug] [2023-10-01T04:45:42.519Z] Got response from /__/functions.yaml {"endpoints":{"mailer":{"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"concurrency":null,"serviceAccountEmail":null,"vpc":null,"platform":"gcfv2","labels":{},"httpsTrigger":{},"entryPoint":"mailer"}},"specVersion":"v1alpha1","requiredAPIs":[]}
+[info] shutdown requested via /__/quitquitquit
+
+[debug] [2023-10-01T04:45:42.559Z] [functions] Loaded functions definitions from source: mailer.
+[debug] [2023-10-01T04:45:42.560Z] [functions[us-central1-mailer]] http function initialized (http://127.0.0.1:5000/spade-3cac3/us-central1/mailer).
+[info] i  functions: Loaded functions: mailer 
+[warn] !  functions: The following emulators are not running, calls to these services will affect production: firestore, database, pubsub, storage, eventarc 

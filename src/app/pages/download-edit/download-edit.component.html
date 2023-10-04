@@ -1,0 +1,38 @@
+<link rel="stylesheet" href="/assets/css/Global.css">
+<link rel="stylesheet" href="/assets/css/Edit.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+
+<body>
+    <div class="mainContainer">
+        <div style="display:flex; justify-content:flex-end;">
+            <input id="save" class="firstButton" name="save" form="form" type="submit" value="Save">
+            <!-- <button id="cancelBtn" (click)="cancelClick();"class="cancel">Cancel</button> -->
+            <a href="/download" class="cancel">Cancel</a>
+        </div>
+
+        <div *ngIf="msg !== '' ">
+            <div Class="error">
+                <p id="error_message" style="text-align:center;">
+                  {{msg}}
+                </p>
+            </div>
+        </div>
+        <div id="js_error">
+    
+        </div>
+        <form [formGroup]="formGroup" (ngSubmit)="submit()" name="form" id="form" enctype="multipart/form-data">
+            <div id="file_upload_div" class="information">
+                <i class="fa fa-upload" aria-hidden="true"></i>
+                <label>File</label>
+                <input type="file" (change)="onFileSelected($event)" formControlName="file" style="cursor:pointer;" required class="textB" name="file" id="file">
+            </div>
+            <div id="description_div" class="information">
+                <i class="fa fa-file-text" aria-hidden="true"></i>
+                <label>Description </label>
+                <input type="text" formControlName="description" class="textB" name="description" id="description" placeholder="Enter description">
+            </div>
+        </form>
+
+        <a>{{fileName}}</a>
+    </div>
+</body>

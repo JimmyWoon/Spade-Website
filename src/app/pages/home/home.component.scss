@@ -1,0 +1,137 @@
+.mainContainer {
+    max-width: 1440px;
+    margin-left: 1.5rem;
+    margin-right: 1.5rem;
+  }
+.topContainer{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.topRightContainer{
+    display: flex;
+    flex-direction: column;
+    // align-items: center;
+    justify-content: center;
+}
+.photoContainer{
+    display: flex;
+    flex-direction: row;
+}
+.imageTop{
+    align-items: center;
+    height: 13rem;
+}
+#spade_text{
+    font-weight:900;
+    font-size: xx-large;
+    color: var(--first-color);
+}
+#interactive_text{
+    font-size: large;
+}
+
+.middleContainer{
+    margin-top: 1em;
+    background-color: var(--first-color);
+}
+.middleInnerContainer{
+    color: white;
+    max-width: 1440px;
+    margin-left: 1.5rem;
+    margin-right: 1.5rem;
+    padding:5em 0 5em 0;
+    font-size: large;
+}
+
+.custom-list {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  /* Define custom bullet point style */
+  .custom-list li::before {
+    content: "\2022"; /* Unicode bullet point character */
+    color: #ff5733; /* Custom color for the bullet point */
+    font-size: 1.2em; /* Custom size for the bullet point */
+    margin-right: 5px; /* Adjust spacing between bullet point and text */
+  }
+
+  .custom-list2 {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  /* Style the list items with custom counter */
+  .custom-list2 li {
+    position: relative;
+    counter-increment: list-counter;
+    padding-left: 30px; /* Adjust the left padding for space between marker and text */
+  }
+  
+  /* Create custom markers using :before pseudo-element */
+  .custom-list2 li::before {
+    content: counter(list-counter, lower-alpha) '. '; /* Use lower-alpha for a, b, c */
+    position: absolute;
+    left: 0;
+    font-weight: bold; /* Optional: Make markers bold */
+  }
+
+  .bottomContainer{
+    display: flex;
+    flex-direction: column;
+    gap: 2em;
+  }
+  .bottomInnerContainer{
+    display: flex;
+    flex-direction: row;
+    gap: 2em;
+  }
+
+  .bottomInnerContainer > div:first-child {
+    flex: 0 0 650px; /* Adjust the width as needed */
+  }
+
+@media screen and (min-width: 1500px) {
+.mainContainer {
+    margin-left: auto;
+    margin-right: auto;
+}
+.middleInnerContainer{
+    margin-left: auto;
+    margin-right: auto;
+}
+
+}
+
+@media screen and (max-width: 320px) {
+    .mainContainer {
+        margin-left: 1rem;
+        margin-right: 1rem;
+    }
+    .middleInnerContainer {
+        margin-left: 1rem;
+        margin-right: 1rem;
+    }
+
+}
+
+@media screen and (max-width:1150px){
+.bottomInnerContainer > div:first-child {
+    flex: 0 0 470px; /* Adjust the width as needed */
+    }
+}
+
+@media screen and (max-width:850px){
+    .bottomInnerContainer > div:first-child {
+        flex: 0 0 0 !important; /* Adjust the width as needed */
+        }
+    }
+    
+
+@media screen and (max-width:850px){
+    .bottomInnerContainer{
+        flex-direction: column;
+    }
+}

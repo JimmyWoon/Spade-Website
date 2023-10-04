@@ -1,10 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { AngularFirestore, validateEventsArray } from '@angular/fire/compat/firestore';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { Observable } from 'rxjs';
+import { Component } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserService } from 'service/user';
 import { Router } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
 
 @Component({
   selector: 'app-login',
@@ -12,61 +10,60 @@ import { HttpClient } from '@angular/common/http';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent {
-  msg : String = '';
+  msg: String = '';
   formGroup: FormGroup;
-  email : String = '';
+  email: String = '';
   passwordHidden: boolean = true;
 
 
-  constructor(private router: Router, private formBuilder: FormBuilder, private userService:UserService, private firesotre:AngularFirestore){
+  constructor(private router: Router, private formBuilder: FormBuilder, private fireAuth: AngularFireAuth, private userService: UserService) {
     this.formGroup = this.formBuilder.group({
-      email: ['',[Validators.required,Validators.email]],
-      password: ['',Validators.required]
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', Validators.required]
     })
   }
 
   // firestore.collection('user').
-  showPassword(){
+  showPassword() {
     this.passwordHidden = !this.passwordHidden;
   }
-  submit(){
+  submit() {
     const emailControl = this.formGroup.get('email');
     const passwordControl = this.formGroup.get('password');
 
     if (emailControl && passwordControl && this.formGroup.valid) {
-      this.userService
-      .checkUserCredentials(emailControl.value,passwordControl.value)
-      .then((userData) =>{
-        if (userData !== null){
-          if(typeof userData !== 'string'){
+      this.fireAuth.signInWithEmailAndPassword(
+        "jimmyechunwoon@gmail.com",
+        "123456"
+      ).then((success) => {
+        this.userService
+          .checkUserCredentials(emailControl.value, passwordControl.value)
+          .then((userData) => {
+            if (userData !== null) {
+              if (typeof userData !== 'string') {
+                this.formGroup.reset();
+                sessionStorage.setItem('user', JSON.stringify(userData[0]));
+                window.location.href='/';
+
+              } else {
+                this.msg = userData;
+                this.formGroup.reset();
+              }
+            } else {
+              this.msg = "Wrong email or password";
+              this.formGroup.reset();
+            }
+          })
+          .catch((error) => {
+            console.error("Error: ", error);
             this.formGroup.reset();
-            sessionStorage.setItem('user', JSON.stringify(userData[0]));
-  
-            this.router.navigate(['/']).then(() => {
-              // After navigation, trigger a page refresh
-              location.reload();
-            });
-          }else{
-            this.msg = userData;
-            this.formGroup.reset();
-          }          
-        }else{
-          this.msg = "Wrong email or password";
-          this.formGroup.reset();
-        }
+          })
       })
-      .catch((error)=>{
-        console.error("Error: ", error);
-        this.formGroup.reset();
-      })
-    }else{
+
+    } else {
       this.msg = "Please enter valid information";
       this.formGroup.reset();
     }
-  }
-
-  getUser(){
-    // const userCollection = collection(this.firesotre)
   }
 
 }

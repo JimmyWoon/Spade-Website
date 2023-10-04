@@ -7,22 +7,8 @@ import { Component } from '@angular/core';
 })
 export class HomeComponent{
 
-  label = "Home page";
   isAuthenticated = false;
 
-  constructor(){
-    if (sessionStorage.getItem('user') !== null){
-      // this.isAuthenticated = true;
-      // const jsonString = sessionStorage.getItem('user');
-      // const myObject = jsonString ? JSON.parse(jsonString) : null;
-      // console.log(myObject);
-    }
-  }
-
-  
-  click() {
-   console.log("clicked")
-  }
-
+  constructor(){}
 
 }

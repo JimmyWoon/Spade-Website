@@ -29,7 +29,7 @@
     <header Class="header" id="header">
         <nav Class="nav mainContainer">
             <a routerLink="/" Class="navLink">
-                <img src="assets/image/logo.png" alt="Logo" Class="navLogo" />
+                <img src="assets/image/colus.png" alt="Logo" Class="navLogo" />
             </a>
     
     
@@ -45,14 +45,10 @@
                         <a [ngClass]="{'navLink': true, 'active-link': path === '/download'}" (click)="linkAction()" routerLink="download">Download</a>
                     </li>
                     <li Class="navItem">
-                        <a [ngClass]="{'navLink': true, 'active-link': path === '/price'}" (click)="linkAction()" routerLink="price">Pricing</a>
-    
-                        <!-- @Html.ActionLink("Pricing", "Pricing", "Home", Nothing, New With {.class = "navLink " & If(ViewContext.RouteData.Values("Action").ToString() = "Pricing", "active-link", String.Empty)}) -->
+                        <a [ngClass]="{'navLink': true, 'active-link': path === '/pricing'}" (click)="linkAction()" routerLink="pricing">Pricing</a>
                     </li>
                     <li Class="navItem">
                         <a [ngClass]="{'navLink': true, 'active-link': path === '/contact'}" (click)="linkAction()" routerLink="contact">Contact</a>
-    
-                        <!-- @Html.ActionLink("Contact", "Contact", "Home", Nothing, New With {.class = "navLink " & If(ViewContext.RouteData.Values("Action").ToString() = "Contact", "active-link", String.Empty)}) -->
                     </li>
                     <li *ngIf="isAuthenticated" Class="navItem">
                         <a [ngClass]="{'navLink': true, 'active-link': path === '/material-list'}" (click)="linkAction()" routerLink="material-list">Teaching Material</a>

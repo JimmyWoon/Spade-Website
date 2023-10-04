@@ -1,3 +1,117 @@
+<link rel="stylesheet" href="/assets/css/Signin.css">
+<link rel="stylesheet" href="/assets/css/Global.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+<body>
+  <section class="container">
+    <div class="signupContent">
+        <img src="/assets/image/bg-create_user.jpg" alt="login image" class="signupImg">
+
+        <form [formGroup]="formGroup" (ngSubmit)="submit()" class="signupForm">
+            <div>
+                <h1 class="loginTitle">
+                    <span>Register</span> Account
+                </h1>
+                <p class="loginDescription">
+                    Please enter your account details.
+                </p>
+            </div>
+            <div *ngIf="msg !== ''">
+                <div Class="error">
+                    <p >
+                        {{msg}}
+                    </p>
+                </div>
+            </div>
+
+            <div Class="signupInputs">
+                <div>
+                    <div Class="inputContainer">
+                        <Label for="username" class="loginLabel">Username</Label>
+                        <input type="text" name="username" formControlName="username" placeholder="Enter username" value="" class="loginInput" required>
+                    </div>
+                    <div Class="">
+                        <div>
+                            <Label for="role" class="loginLabel">Register As</Label>
+                            <div *ngIf="user_information !== null; else elseBlock">
+                                <div *ngIf="user_information.data.role === 'Admin'; else elseBlock2">
+                                    <input type="radio" formControlName="role"  name="role" value="Admin"> Admin
+                                    <input type="radio" formControlName="role" name="role" value="Teacher"checked> Teacher
+                                    <input type="radio" formControlName="role" name="role" value="Student"> Student
+                                </div>
+                                <ng-template #elseBlock2>
+                                    <input type="radio" formControlName="role" name="role" value="Teacher">Teacher
+                                    <input type="radio" formControlName="role" name="role" value="Student"checked> Student
+                                </ng-template>
+                            </div>
+                            <ng-template #elseBlock>
+                                <input type="radio" formControlName="role" name="role" value="Teacher"> Teacher
+                                <input type="radio" formControlName="role" name="role" value="Student" checked> Student
+                            </ng-template>
+                            <!-- @code
+                                If Session("user") IsNot Nothing Then
+                                    Dim user As User = Session("user")
+                                    If user.role = "Admin" Then
+                                        If Not String.IsNullOrEmpty(user.role) Then
+                                            If user.role = "Teacher" Then
+                                                @<input type="radio" name="role" value="Admin">@("Admin")
+                                                @<input type="radio" name="role" value="Teacher" checked>@("Teacher")
+                                                @<input type="radio" name="role" value="Student">@("Student")
+                                            ElseIf user.role = "Admin" Then
+                                                @<input type="radio" name="role" value="Admin" checked>@("Admin")
+                                                @<input type="radio" name="role" value="Teacher">@("Teacher")
+                                                @<input type="radio" name="role" value="Student">@("Student")
+                                            Else
+                                                @<input type="radio" name="role" value="Admin" >@("Admin")
+                                                @<input type="radio" name="role" value="Teacher">@("Teacher")
+                                                @<input type="radio" name="role" value="Student" checked>@("Student")
+                                            End If
+                                        Else
+                                            @<input type="radio" name="role" value="Teacher">@("Teacher")
+                                            @<input type="radio" name="role" value="Student" checked>@("Student")
+                                        End If
+                                    End If
+                                Else
+                                    If Not String.IsNullOrEmpty(role) Then
+                                        If role = "Teacher" Then
+                                            @<input type="radio" name="role" value="Teacher" checked>@("Teacher")
+                                            @<input type="radio" name="role" value="Student">@("Student")
+                                        Else
+                                            @<input type="radio" name="role" value="Teacher">@("Teacher")
+                                            @<input type="radio" name="role" value="Student" checked>@("Student")
+                                        End If
+                                    Else
+                                        @<input type="radio" name="role" value="Teacher">@("Teacher")
+                                        @<input type="radio" name="role" value="Student" checked>@("Student")
+                                    End If
+                                End If
+                            End Code -->
+
+                        </div>
+
+                    </div>
+                </div>
+                <div>
+                    <div Class="inputContainer">
+                        <Label for="createpassword" class="loginLabel">Password</Label>
+                        <input type="password" name="createpassword" formControlName="password" placeholder="Password" Class="loginInput" required>
+                    </div>
+                    <div Class="inputContainer">
+                        <Label for="confirmpassword" class="loginLabel">Confirm Password</Label>
+                        <input type="password" name="confirmpassword" formControlName="password_confirmation"  placeholder="Confirm Password" Class="loginInput" required>
+                    </div>
+
+                </div>
+            </div>
+
+
+
+            <div Class="loginButtons">
+                <Button Class="loginButton" name="submit" type="submit">Sign Up</Button>
+            </div>
+        </form>
+    </div>
+  </section>
+</body>
 <!-- <div class="container">
     <form [formGroup]="formGroup" (ngSubmit)="submit()" >
         <div class="mb-3">
@@ -27,4 +141,3 @@
       </form>
 </div>
  -->
-<h2>{{c}}</h2>

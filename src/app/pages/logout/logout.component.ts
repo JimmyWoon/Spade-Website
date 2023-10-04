@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-logout',
@@ -7,15 +6,9 @@ import { Router } from '@angular/router';
   styleUrls: ['./logout.component.scss']
 })
 export class LogoutComponent {
-  constructor(private router: Router){
+  constructor(){
     sessionStorage.clear();
     localStorage.clear();
-    setTimeout(() => {
-      this.router.navigate(['/login']).then(() => {
-        // After navigation, trigger a page refresh
-        location.reload();
-      });
-    }, 1000);
-
+    window.location.href='/login';
   }
 }

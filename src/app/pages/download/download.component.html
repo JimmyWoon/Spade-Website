@@ -1,0 +1,39 @@
+
+<link rel="stylesheet" href="/assets/css/Global.css">
+<link rel="stylesheet" href="/assets/css/Download.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+
+<body>
+    
+<div class="full_width_container">
+    <div *ngIf="user_information?.role == 'Admin'">
+        <div style="display:flex; justify-content:flex-end;">
+            <label id="edit_icon" class="firstButton">
+                <i class="fa fa-pencil" aria-hidden="true"></i>
+            </label>
+        </div>
+    </div>
+
+    <div *ngIf="msg !== '' ">
+        <div Class="error">
+            <p id="error_message" style="text-align:center;">
+              {{msg}}
+            </p>
+        </div>
+    </div>
+    <div class="mainContainer">
+        <h2 style="padding-top:1em;" >Download latest SPADE version</h2>
+        <button (click)="downloadSpade()" class="firstButton">Download {{spadeData.filename}}</button>
+        <h5>{{spadeData.description}}</h5>
+        <!-- @code
+            If Model IsNot Nothing Then
+                @<a href="@Url.Action("Downloading", "Spade")" Class="firstButton">Download @Model.file_name</a>
+                @<h5>@Model.description</h5>
+            End If
+        End Code -->
+
+        <h1>Step to <span style="color:var(--second-color)">Download</span></h1>
+    </div>
+</div>
+
+</body>

@@ -2,7 +2,6 @@
 
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { map } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -26,12 +25,10 @@ export class UserService {
             return userData;
         }else{
           return "No user found";
-          console.error('No documents found with the specified email.');
         }
       })
       .catch((error) =>{
         return "No user found";
-        console.error('Error searching for documents:', error);
       })
 
   }

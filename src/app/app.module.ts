@@ -26,6 +26,12 @@ import { ProfileComponent } from './pages/profile/profile.component';
 import { ManageUserComponent } from './pages/manage-user/manage-user.component';
 import { TeachingMaterialComponent } from './pages/teaching-material/teaching-material.component';
 import { MaterialListComponent } from './pages/material-list/material-list.component';
+import { PricingComponent } from './pages/pricing/pricing.component';
+import { DownloadComponent } from './pages/download/download.component';
+import { DownloadEditComponent } from './pages/download-edit/download-edit.component';
+import { LoadingComponent } from './pages/loading/loading.component';
+import { ForgotPasswordComponent } from './pages/forgot-password/forgot-password.component';
+import { ResetPasswordComponent } from './pages/reset-password/reset-password.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +47,13 @@ import { MaterialListComponent } from './pages/material-list/material-list.compo
     ProfileComponent,
     ManageUserComponent,
     TeachingMaterialComponent,
-    MaterialListComponent
+    MaterialListComponent,
+    PricingComponent,
+    DownloadComponent,
+    DownloadEditComponent,
+    LoadingComponent,
+    ForgotPasswordComponent,
+    ResetPasswordComponent
   ],
   imports: [
     BrowserModule,
@@ -49,10 +61,10 @@ import { MaterialListComponent } from './pages/material-list/material-list.compo
     ReactiveFormsModule,
     FormsModule,
     BrowserAnimationsModule,
-    AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
     AngularFirestoreModule.enablePersistence(),
     AngularFireStorageModule,
+    AngularFireModule.initializeApp(environment.firebase),
     HttpClientModule,
   ],
   providers: [UserService],

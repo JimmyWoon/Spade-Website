@@ -12,6 +12,11 @@ import { AuthGuard } from 'service/auth-service.service';
 import { ManageUserComponent } from './pages/manage-user/manage-user.component';
 import { TeachingMaterialComponent } from './pages/teaching-material/teaching-material.component';
 import { MaterialListComponent } from './pages/material-list/material-list.component';
+import { PricingComponent } from './pages/pricing/pricing.component';
+import { DownloadComponent } from './pages/download/download.component';
+import { DownloadEditComponent } from './pages/download-edit/download-edit.component';
+import { ForgotPasswordComponent } from './pages/forgot-password/forgot-password.component';
+import { ResetPasswordComponent } from './pages/reset-password/reset-password.component';
 // import { AngularFireModule } from '@angular/fire';
 
 
@@ -57,7 +62,33 @@ const routes: Routes = [
     path:"teaching-material",
     component:TeachingMaterialComponent,
     canActivate: [AuthGuard],
+  },
+  {
+    path:"pricing",
+    component:PricingComponent,
+  },
+  {
+    path:"download",
+    component:DownloadComponent,
+  },
+  {
+    path:"download-edit",
+    component:DownloadEditComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path:"signup",
+    component:SignupComponent,
+  },
+  {
+    path:"forgot-password",
+    component:ForgotPasswordComponent,
+  },
+  {
+    path:"reset-password",
+    component:ResetPasswordComponent
   }
+  
   
 ];
 

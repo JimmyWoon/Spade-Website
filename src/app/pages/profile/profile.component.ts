@@ -1,7 +1,7 @@
 import { Component, ElementRef, Renderer2 } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { Router } from '@angular/router';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
 
 @Component({
   selector: 'app-profile',
@@ -14,7 +14,7 @@ export class ProfileComponent {
   formGroup: FormGroup;
 
 
-  constructor(private router: Router,private firestore: AngularFirestore,private formBuilder:FormBuilder,private el: ElementRef, private renderer: Renderer2){    
+  constructor(private firestore: AngularFirestore, private fireAuth: AngularFireAuth, private formBuilder:FormBuilder,private el: ElementRef, private renderer: Renderer2){    
     if (sessionStorage.getItem('user') !== null){
       const sessionData = JSON.parse(sessionStorage.getItem('user')!);
       this.user_information = sessionData;
@@ -89,65 +89,65 @@ export class ProfileComponent {
     .where('__name__', '!=', this.user_information.id)
     .where('date_deleted', '==', 'null');
 
-  let existed = false;
-
-  try {
-    const querySnapshot = await query.get();
-
-    if (!querySnapshot.empty) {
-      existed = true;
-    }
-  } catch (error) {
-    this.msg="Error";
-    console.error('Error querying Firestore:', error);
-  }
-
-    if (existed){
-      this.msg='Username exist.';
-    }else{
-      if(old_password === "" && new_password === ""){
-        try {
-          const documentRef = this.firestore.collection('user').doc(this.user_information.id);
-          await documentRef.update({ 'username': username, 'date_updated': new Date() });
-          this.user_information.data.username = username;
-          this.user_information.data.date_updated = new Date();
-          sessionStorage.setItem('user',JSON.stringify(this.user_information) );
-          this.router.navigate(['/profile']).then(() => {
-            // After navigation, trigger a page refresh
-            location.reload();
-          });
-        } catch (error) {
-          console.error('Error updating document:', error);
+    let existed = false;
+    this.fireAuth.signInWithEmailAndPassword(
+      "jimmyechunwoon@gmail.com",
+      "123456"
+    ).then(async () => {
+      try {
+        const querySnapshot = await query.get();
+    
+        if (!querySnapshot.empty) {
+          existed = true;
         }
+      } catch (error) {
+        this.msg="Error";
+        console.error('Error querying Firestore:', error);
+      }
+    
+      if (existed){
+        this.msg='Username exist.';
       }else{
-
-        if(this.user_information.data?.password === old_password ){
+        if(old_password === "" && new_password === ""){
           try {
             const documentRef = this.firestore.collection('user').doc(this.user_information.id);
-            await documentRef.update({ 'username': username, 'password': new_password, 'date_updated': new Date() });
+            await documentRef.update({ 'username': username, 'date_updated': new Date() });
             this.user_information.data.username = username;
-            this.user_information.data.password = new_password;
-
             this.user_information.data.date_updated = new Date();
-            sessionStorage.setItem('user',JSON.stringify(this.user_information));
+            sessionStorage.setItem('user',JSON.stringify(this.user_information) );
+            window.location.href='/profile';
 
-            this.router.navigate(['/profile']).then(() => {
-              // After navigation, trigger a page refresh
-              location.reload();
-            });
           } catch (error) {
-            console.error('Error updating document with password:', error);
+            console.error('Error updating document:', error);
           }
-  
+        
         }else{
-          this.msg = 'Incorrect';
-          this.formGroup.controls['username'].setValue(this.user_information.data?.username);
-          this.formGroup.controls['old_password'].setValue('');
-          this.formGroup.controls['new_password'].setValue('');
-          this.cancelClick()
+  
+          if(this.user_information.data?.password === old_password ){
+            try {
+              const documentRef = this.firestore.collection('user').doc(this.user_information.id);
+              await documentRef.update({ 'username': username, 'password': new_password, 'date_updated': new Date() });
+              this.user_information.data.username = username;
+              this.user_information.data.password = new_password;
+  
+              this.user_information.data.date_updated = new Date();
+              sessionStorage.setItem('user',JSON.stringify(this.user_information));
+              window.location.href='/profile';
+
+            } catch (error) {
+              console.error('Error updating document with password:', error);
+            }
+    
+          }else{
+            this.msg = 'Incorrect';
+            this.formGroup.controls['username'].setValue(this.user_information.data?.username);
+            this.formGroup.controls['old_password'].setValue('');
+            this.formGroup.controls['new_password'].setValue('');
+            this.cancelClick()
+          }
         }
       }
-    }
-     
+      
+  });
   }
 }

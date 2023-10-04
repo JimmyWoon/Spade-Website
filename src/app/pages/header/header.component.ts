@@ -1,4 +1,4 @@
-import { Component, ElementRef, Renderer2 } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-header',
@@ -21,7 +21,7 @@ export class HeaderComponent   {
   isAuthenticated = false;
   user_information:any = null;
 
-  constructor(private renderer:Renderer2,private el:ElementRef){
+  constructor(){
     if (sessionStorage.getItem('user') !== null){
       this.isAuthenticated = true;
       const sessionData = JSON.parse(sessionStorage.getItem('user')!);
@@ -29,24 +29,6 @@ export class HeaderComponent   {
     }
   }
   
-  // ngAfterViewInit() {
-  //   const navToggle = this.el.nativeElement.querySelector('#nav-toggle');
-  //   const navMenu = this.el.nativeElement.querySelector('#nav-menu');
-  //   const navClose = this.el.nativeElement.querySelector('#nav-close');
-
-  //   if (navToggle) {
-  //     this.renderer.listen(navToggle, 'click', () => {
-  //       console.log("dasdas");
-  //       navMenu.classList.add('show-menu');
-  //     });
-  //   }
-  //   if(navClose) {
-  //     this.renderer.listen(navToggle, 'click', () => {
-  //       navMenu.classList.remove('show-menu');
-  //     });
-  //   }
-
-  // }
   hideMenu(){
     this.isMenuVisible = false;
   }

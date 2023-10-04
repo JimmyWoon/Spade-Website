@@ -1,3 +1,46 @@
-<p>contact works!  {{name}}</p>
+<link rel="stylesheet" href="/assets/css/Global.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+<link rel="stylesheet" href="/assets/css/Contact.css">
 
-logged in
+<body>
+
+
+    <div class="full_width_container">
+        <div *ngIf="msg !== '' ">
+            <div Class="error">
+                <p id="error_message" style="text-align:center; color: red;">
+                  {{msg}}
+                </p>
+            </div>
+        </div>
+        <header>
+            <h1>Contact Us</h1>
+        </header>
+
+        <section>
+            <h2>Contact Information</h2>
+            <ul>
+                <li>Email: <a href="mailto:contact@example.com">contact@example.com</a></li>
+                <li>Phone: <a href="tel:03-7880 7182">03-7880 7182</a></li>
+                <li>Address: C-16-03, Block C, 2, Jalan 19/1, Dataran 3 Dua, 46300, Petaling Jaya, Selangor, Malaysia</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>Contact Form</h2>
+            <form  [formGroup]="formGroup" (ngSubmit)="submit()">
+                <label for="name">Name:</label>
+                <input type="text" formControlName="name" id="name" name="name" required><br><br>
+
+                <label for="email">Email:</label>
+                <input type="email" formControlName="email"  id="email" name="email" required><br><br>
+
+                <label for="message">Message:</label><br>
+                <textarea id="message" formControlName="message"  name="message" rows="4" required></textarea><br><br>
+
+                <input type="submit" class="firstButton" value="Submit">
+            </form>
+        </section>
+
+    </div>
+</body>   

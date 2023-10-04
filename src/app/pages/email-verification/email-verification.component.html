@@ -6,7 +6,7 @@
         <section class="container">
             <div class="signupContent">
                 <img src="assets/image/bg-create_user.jpg" alt="login image" class="signupImg">
-        
+
                 <form [formGroup]="formGroup" (ngSubmit)="submit()" enctype="multipart/form-data" class="signupForm">
                     <div>
                         <h1 class="loginTitle">
@@ -16,13 +16,24 @@
                             Please enter your account details.
                         </p>
                     </div>
-                    <div *ngIf="msg !== '' && msg !== 'User registered successfully.'">
-                        <div Class="error">
-                            <p id="error_message">
-                                {{msg}}
-                            </p>
+                    <div *ngIf="msg !== ''">
+                        <div *ngIf=" msg !== 'User registered successfully.' && msg !== 'OTP sent.'">
+                            <div Class="error">
+                                <p id="error_message">
+                                    {{msg}}
+                                </p>
+                            </div>
+                        </div>
+
+                        <div *ngIf="msg === 'User registered successfully.' || msg === 'OTP sent.'">
+                            <div Class="success">
+                                <p>
+                                    {{msg}}
+                                </p>
+                            </div>
                         </div>
                     </div>
+
         
                     <div Class="signupInputs">
                         <div>
@@ -31,7 +42,7 @@
                                 <input type="email" id="email" formControlName="email" placeholder="Enter email" value="@email" class="loginInput" required>
                             </div>
                             <div Class="inputContainer">
-                                <label id="request_otp_link"  style="text-decoration: underline; cursor:pointer; color: var(--first-color); ">Request OTP</label>
+                                <label id="request_otp_link"  (click)="requestOTP()" style="text-decoration: underline; cursor:pointer; color: var(--first-color); ">Request OTP</label>
                                 <!-- (click)="requestOTP()" -->
                             </div>
         

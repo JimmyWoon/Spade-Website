@@ -31,7 +31,6 @@ export class MaterialListComponent {
 
   submit(){
     if (this.formGroup.valid){
-      console.log("dasd");
 
       const app = initializeApp(this.fireauth);
       const auth = getAuth(app);

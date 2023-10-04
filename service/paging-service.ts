@@ -1,8 +1,7 @@
 // firestore.service.ts
-import { ReadVarExpr } from '@angular/compiler';
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { Observable, filter, map, switchMap } from 'rxjs';
+import { Observable, map, switchMap } from 'rxjs';
 import { IUser } from 'src/app/models/user.model';
 
 @Injectable({
@@ -24,7 +23,7 @@ export class PagingService {
       .collection(collection, (ref) =>
         ref
           .where('date_deleted', '==', null)
-          .orderBy('username')
+          .orderBy('date_added')
           // .limit(pageSize)
       )
       .snapshotChanges() 
