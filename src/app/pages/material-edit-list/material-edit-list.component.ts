@@ -1,30 +1,34 @@
-import { Component, ElementRef, EventEmitter, Input, Output, Renderer2 } from '@angular/core';
+import { Component, ElementRef, Renderer2 } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
-import { PagingService } from 'service/paging-service';
-import { IUser } from 'src/app/models/user.model';
+import { FileUploadService } from 'service/file-upload.service';
+import { MaterialService } from 'service/teaching-material.service';
+import { IMaterial } from 'src/app/models/material.model';
 
 @Component({
-  selector: 'app-manage-user',
-  templateUrl: './manage-user.component.html',
-  styleUrls: ['./manage-user.component.scss']
+  selector: 'app-material-edit-list',
+  templateUrl: './material-edit-list.component.html',
+  styleUrls: ['./material-edit-list.component.scss']
 })
-export class ManageUserComponent{
-  msg:string = "";
+export class MaterialEditListComponent {
+  msg:String = ''
+  selectedFile: File | null = null;
+  material_list:IMaterial[] = [];
+  user_information: any = null;
+  items: string[] | undefined;
   formGroup: FormGroup;
-  user_information:any = null;
+  materialParam :string | null = null;
 
-  pageSize = 2; // Adjust as needed
-  currentPage = 1;
-  totalDocuments = 0;
+  perPage: number = 1; 
+  currentPage: number = 1;
+  startIndex = (this.currentPage - 1) * this.perPage;
+  endIndex = this.currentPage * this.perPage;
+  displayedMaterials: IMaterial[] = [];
 
-  data:IUser[] = [];
-  selectedUsers: any[] = [];
-
-  constructor(private router: Router,private formBuilder:FormBuilder,private fireAuth: AngularFireAuth,private firestore: AngularFirestore,private pagingService: PagingService,private el: ElementRef, private renderer: Renderer2){
-    if (sessionStorage.getItem('user') !== null){
+  constructor(private el: ElementRef, private renderer: Renderer2,private materialService: MaterialService,private fireAuth: AngularFireAuth,private formBuilder: FormBuilder,private fileUploadService: FileUploadService,private storage: AngularFireStorage,private firestore: AngularFirestore){
+    if (sessionStorage.getItem('user') !== null) {
       const sessionData = JSON.parse(sessionStorage.getItem('user')!);
       this.user_information = sessionData;
     }
@@ -32,62 +36,68 @@ export class ManageUserComponent{
       window.location.href='/';
     }
     this.formGroup = this.formBuilder.group({
-      username: [this.user_information.data?.username,[Validators.required]],
-      old_password: [''],
-      new_password: ['']
+      subject : ['',Validators.required],
+      title : ['',Validators.required],
+      file: [null, Validators.required],
+      id: [''],
+      description: ['']
     })
   }
-
-  ngOnInit() {
-    this.loadData();
-    this.getTotalDocumentCount();
-  }
-
-
-  loadData() {
+  ngOnInit(): void {
+    this.materialParam = this.user_information.id;
+    if (this.materialParam === null){
+      window.location.href='/material-list';
+    }
     this.fireAuth.signInWithEmailAndPassword(
       "jimmyechunwoon@gmail.com",
       "123456"
-    ).then( () => {
-      this.pagingService
-      .getDataWithPagination('user', this.pageSize, this.currentPage, this.user_information.id)
-      .subscribe({
-        next:(data) =>{
-            this.data = [];
-            const startIndex = (this.currentPage-1)*this.pageSize;
-            const endIndex = startIndex + this.pageSize;
-            this.data = data.slice(startIndex, endIndex);
-        },
-        error: (error) => {
-          console.error("Error",error);
-        }
-      });
-    });
- 
-  }
-  goToPage(pageNumber: number) {
-    this.currentPage = pageNumber;
-    this.loadData();
-  }
-  
-  getTotalDocumentCount() {
-    this.fireAuth.signInWithEmailAndPassword(
-      "jimmyechunwoon@gmail.com",
-      "123456"
-    ).then( () => {    
-      this.pagingService.filterDocumentsWithId('user',this.user_information.id).subscribe((count) => {
-      this.totalDocuments = count;
-      });
+    ).then(() => {
+      this.materialService.getSelfMaterials(this.materialParam!).subscribe((materials:IMaterial[]) => {
+        this.material_list = materials;
+        this.displayedMaterials = this.material_list.slice(this.startIndex, this.endIndex);
+
+      })
+    })
+    .catch((err)=>{
+      console.error(err);
     });
 
+  }
+  previousPage() {
+    if (this.currentPage > 1) {
+      this.currentPage--;
+      this.updateDisplayedMaterials();
+    }
+  }
+
+  nextPage() {
+    if (this.endIndex < this.material_list.length) {
+      this.currentPage++;
+      this.updateDisplayedMaterials();
+    }
+  }
+
+  updateDisplayedMaterials() {
+    this.startIndex = (this.currentPage - 1) * this.perPage;
+    this.endIndex = this.currentPage * this.perPage;
+    this.displayedMaterials = this.material_list.slice(this.startIndex, this.endIndex);
+  }
+
+  download(id:string){
+    const index = this.displayedMaterials.findIndex((item) => item.id === id);
+
+    const filePath = this.displayedMaterials[index].fullPath; // Replace with the actual path to your file in Firebase Storage
+    const fileRef = this.storage.ref(filePath);
   
+    fileRef.getDownloadURL().subscribe((url) => {
+      // Create an invisible anchor element to trigger the download
+      const anchor = document.createElement('a');
+      anchor.href = url;
+      anchor.target = '_blank'; // Open the link in a new tab
+      anchor.download = this.displayedMaterials[index].material_file_name!; // Set the desired file name
+      anchor.click();
+    });
   }
-
-  getPageNumbers(): number[] {
-    const totalPages = Math.ceil(this.totalDocuments / this.pageSize);
-    return Array.from({ length: totalPages }, (_, i) => i + 1);
-  }
-
 
   async submit(){
     const checkboxes = this.el.nativeElement.querySelectorAll('.checkbox');
@@ -101,7 +111,7 @@ export class ManageUserComponent{
             "123456"
           );
   
-          const documentRef = this.firestore.collection('user').doc(checkbox.value);
+          const documentRef = this.firestore.collection('teaching-material').doc(checkbox.value);
           await documentRef.update({ 'date_deleted': new Date() });
         } catch (error) {
           console.error('Error updating document:', error);
@@ -109,8 +119,12 @@ export class ManageUserComponent{
       }
     }
     if (changes){    
-      window.location.href = '/manage-user';    
+      window.location.href = '/material-edit-list';    
     }
+  }
+
+  redirectToAnotherPage(id:string){
+    window.location.href = `/material-edit?id=${id}`;
   }
 
   editClick(){
@@ -118,6 +132,7 @@ export class ManageUserComponent{
     const cancelBtn = this.el.nativeElement.querySelector('#cancelBtn');
     const editBtn = this.el.nativeElement.querySelector('#editBtn');
     var delete_btn = document.getElementsByClassName('fa fa-trash');
+    var pencil_btn = document.getElementsByClassName('fa fa-pencil');
 
     this.renderer.setStyle(saveBtn, 'display', 'inline-block');
     this.renderer.setStyle(cancelBtn, 'display', 'inline-block');
@@ -126,6 +141,8 @@ export class ManageUserComponent{
     for (var i = 0; i < delete_btn.length; i++) {
       delete_btn[i].classList.remove('hidden');
       delete_btn[i].classList.add('show');
+      pencil_btn[i].classList.remove('hidden');
+      pencil_btn[i].classList.add('show');
     }
   }
   cancelClick(){
@@ -133,6 +150,7 @@ export class ManageUserComponent{
     const cancelBtn = this.el.nativeElement.querySelector('#cancelBtn');
     const editBtn = this.el.nativeElement.querySelector('#editBtn');
     var delete_btn = document.getElementsByClassName('fa fa-trash');
+    var pencil_btn = document.getElementsByClassName('fa fa-pencil');
 
     this.renderer.setStyle(saveBtn, 'display', 'none');
     this.renderer.setStyle(cancelBtn, 'display', 'none');
@@ -140,6 +158,8 @@ export class ManageUserComponent{
     for (var i = 0; i < delete_btn.length; i++) {
       delete_btn[i].classList.remove('show');
       delete_btn[i].classList.add('hidden');
+      pencil_btn[i].classList.remove('show');
+      pencil_btn[i].classList.add('hidden');
     }
       var checkboxes = document.querySelectorAll('.checkbox');
 
@@ -187,6 +207,4 @@ export class ManageUserComponent{
       });
     });
   }
-
-  
 }

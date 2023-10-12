@@ -1,11 +1,9 @@
 import { Component} from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { AngularFireStorage, AngularFireStorageReference, AngularFireUploadTask } from '@angular/fire/compat/storage/';
+import { AngularFireStorage } from '@angular/fire/compat/storage/';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { uploadBytes } from 'firebase/storage';
-import { FileUploadService } from 'service/file-upload.service';
-
+import { getStorage, ref, uploadBytes } from "firebase/storage";
 
 
 @Component({
@@ -19,17 +17,16 @@ export class DownloadEditComponent{
   formGroup: FormGroup;
   user_information: any = null;
   selectedFile: File | null = null;
-  ref: AngularFireStorageReference | undefined;
-  task: AngularFireUploadTask | undefined;
   fileName:string ='';
   fileType:string ='';
 
   constructor(public storage: AngularFireStorage, private formBuilder: FormBuilder, private firestore: AngularFirestore, private fireAuth: AngularFireAuth) {
-
-    
     if (sessionStorage.getItem('user') !== null) {
       const sessionData = JSON.parse(sessionStorage.getItem('user')!);
       this.user_information = sessionData;
+    }
+    if(this.user_information.data.role == "Student" || this.user_information == null){
+      window.location.href='/';
     }
     this.formGroup = this.formBuilder.group({
       file: [null, Validators.required],
@@ -62,7 +59,6 @@ export class DownloadEditComponent{
   submit() {
     const file:File = this.formGroup.controls['file'].value;
     var description = this.formGroup.controls['description'].value;
-    const id = Math.random().toString(36).substring(2);
     if (description == null){
       description ='';
     }
@@ -72,16 +68,20 @@ export class DownloadEditComponent{
         "jimmyechunwoon@gmail.com",
         "123456"
       ).then(() => {
-        const file = this.selectedFile;
-        this.ref = this.storage.ref(id);
+        const storage = getStorage();
+        const storageRef = ref(storage, `spade/${this.fileName}`);
+        
+        // Create file metadata including the content type
+        /** @type {any} */
         const metadata = {
-          contentType: this.fileType, // Set the content type based on the desired file type
+          contentType: 'application/vnd.microsoft.portable-executable',
         };
+        
+        // Upload the file and metadata
+        const uploadTask = uploadBytes(storageRef, file, metadata);
 
-
-        this.task =this.ref.put(this.formGroup.controls['file'].value,metadata);
-
-        this.task.then((s)=>{
+        
+        uploadTask.then((s)=>{
           const fileData = {
             bucket:s.metadata.bucket,
             fullPath: s.metadata.fullPath,
@@ -95,13 +95,13 @@ export class DownloadEditComponent{
             date_updated:new Date()
           }
           
-         this.firestore.collection('spade').add(fileData)
-          .then(() =>{
-            window.location.href ="/download";
-          })
-          .catch((error) =>{
-            console.error('Error occurred: ', error);
-          });
+          this.firestore.collection('spade').add(fileData)
+            .then(() =>{
+              window.location.href ="/download";
+            })
+            .catch((error) =>{
+              console.error('Error occurred: ', error);
+            });
 
         },err => {
           console.error(err);

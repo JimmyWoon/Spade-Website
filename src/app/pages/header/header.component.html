@@ -36,25 +36,23 @@
             <div id="nav-menu" [ngClass]="{'navMenu':true,'show-menu': isMenuVisible}">
                 <ul Class="navList">
                     <li Class="navItem">
-                        <a [ngClass]="{'navLink': true, 'active-link': path === '/'}" (click)="linkAction()" routerLink="">Home</a>
-    
-    
+                        <a [ngClass]="{'navLink': true, 'active-link': path === '/'}" (click)="linkAction()" href="">Home</a>
                     </li>
                     <li Class="navItem">
     
-                        <a [ngClass]="{'navLink': true, 'active-link': path === '/download'}" (click)="linkAction()" routerLink="download">Download</a>
+                        <a [ngClass]="{'navLink': true, 'active-link': path === '/download'}" (click)="linkAction()" href="/download">Download</a>
                     </li>
                     <li Class="navItem">
-                        <a [ngClass]="{'navLink': true, 'active-link': path === '/pricing'}" (click)="linkAction()" routerLink="pricing">Pricing</a>
+                        <a [ngClass]="{'navLink': true, 'active-link': path === '/pricing'}" (click)="linkAction()" href="/pricing">Pricing</a>
                     </li>
                     <li Class="navItem">
-                        <a [ngClass]="{'navLink': true, 'active-link': path === '/contact'}" (click)="linkAction()" routerLink="contact">Contact</a>
+                        <a [ngClass]="{'navLink': true, 'active-link': path === '/contact'}" (click)="linkAction()" href="/contact">Contact</a>
                     </li>
                     <li *ngIf="isAuthenticated" Class="navItem">
-                        <a [ngClass]="{'navLink': true, 'active-link': path === '/material-list'}" (click)="linkAction()" routerLink="material-list">Teaching Material</a>
+                        <a [ngClass]="{'navLink': true, 'active-link': path === '/material-list'}" (click)="linkAction()" href="/material-list">Teaching Material</a>
                     </li>
                     <li *ngIf="isAuthenticated" Class="navItem inviItem">
-                        <a [ngClass]="{'navLink': true, 'active-link': path === '/profile'}" (click)="linkAction()" routerLink="profile">Edit Profile</a>
+                        <a [ngClass]="{'navLink': true, 'active-link': path === '/profile'}" (click)="linkAction()" href="/profile">Edit Profile</a>
                     </li>
 
                     <li *ngIf="isAuthenticated" Class="navItem reverseinviItem">
@@ -70,33 +68,33 @@
 
                              <div style="display:flex;">
                                  <i style="color:white; display:flex; align-items:center; margin-right:1em" Class="ri-profile-line"></i>
-                                 <a [ngClass]="{'subMenuLink': true, 'active-link': path === '/profile'}" (click)="linkAction()" routerLink="profile">View Profile</a>
+                                 <a [ngClass]="{'subMenuLink': true, 'active-link': path === '/profile'}" (click)="linkAction()" href="/profile">View Profile</a>
                              </div>
 
                             <div class="inviItem" *ngIf="user_information?.data?.role === 'Admin'" style = "display:flex;" >
                                 <i style="color:white; display:flex; align-items:center; margin-right:1em" Class="ri-profile-line"></i>
-                                <a [ngClass]="{'subMenuLink': true, 'active-link': path === '/manage-user'}" (click)="linkAction()" routerLink="manage-user">Manage User</a>
+                                <a [ngClass]="{'subMenuLink': true, 'active-link': path === '/manage-user'}" (click)="linkAction()" href="/manage-user">Manage User</a>
                             </div>
 
                              <div class="inviItem" style="display:flex">
                                  <i style="color:red; display:flex; align-items:center; margin-right:1em" Class="ri-logout-box-line"></i>
-                                 <a ngClass="subMenuLink logout" (click)="linkAction()" routerLink="logout">Log Out</a>
+                                 <a ngClass="subMenuLink logout" (click)="linkAction()" href="/logout">Log Out</a>
                              </div>
 
                          </div>
                     </div>
                     <li *ngIf="user_information !== undefined && user_information?.data?.role === 'Admin' && isAuthenticated" Class="navItem inviItem">
-                        <a [ngClass]="{'navLink': true, 'active-link': path === '/manage-user'}" (click)="linkAction()" routerLink="manage-user">Manage User</a>
+                        <a [ngClass]="{'navLink': true, 'active-link': path === '/manage-user'}" (click)="linkAction()" href="/manage-user">Manage User</a>
                     </li>
                     <li *ngIf="isAuthenticated" Class="navItem inviItem">
-                        <a [ngClass]="{'navLink': true, 'active-link': path === '/logout'}" (click)="linkAction()" routerLink="logout">Log Out</a>
+                        <a [ngClass]="{'navLink': true, 'active-link': path === '/logout'}" (click)="linkAction()" href="/logout">Log Out</a>
                     </li>
                     <li *ngIf="user_information === null" Class="navItem ">
-                        <a [ngClass]="{'navLink': true, 'active-link': path === '/login'}" (click)="linkAction()" routerLink="login">Log In</a>
+                        <a [ngClass]="{'navLink': true, 'active-link': path === '/login'}" (click)="linkAction()" href="/login">Log In</a>
                     </li>                    
                     
                     <li *ngIf="user_information === null" Class="navItem">
-                        <a [ngClass]="{'navLink': true, 'active-link': path === '/email-verification'}" (click)="linkAction()" routerLink="email-verification">Sign Up</a>
+                        <a [ngClass]="{'navLink': true, 'active-link': path === '/email-verification'}" (click)="linkAction()" href="/email-verification">Sign Up</a>
                     </li>
 
                 </ul>

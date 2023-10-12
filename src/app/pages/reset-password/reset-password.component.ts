@@ -22,7 +22,6 @@ export class ResetPasswordComponent {
     if (sessionStorage.getItem('email') !== null){
       var sessionData2 = JSON.parse(sessionStorage.getItem('email')!);
       this.email = sessionData2.email;
-      console.log(this.email);
     }else{
       window.location.href='/forgot-password';
     }

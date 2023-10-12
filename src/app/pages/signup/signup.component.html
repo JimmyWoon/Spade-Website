@@ -33,7 +33,7 @@
                         <div>
                             <Label for="role" class="loginLabel">Register As</Label>
                             <div *ngIf="user_information !== null; else elseBlock">
-                                <div *ngIf="user_information.data.role === 'Admin'; else elseBlock2">
+                                <div *ngIf="user_information?.data.role === 'Admin'; else elseBlock2">
                                     <input type="radio" formControlName="role"  name="role" value="Admin"> Admin
                                     <input type="radio" formControlName="role" name="role" value="Teacher"checked> Teacher
                                     <input type="radio" formControlName="role" name="role" value="Student"> Student

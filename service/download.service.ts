@@ -1,15 +1,14 @@
 import { Injectable } from '@angular/core';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
-import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
-export class StorageService {
+export class FileService {
   constructor(private storage: AngularFireStorage) {}
 
-  downloadFile(filePath: string): Observable<any> {
-    const storageRef = this.storage.ref(filePath);
-    return storageRef.getDownloadURL();
+  downloadFileFromStorage(filePath: string): Promise<string> {
+    const ref = this.storage.ref(filePath);
+    return ref.getDownloadURL().toPromise();
   }
 }

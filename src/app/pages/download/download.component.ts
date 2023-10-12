@@ -2,7 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
-import { Observable, map, switchMap, of } from 'rxjs';
+import { Observable } from 'rxjs';
+import { FileService } from 'service/download.service';
+
 
 @Component({
   selector: 'app-download',
@@ -15,7 +17,7 @@ export class DownloadComponent implements OnInit {
   spadeData:any = {filename:"",fullPath:"",description: "",filetype:""};
   msg:String = "";
 
-  constructor( private firestore: AngularFirestore, public storage: AngularFireStorage,private fireAuth: AngularFireAuth) {
+  constructor( private firestore: AngularFirestore, public storage: AngularFireStorage,private fireAuth: AngularFireAuth, private fileService:FileService) {
     if (sessionStorage.getItem('user') !== null) {
       const sessionData = JSON.parse(sessionStorage.getItem('user')!);
       this.user_information = sessionData;
@@ -42,36 +44,93 @@ export class DownloadComponent implements OnInit {
     // Create an anchor element to trigger the download
     const a = document.createElement('a');
     a.href = url;
-    a.download = 'your-file-name.jpg'; // Replace with the desired file name
+    a.download = 'src/assets/image/bg-login.png'; // Replace with the desired file name
     a.target = '_blank'; // Open in a new tab
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
   }
   
-  downloadSpade(){
+  async downloadSpade(){
+    const filePath = "spade/19g6f1hcrtu";
+
     this.fireAuth.signInWithEmailAndPassword(
       "jimmyechunwoon@gmail.com",
       "123456"
-    ).then(() => {
-      // const filePath = 'gs://colus-website.appspot.com/hcc5nabj2yt'+this.spadeData.fullPath; // Replace with the actual file path
-      // const ref = this.storage.ref(filePath);
-  
-      // ref.getDownloadURL().subscribe((url) => {
-      //   // Use the URL to trigger the download or display the file
-      //   this.download(url);
-      // });
-      
-      const filePath = 'http://localhost:4200/colus-website.appspot.com/hcc5nabj2yt'; // Replace with the actual file path
+    ).then(async (userCredential) => {
 
-      // Create an anchor element to trigger the download
-      const a = document.createElement('a');
-      a.href = filePath;
-      a.download = 'spade2.exe'; // Replace with the desired file name
-      a.target = '_blank'; // Open in a new tab
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
+      const filePath = this.spadeData.fullPath;
+    
+      try {
+      // const fileRef = this.storage.ref().child(`sapde/${this.spadeData.id}`);
+
+      // // Download the file as a blob
+      // const fileBlob = await fileRef.getDownloadURL();
+
+      // // Create a blob with the modified content type
+      // const modifiedBlob = new Blob([fileBlob], {
+      //   type: 'application/vnd.microsoft.portable-executable',
+      // });
+
+      // // Create a temporary anchor element for downloading
+      // const downloadLink = document.createElement('a');
+      // downloadLink.href = URL.createObjectURL(modifiedBlob);
+      // downloadLink.download = 'your-app.exe';
+      // downloadLink.click();
+
+
+        const fileRef = this.storage.ref(filePath);
+
+        const downloadURL = await fileRef.getDownloadURL().toPromise();
+
+        // Create an anchor element to trigger the download
+        const a = document.createElement('a');
+        a.href = downloadURL;
+        console.log(a.href);
+        a.download = this.spadeData.filename; 
+        console.log(a.download);
+        // Trigger the click event to start the download
+        a.click();
+
+
+        // const response = await axios.get(filePath, { responseType: 'blob' });
+
+        // const blob = new Blob([response.data]);
+  
+        // const a = document.createElement('a');
+        // a.href = window.URL.createObjectURL(blob);
+        // a.download = this.spadeData.filename;
+        // a.click();
+
+
+        // const fileRef = this.storage.ref(filePath);
+  
+        // const fileBlob = await fileRef.getDownloadURL().toPromise();
+
+        // // Create a Blob object with the original MIME type
+        // const originalMimeType = 'application/octet-stream'; // Replace with the original MIME type
+        // const blob = new Blob([fileBlob], { type: originalMimeType });
+        // const blobUrl = URL.createObjectURL(blob);
+
+        // const a = document.createElement('a');
+        // a.href = blobUrl;
+        // a.download = this.spadeData.filename;
+    
+        // // Trigger the click event to start the download
+        // a.click();
+    
+        // // Clean up the object URL to release resources
+        // URL.revokeObjectURL(blobUrl);
+      } catch (error) {
+        console.error('Error downloading file:', error);
+      }
+    })
+    .catch((error) => {
+      // Handle authentication errors
+      console.error('Authentication Error: ', error);
     });
+  }
+  editpage(){
+    window.location.href='/download-edit';
   }
 }

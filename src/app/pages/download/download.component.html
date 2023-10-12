@@ -4,16 +4,14 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
 
 <body>
-    
-<div class="full_width_container">
-    <div *ngIf="user_information?.role == 'Admin'">
+    <div *ngIf="user_information?.data.role == 'Admin'">
         <div style="display:flex; justify-content:flex-end;">
-            <label id="edit_icon" class="firstButton">
+            <label (click)="editpage()" id="edit_icon" class="firstButton">
                 <i class="fa fa-pencil" aria-hidden="true"></i>
             </label>
         </div>
     </div>
-
+<div class="full_width_container">
     <div *ngIf="msg !== '' ">
         <div Class="error">
             <p id="error_message" style="text-align:center;">

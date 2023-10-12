@@ -2,37 +2,53 @@
 <link rel="stylesheet" href="/assets/css/Global.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
 
-
 <body>
+
     <div class="mainContainer">
+        <div style="display:flex;justify-content:space-between;">
+            <a href="/material-edit" class="firstButton">Add</a>
+            <div style="display:flex; justify-content:flex-end;">
+                <input id="editBtn" (click)="editClick();" class="firstButton" name="edit" type="button" value="Edit">
+                <input id="saveBtn" class="firstButton" name="save" form="form" type="submit" value="Save">
+                <button id="cancelBtn" (click)="cancelClick();" class="cancel">Cancel</button>
+            </div>
+        </div>
+
+
         <div *ngIf="msg !== '' ">
             <div Class="error">
                 <p style="text-align:center;">
-                  {{msg}}
+                {{msg}}
                 </p>
             </div>
         </div>
 
-    
-        <Div class="panel">
-            <div *ngIf="displayedMaterials">
+        <div *ngIf="displayedMaterials">
+            <form  [formGroup]="formGroup" (ngSubmit)="submit()"  name="form" id="form" Class="panel">
                 <div class="information" style="position:relative;" *ngFor="let item of displayedMaterials">
                     <i Class="fa fa-book" aria-hidden="true"></i>
                     <Label> {{item.material_title}} </Label>
+                    <i id="{{item.id}}" class="fa fa-pencil hidden" (click)="redirectToAnotherPage(item.id!)" style="cursor:pointer; position: absolute;top: 15px;right: 50px;" aria-hidden="true"></i>
+
+                    <i id="{{item.id}}" (click)="trashClick()" class="fa fa-trash hidden" style="cursor:pointer; position: absolute;top: 15px;right: 15px;" aria-hidden="true"></i>
+
                     <div class="textB box">
                         <label class="material_info">Field: {{item.material_subject}}</label>
-                        <label class="material_info" style="font-style:italic;">By: {{item.username}}</label>
+                        <label class="material_info" style="font-style:italic;">By: {{user_information.data.username}}</label>
                         <label class="material_info">Register Date: {{item.date_added?.toDate() | date:'short'}}</label>
                         <label class="material_info">{{item.material_description}}</label>
                         <label style="cursor: pointer; color: var(--first-color);" (click)="download(item.id!)">{{item.material_file_name}}</label>
+
                     </div>
+                    <input type="checkbox" hidden value="{{item.id}}" class="checkbox" id="{{item.id}}" name="selectedCheckboxes">
                 </div>
                 <div class="pagination">
                     <button style="margin-right: 3px;" (click)="previousPage()" [disabled]="currentPage === 1">Previous</button>
                     <button  (click)="nextPage()" [disabled]="endIndex >= material_list.length">Next</button>
                 </div>
-            </div>
-        </Div>
+            </form>
+        </div>
+ 
     </div>
-    
+        
 </body>

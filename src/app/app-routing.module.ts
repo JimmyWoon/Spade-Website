@@ -17,6 +17,8 @@ import { DownloadComponent } from './pages/download/download.component';
 import { DownloadEditComponent } from './pages/download-edit/download-edit.component';
 import { ForgotPasswordComponent } from './pages/forgot-password/forgot-password.component';
 import { ResetPasswordComponent } from './pages/reset-password/reset-password.component';
+import { MaterialEditComponent } from './pages/material-edit/material-edit.component';
+import { MaterialEditListComponent } from './pages/material-edit-list/material-edit-list.component';
 // import { AngularFireModule } from '@angular/fire';
 
 
@@ -87,6 +89,16 @@ const routes: Routes = [
   {
     path:"reset-password",
     component:ResetPasswordComponent
+  },
+  {
+    path:"material-edit",
+    component:MaterialEditComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path:"material-edit-list",
+    component:MaterialEditListComponent,
+    canActivate:[AuthGuard]
   }
   
   

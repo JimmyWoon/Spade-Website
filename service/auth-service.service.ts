@@ -9,8 +9,8 @@ export class AuthGuard implements CanActivate {
   constructor(private router: Router, private route: ActivatedRoute) {}
 
   canActivate(route: ActivatedRouteSnapshot): boolean {
-    const sessionData = JSON.parse(sessionStorage.getItem('user') || '{}');
-    if (sessionData) {
+    const sessionData = sessionStorage.getItem('user') ? JSON.parse(sessionStorage.getItem('user')!) : null;
+    if (sessionData !== null) {
       if (route.data && route.data['role'] === 'Admin') {
         // Check if the route requires 'admin' role
         if (sessionData.data && sessionData.data.role === 'Admin') {

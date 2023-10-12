@@ -32,6 +32,8 @@ import { DownloadEditComponent } from './pages/download-edit/download-edit.compo
 import { LoadingComponent } from './pages/loading/loading.component';
 import { ForgotPasswordComponent } from './pages/forgot-password/forgot-password.component';
 import { ResetPasswordComponent } from './pages/reset-password/reset-password.component';
+import { MaterialEditComponent } from './pages/material-edit/material-edit.component';
+import { MaterialEditListComponent } from './pages/material-edit-list/material-edit-list.component';
 
 @NgModule({
   declarations: [
@@ -53,7 +55,9 @@ import { ResetPasswordComponent } from './pages/reset-password/reset-password.co
     DownloadEditComponent,
     LoadingComponent,
     ForgotPasswordComponent,
-    ResetPasswordComponent
+    ResetPasswordComponent,
+    MaterialEditComponent,
+    MaterialEditListComponent
   ],
   imports: [
     BrowserModule,
