@@ -3,12 +3,18 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
 <body>
     <div class="mainContainer">
-        <div style="display:flex; justify-content:flex-end;">
-            <input id="editBtn"  (click)="editClick()" [ngClass]="{'firstButton':true}" name="edit" type="button" value="Edit">
-            <input id="saveBtn"  class="firstButton" name="save" form="userProfileform" type="submit" value="Save">
-            <button id="cancelBtn" (click)="cancelClick()"   class="cancel">Cancel</button>
-    
+
+        <div style="display:flex;justify-content:space-between;">
+            <label id="edit_photo" (click)="openFileInput()" class="firstButton" >
+                Edit photo
+            </label>
+            <div style="display:flex; justify-content:flex-end;">
+                <input id="editBtn"  (click)="editClick()" [ngClass]="{'firstButton':true}" name="edit" type="button" value="Edit">
+                <input id="saveBtn"  class="firstButton" name="save" form="userProfileform" type="submit" value="Save">
+                <button id="cancelBtn" (click)="cancelClick()"   class="cancel">Cancel</button>
+            </div>
         </div>
+
         <div *ngIf="msg !== ''">
             <div Class="error">
                 <p style="text-align:center;" id="error_message">
@@ -16,7 +22,13 @@
                 </p>
             </div>
         </div>
-                
+        
+        <div style="display: flex; width: 100%; position: relative;">
+            <img [src]="selectedImage ? selectedImage : '/assets/image/user.png'" style="margin: auto;"  [ngStyle]="{ 'max-width': '70px', 'min-width': '70px' }">
+
+    
+            <input type="file" #fileInput style="display: none" (change)="onFileSelected($event)">
+        </div>
         <form  [formGroup]="formGroup" (ngSubmit)="submit()"   id="userProfileform" class="panel">
             <input required id="username"   formControlName="username" name="username" class="input__field" type="text" />
             <i class="fa-solid fa-user" style="margin-bottom:2em; margin-top:2em;"><label style="font-size:medium;">{{user_information.data?.role}}</label></i>

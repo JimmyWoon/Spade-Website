@@ -1,0 +1,102 @@
+[debug] [2023-10-16T13:05:38.283Z] ----------------------------------------------------------------------
+[debug] [2023-10-16T13:05:38.285Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\acer\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js emulators:start --only functions
+[debug] [2023-10-16T13:05:38.285Z] CLI Version:   12.5.4
+[debug] [2023-10-16T13:05:38.285Z] Platform:      win32
+[debug] [2023-10-16T13:05:38.285Z] Node Version:  v16.17.0
+[debug] [2023-10-16T13:05:38.294Z] Time:          Mon Oct 16 2023 21:05:38 GMT+0800 (Malaysia Time)
+[debug] [2023-10-16T13:05:38.295Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2023-10-16T13:05:38.299Z] >>> [apiv2][query] GET https://firebase-public.firebaseio.com/cli.json [none]
+[debug] [2023-10-16T13:05:38.404Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2023-10-16T13:05:38.405Z] > authorizing via signed-in user (jimmyechunwoon@gmail.com)
+[info] i  emulators: Starting emulators: functions {"metadata":{"emulator":{"name":"hub"},"message":"Starting emulators: functions"}}
+[debug] [2023-10-16T13:05:38.424Z] [logging] Logging Emulator only supports listening on one address (127.0.0.1). Not listening on ::1
+[debug] [2023-10-16T13:05:38.425Z] assigned listening specs for emulators {"user":{"hub":[{"address":"127.0.0.1","family":"IPv4","port":4400},{"address":"::1","family":"IPv6","port":4400}],"ui":[{"address":"127.0.0.1","family":"IPv4","port":4000},{"address":"::1","family":"IPv6","port":4000}],"logging":[{"address":"127.0.0.1","family":"IPv4","port":4500}]},"metadata":{"message":"assigned listening specs for emulators"}}
+[debug] [2023-10-16T13:05:38.437Z] [hub] writing locator at C:\Users\acer\AppData\Local\Temp\hub-spade-3cac3.json
+[debug] [2023-10-16T13:05:38.468Z] [functions] Functions Emulator only supports listening on one address (127.0.0.1). Not listening on ::1
+[debug] [2023-10-16T13:05:38.468Z] [eventarc] Eventarc Emulator only supports listening on one address (127.0.0.1). Not listening on ::1
+[debug] [2023-10-16T13:05:38.468Z] late-assigned ports for functions and eventarc emulators {"user":{"hub":[{"address":"127.0.0.1","family":"IPv4","port":4400},{"address":"::1","family":"IPv6","port":4400}],"ui":[{"address":"127.0.0.1","family":"IPv4","port":4000},{"address":"::1","family":"IPv6","port":4000}],"logging":[{"address":"127.0.0.1","family":"IPv4","port":4500}],"functions":[{"address":"127.0.0.1","family":"IPv4","port":5001}],"eventarc":[{"address":"127.0.0.1","family":"IPv4","port":9299}]},"metadata":{"message":"late-assigned ports for functions and eventarc emulators"}}
+[warn] !  functions: The following emulators are not running, calls to these services from the Functions emulator will affect production: auth, firestore, database, hosting, pubsub, storage {"metadata":{"emulator":{"name":"functions"},"message":"The following emulators are not running, calls to these services from the Functions emulator will affect production: \u001b[1mauth, firestore, database, hosting, pubsub, storage\u001b[22m"}}
+[debug] [2023-10-16T13:05:38.473Z] defaultcredentials: writing to file C:\Users\acer\AppData\Roaming\firebase\jimmyechunwoon_gmail_com_application_default_credentials.json
+[debug] [2023-10-16T13:05:38.477Z] Setting GAC to C:\Users\acer\AppData\Roaming\firebase\jimmyechunwoon_gmail_com_application_default_credentials.json {"metadata":{"emulator":{"name":"functions"},"message":"Setting GAC to C:\\Users\\acer\\AppData\\Roaming\\firebase\\jimmyechunwoon_gmail_com_application_default_credentials.json"}}
+[debug] [2023-10-16T13:05:38.479Z] > refreshing access token with scopes: []
+[debug] [2023-10-16T13:05:38.480Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
+[debug] [2023-10-16T13:05:38.481Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2023-10-16T13:05:38.578Z] <<< [apiv2][status] POST https://www.googleapis.com/oauth2/v3/token 200
+[debug] [2023-10-16T13:05:38.578Z] <<< [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2023-10-16T13:05:38.590Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/spade-3cac3/adminSdkConfig [none]
+[debug] [2023-10-16T13:05:38.940Z] <<< [apiv2][status] GET https://firebase-public.firebaseio.com/cli.json 200
+[debug] [2023-10-16T13:05:38.940Z] <<< [apiv2][body] GET https://firebase-public.firebaseio.com/cli.json {"cloudBuildErrorAfter":1594252800000,"cloudBuildWarnAfter":1590019200000,"defaultNode10After":1594252800000,"minVersion":"3.0.5","node8DeploysDisabledAfter":1613390400000,"node8RuntimeDisabledAfter":1615809600000,"node8WarnAfter":1600128000000}
+[debug] [2023-10-16T13:05:39.077Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/spade-3cac3/adminSdkConfig 200
+[debug] [2023-10-16T13:05:39.077Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/spade-3cac3/adminSdkConfig {"projectId":"spade-3cac3","storageBucket":"spade-3cac3.appspot.com","locationId":"asia-southeast1"}
+[debug] [2023-10-16T13:05:39.114Z] Ignoring unsupported arg: auto_download {"metadata":{"emulator":{"name":"ui"},"message":"Ignoring unsupported arg: auto_download"}}
+[debug] [2023-10-16T13:05:39.115Z] Ignoring unsupported arg: port {"metadata":{"emulator":{"name":"ui"},"message":"Ignoring unsupported arg: port"}}
+[debug] [2023-10-16T13:05:39.115Z] Starting Emulator UI with command {"binary":"node","args":["C:\\Users\\acer\\.cache\\firebase\\emulators\\ui-v1.11.7\\server\\server.js"],"optionalArgs":[],"joinArgs":false} {"metadata":{"emulator":{"name":"ui"},"message":"Starting Emulator UI with command {\"binary\":\"node\",\"args\":[\"C:\\\\Users\\\\acer\\\\.cache\\\\firebase\\\\emulators\\\\ui-v1.11.7\\\\server\\\\server.js\"],\"optionalArgs\":[],\"joinArgs\":false}"}}
+[info] i  ui: Emulator UI logging to ui-debug.log {"metadata":{"emulator":{"name":"ui"},"message":"Emulator UI logging to \u001b[1mui-debug.log\u001b[22m"}}
+[debug] [2023-10-16T13:05:39.266Z] Web / API server started at 127.0.0.1:4000
+ {"metadata":{"emulator":{"name":"ui"},"message":"Web / API server started at 127.0.0.1:4000\n"}}
+[debug] [2023-10-16T13:05:39.266Z] Web / API server started at ::1:4000
+ {"metadata":{"emulator":{"name":"ui"},"message":"Web / API server started at ::1:4000\n"}}
+[info] i  functions: Watching "C:\Users\acer\Desktop\Angular\spade\functions" for Cloud Functions... {"metadata":{"emulator":{"name":"functions"},"message":"Watching \"C:\\Users\\acer\\Desktop\\Angular\\spade\\functions\" for Cloud Functions..."}}
+[debug] [2023-10-16T13:05:39.397Z] Validating nodejs source
+[debug] [2023-10-16T13:05:40.743Z] > [functions] package.json contents: {
+  "name": "functions",
+  "scripts": {
+    "lint": "eslint --ext .js,.ts .",
+    "build": "tsc",
+    "build:watch": "tsc --watch",
+    "serve": "npm run build && firebase emulators:start --only functions",
+    "shell": "npm run build && firebase functions:shell",
+    "start": "npm run shell",
+    "deploy": "firebase deploy --only functions",
+    "logs": "firebase functions:log"
+  },
+  "engines": {
+    "node": "16"
+  },
+  "main": "lib/index.js",
+  "dependencies": {
+    "firebase-admin": "^11.8.0",
+    "firebase-functions": "^4.3.1",
+    "@types/nodemailer": "^6.4.10"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^5.12.0",
+    "@typescript-eslint/parser": "^5.12.0",
+    "eslint": "^8.9.0",
+    "eslint-config-google": "^0.14.0",
+    "eslint-plugin-import": "^2.25.4",
+    "firebase-functions-test": "^3.1.0",
+    "typescript": "^4.9.0"
+  },
+  "private": true
+}
+[debug] [2023-10-16T13:05:40.743Z] Building nodejs source
+[debug] [2023-10-16T13:05:40.744Z] Failed to find version of module node: reached end of search path C:\Users\acer\Desktop\Angular\spade\functions\node_modules
+[info] +  functions: Using node@16 from host. 
+[debug] [2023-10-16T13:05:40.748Z] Could not find functions.yaml. Must use http discovery
+[debug] [2023-10-16T13:05:40.765Z] Found firebase-functions binary at 'C:\Users\acer\Desktop\Angular\spade\functions\node_modules\.bin\firebase-functions'
+[info] Serving at port 8299
+
+[debug] [2023-10-16T13:05:41.696Z] Got response from /__/functions.yaml {"endpoints":{"mailer":{"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"concurrency":null,"serviceAccountEmail":null,"vpc":null,"platform":"gcfv2","labels":{},"httpsTrigger":{},"entryPoint":"mailer"}},"specVersion":"v1alpha1","requiredAPIs":[]}
+[info] shutdown requested via /__/quitquitquit
+
+[info] +  functions: Loaded functions definitions from source: mailer. {"metadata":{"emulator":{"name":"functions"},"message":"Loaded functions definitions from source: mailer."}}
+[info] +  functions[us-central1-mailer]: http function initialized (http://127.0.0.1:5001/spade-3cac3/us-central1/mailer). {"metadata":{"emulator":{"name":"functions"},"message":"\u001b[1mhttp\u001b[22m function initialized (http://127.0.0.1:5001/spade-3cac3/us-central1/mailer)."}}
+[info] 
+┌─────────────────────────────────────────────────────────────┐
+│ ✔  All emulators ready! It is now safe to connect your app. │
+│ i  View Emulator UI at http://127.0.0.1:4000/               │
+└─────────────────────────────────────────────────────────────┘
+
+┌───────────┬────────────────┬─────────────────────────────────┐
+│ Emulator  │ Host:Port      │ View in Emulator UI             │
+├───────────┼────────────────┼─────────────────────────────────┤
+│ Functions │ 127.0.0.1:5001 │ http://127.0.0.1:4000/functions │
+└───────────┴────────────────┴─────────────────────────────────┘
+  Emulator Hub running at 127.0.0.1:4400
+  Other reserved ports: 4500
+
+Issues? Report them at https://github.com/firebase/firebase-tools/issues and attach the *-debug.log files.
+ 
+[debug] [2023-10-16T15:03:10.713Z] Received signal SIGHUP 1

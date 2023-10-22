@@ -11,6 +11,9 @@ export interface IUser {
     date_deleted: Timestamp | null;
     password: String | null;
     verified:boolean ;
-  
+    profile_picture:string | null;
+    profile_name: string | null;
+    profile_filetype:string| null;
+
   }
   
