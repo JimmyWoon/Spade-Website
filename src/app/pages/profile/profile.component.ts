@@ -45,7 +45,6 @@ export class ProfileComponent implements OnInit{
         // Handle any errors that occurred when retrieving the image
         console.error('Error getting download URL:', error);
       });
-      console.log(this.user_information.data);
     }
   }
   editClick(){
@@ -147,7 +146,6 @@ export class ProfileComponent implements OnInit{
 
               // Add the file upload logic here
               if (this.profilePicture !== null) {
-                console.log(this.profilePicture);
                 const storage = getStorage();
                 const uniqueID =   this.generateRandomId(10);
                 const storageRef = ref(storage, `profile-picture/${uniqueID}`);
