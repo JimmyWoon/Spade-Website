@@ -1,111 +1,109 @@
-<!-- <div Class="navMenu" id="nav-menu">
-    <ul Class="navList">
-        <li Class="navItem">
-            <a routerLink="/" Class="navLink">
-                <img src="assets/image/logo.png" alt="Logo" Class="navLogo" />
+<!-- <div class="navMenu" id="nav-menu">
+    <ul class="navList">
+        <li class="navItem">
+            <a routerLink="/" class="navLink">
+                <img src="assets/image/logo.png" alt="Logo" class="navLogo" />
             </a>
         </li>
-        <li Class="navItem">
+        <li class="navItem">
             <a class="navLink" routerLink="/signup" >SignUp</a>
         </li>
-         <li Class="navItem">
+         <li class="navItem">
             @Html.ActionLink("Download", "Download", "Spade", Nothing, New With {.class = "navLink " &
             If(ViewContext.RouteData.Values("Action").ToString() = "Download", "active-link", String.Empty)})
         </li>
-        <li Class="navItem">
+        <li class="navItem">
             @Html.ActionLink("Pricing", "Pricing", "Home", Nothing, New With {.class = "navLink " &
             If(ViewContext.RouteData.Values("Action").ToString() = "Pricing", "active-link", String.Empty)})
         </li>
-        <li Class="navItem">
+        <li class="navItem">
             @Html.ActionLink("Contact", "Contact", "Home", Nothing, New With {.class = "navLink " &
             If(ViewContext.RouteData.Values("Action").ToString() = "Contact", "active-link", String.Empty)})
         </li> 
     </ul>
 </div> -->
-<link rel="stylesheet" href="/assets/css/Global.css">
-<link rel="stylesheet" href="/assets/css/Header.css">
+
 <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
 
-    <header Class="header" id="header">
-        <nav Class="nav mainContainer">
-            <a routerLink="/" Class="navLink">
-                <img src="assets/image/colus.png" alt="Logo" Class="navLogo" />
+    <header class="header" id="header">
+        <nav class="nav mainContainer">
+            <a routerLink="/" class="navLink">
+                <img src="assets/image/colus.png" alt="Logo" class="navLogo" />
             </a>
     
     
             <div id="nav-menu" [ngClass]="{'navMenu':true,'show-menu': isMenuVisible}">
-                <ul Class="navList">
-                    <li Class="navItem">
-                        <a [ngClass]="{'navLink': true, 'active-link': path === '/'}" (click)="linkAction()" href="">Home</a>
+                <ul class="navList">
+                    <li class="navItem">
+                        <a [ngClass]="{'navLink': true, 'active-link': path === '/'}" (click)="linkAction()" routerLink="">Home</a>
                     </li>
-                    <li Class="navItem">
-    
-                        <a [ngClass]="{'navLink': true, 'active-link': path === '/download'}" (click)="linkAction()" href="/download">Download</a>
+                    <li class="navItem">
+                        <a [ngClass]="{'navLink': true, 'active-link': path === '/download'}" (click)="linkAction()" routerLink="download">Download</a>
                     </li>
-                    <li Class="navItem">
-                        <a [ngClass]="{'navLink': true, 'active-link': path === '/pricing'}" (click)="linkAction()" href="/pricing">Pricing</a>
+                    <li class="navItem">
+                        <a [ngClass]="{'navLink': true, 'active-link': path === '/pricing'}" (click)="linkAction()" routerLink="pricing">Pricing</a>
                     </li>
-                    <li Class="navItem">
-                        <a [ngClass]="{'navLink': true, 'active-link': path === '/contact'}" (click)="linkAction()" href="/contact">Contact</a>
+                    <li class="navItem">
+                        <a [ngClass]="{'navLink': true, 'active-link': path === '/contact'}" (click)="linkAction()" routerLink="contact">Contact</a>
                     </li>
-                    <li *ngIf="isAuthenticated" Class="navItem">
-                        <a [ngClass]="{'navLink': true, 'active-link': path === '/material-list'}" (click)="linkAction()" href="/material-list">Teaching Material</a>
+                    <li *ngIf="isAuthenticated" class="navItem">
+                        <a [ngClass]="{'navLink': true, 'active-link': path === '/material-list'}" (click)="linkAction()" routerLink="material-list">Teaching Material</a>
                     </li>
-                    <li *ngIf="isAuthenticated" Class="navItem inviItem">
-                        <a [ngClass]="{'navLink': true, 'active-link': path === '/profile'}" (click)="linkAction()" href="/profile">Edit Profile</a>
+                    <li *ngIf="isAuthenticated" class="navItem inviItem">
+                        <a [ngClass]="{'navLink': true, 'active-link': path === '/profile'}" (click)="linkAction()" routerLink="profile">Edit Profile</a>
                     </li>
 
-                    <li *ngIf="isAuthenticated" Class="navItem reverseinviItem">
+                    <li *ngIf="isAuthenticated" class="navItem reverseinviItem">
                         <Label (click)="subMenu()" id="userMenu" style="cursor:pointer"[ngClass]="{'navLink': true, 'active-link': path === '/profile' || path === '/manage-user'}" >Profile</Label>
                     </li>
 
                     <div *ngIf="isAuthenticated" [ngClass]="{'subMenuWrap':true,'open-menu':isOpenMenu}" id="subMenu">
-                         <div Class="subMenu">
-                             <div Class="userInfo">
+                         <div class="subMenu">
+                             <div class="userInfo">
                                  <h2> {{user_information?.data?.username}}</h2>
                              </div>
                              <hr>
 
                              <div style="display:flex;">
-                                 <i style="color:white; display:flex; align-items:center; margin-right:1em" Class="ri-profile-line"></i>
-                                 <a [ngClass]="{'subMenuLink': true, 'active-link': path === '/profile'}" (click)="linkAction()" href="/profile">View Profile</a>
+                                 <i style="color:white; display:flex; align-items:center; margin-right:1em" class="ri-profile-line"></i>
+                                 <a [ngClass]="{'subMenuLink': true, 'active-link': path === '/profile'}" (click)="linkAction()" routerLink="profile">View Profile</a>
                              </div>
 
                             <div class="inviItem" *ngIf="user_information?.data?.role === 'Admin'" style = "display:flex;" >
-                                <i style="color:white; display:flex; align-items:center; margin-right:1em" Class="ri-profile-line"></i>
-                                <a [ngClass]="{'subMenuLink': true, 'active-link': path === '/manage-user'}" (click)="linkAction()" href="/manage-user">Manage User</a>
+                                <i style="color:white; display:flex; align-items:center; margin-right:1em" class="ri-profile-line"></i>
+                                <a [ngClass]="{'subMenuLink': true, 'active-link': path === '/manage-user'}" (click)="linkAction()" routerLink="manage-user">Manage User</a>
                             </div>
 
                              <div class="inviItem" style="display:flex">
-                                 <i style="color:red; display:flex; align-items:center; margin-right:1em" Class="ri-logout-box-line"></i>
-                                 <a ngClass="subMenuLink logout" (click)="linkAction()" href="/logout">Log Out</a>
+                                 <i style="color:red; display:flex; align-items:center; margin-right:1em" class="ri-logout-box-line"></i>
+                                 <a ngClass="subMenuLink logout" (click)="linkAction()" routerLink="logout">Log Out</a>
                              </div>
 
                          </div>
                     </div>
-                    <li *ngIf="user_information !== undefined && user_information?.data?.role === 'Admin' && isAuthenticated" Class="navItem inviItem">
-                        <a [ngClass]="{'navLink': true, 'active-link': path === '/manage-user'}" (click)="linkAction()" href="/manage-user">Manage User</a>
+                    <li *ngIf="user_information !== undefined && user_information?.data?.role === 'Admin' && isAuthenticated" class="navItem inviItem">
+                        <a [ngClass]="{'navLink': true, 'active-link': path === '/manage-user'}" (click)="linkAction()" routerLink="manage-user">Manage User</a>
                     </li>
-                    <li *ngIf="isAuthenticated" Class="navItem inviItem">
-                        <a [ngClass]="{'navLink': true, 'active-link': path === '/logout'}" (click)="linkAction()" href="/logout">Log Out</a>
+                    <li *ngIf="isAuthenticated" class="navItem inviItem">
+                        <a [ngClass]="{'navLink': true, 'active-link': path === '/logout'}" (click)="linkAction()" routerLink="logout">Log Out</a>
                     </li>
-                    <li *ngIf="user_information === null" Class="navItem ">
-                        <a [ngClass]="{'navLink': true, 'active-link': path === '/login'}" (click)="linkAction()" href="/login">Log In</a>
+                    <li *ngIf="user_information === null" class="navItem ">
+                        <a [ngClass]="{'navLink': true, 'active-link': path === '/login'}" (click)="linkAction()" routerLink="login">Log In</a>
                     </li>                    
                     
-                    <li *ngIf="user_information === null" Class="navItem">
-                        <a [ngClass]="{'navLink': true, 'active-link': path === '/email-verification'}" (click)="linkAction()" href="/email-verification">Sign Up</a>
+                    <li *ngIf="user_information === null" class="navItem">
+                        <a [ngClass]="{'navLink': true, 'active-link': path === '/email-verification'}" (click)="linkAction()" routerLink="email-verification">Sign Up</a>
                     </li>
 
                 </ul>
 
-                <div Class="navClose" id="nav-close" (click)="hideMenu()">
-                    <i Class="ri-close-line"></i>
+                <div class="navClose" id="nav-close" (click)="hideMenu()">
+                    <i class="ri-close-line"></i>
                 </div>
             </div>
     
-            <div Class="navToggle" id="nav-toggle" (click)="showMenu()">
-                <i Class="ri-menu-line"></i>
+            <div class="navToggle" id="nav-toggle" (click)="showMenu()">
+                <i class="ri-menu-line"></i>
             </div>
         </nav>
     </header>

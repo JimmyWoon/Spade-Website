@@ -10,7 +10,7 @@
             <a href="/material-list" class="cancel">Cancel</a>
         </div>
         <div *ngIf="msg !== '' ">
-            <div Class="error">
+            <div class="error">
                 <p id="error_message" style="text-align:center;">
                   {{msg}}
                 </p>
@@ -23,7 +23,7 @@
             <div id="subject_div" class="information">
                 <i class="fa fa-bookmark" aria-hidden="true"></i>
                 <label>Subject</label>
-                <input type="text" style="cursor:pointer;" formControlName="subject" [value]="material ? material.material_subject : ''" required Class="textB" name="subject" id="subject"  placeholder="Enter subject">
+                <input type="text" style="cursor:pointer;" formControlName="subject" [value]="material ? material.material_subject : ''" required class="textB" name="subject" id="subject"  placeholder="Enter subject">
             </div>
     
             <div id="title_div" class="information">

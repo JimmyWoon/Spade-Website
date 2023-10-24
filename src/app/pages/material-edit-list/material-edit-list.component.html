@@ -16,7 +16,7 @@
 
 
         <div *ngIf="msg !== '' ">
-            <div Class="error">
+            <div class="error">
                 <p style="text-align:center;">
                 {{msg}}
                 </p>
@@ -24,9 +24,9 @@
         </div>
 
         <div *ngIf="displayedMaterials">
-            <form  [formGroup]="formGroup" (ngSubmit)="submit()"  name="form" id="form" Class="panel">
+            <form  [formGroup]="formGroup" (ngSubmit)="submit()"  name="form" id="form" class="panel">
                 <div class="information" style="position:relative;" *ngFor="let item of displayedMaterials">
-                    <i Class="fa fa-book" aria-hidden="true"></i>
+                    <i class="fa fa-book" aria-hidden="true"></i>
                     <Label> {{item.material_title}} </Label>
                     <i id="{{item.id}}" class="fa fa-pencil hidden" (click)="redirectToAnotherPage(item.id!)" style="cursor:pointer; position: absolute;top: 15px;right: 50px;" aria-hidden="true"></i>
 

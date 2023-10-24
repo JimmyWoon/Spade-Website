@@ -20,14 +20,14 @@
           </p>
         </div>
         <div *ngIf="msg !== '' && msg !== 'User registered successfully.' && msg !== 'Password changed.'; else elseBlock">
-          <div Class="error">
+          <div class="error">
               <p id="error_message">
                 {{msg}}
               </p>
           </div>
         </div>
         <ng-template #elseBlock>
-          <div *ngIf="msg!== ''" Class="success">
+          <div *ngIf="msg!== ''" class="success">
             <p>
               {{msg}}
             </p>
@@ -48,7 +48,7 @@
                 </div>
             </div>
 
-            <div Class="inputContainer">
+            <div class="inputContainer">
               <a class="actionLink" routerLink="/forgot-password" >Forgot Password</a>
               <!-- @Html.ActionLink("Forgot Password", "ForgotPassword", "Account", Nothing, New With {.class = "actionLink"}) -->
             </div>

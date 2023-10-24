@@ -17,7 +17,7 @@
 
     </div>
     <div *ngIf="msg !== ''">
-        <div Class="error">
+        <div class="error">
             <p style="text-align:center;">
                 {{msg}}
             </p>
@@ -26,8 +26,8 @@
     <div *ngIf="data.length > 0">
         <form [formGroup]="formGroup" (ngSubmit)="submit()" name="form" id="form" class="panel">
             <div *ngFor="let item of data">
-                <div Class="information" style="position:relative;">
-                    <i Class="fa fa-user" aria-hidden="true"></i>
+                <div class="information" style="position:relative;">
+                    <i class="fa fa-user" aria-hidden="true"></i>
                     <Label> {{item.username}} </Label>
                     <i id="{{item.id}}" (click)="trashClick()" class="fa fa-trash hidden" style="cursor:pointer; position: absolute;top: 15px;right: 15px;" aria-hidden="true"></i>
                     <label class="textB">Role: {{item.role}}</label>

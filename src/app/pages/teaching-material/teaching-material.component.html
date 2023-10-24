@@ -6,7 +6,7 @@
 <body>
     <div class="mainContainer">
         <div *ngIf="msg !== '' ">
-            <div Class="error">
+            <div class="error">
                 <p style="text-align:center;">
                   {{msg}}
                 </p>
@@ -17,7 +17,7 @@
         <Div class="panel">
             <div *ngIf="displayedMaterials">
                 <div class="information" style="position:relative;" *ngFor="let item of displayedMaterials">
-                    <i Class="fa fa-book" aria-hidden="true"></i>
+                    <i class="fa fa-book" aria-hidden="true"></i>
                     <Label> {{item.material_title}} </Label>
                     <div class="textB box">
                         <label class="material_info">Field: {{item.material_subject}}</label>

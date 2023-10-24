@@ -9,6 +9,7 @@
 
 // import * as cors from 'cors';
 import {onRequest} from "firebase-functions/v2/https";
+import * as nodemailer from "nodemailer";
 // import * as logger from "firebase-functions/logger";
 // const corsHandler = cors({ origin: true });
 
@@ -28,7 +29,7 @@ const email = {
 
 
 export const mailer = onRequest((request, response) => {
-  const nodemailer = require("nodemailer");
+  // const nodemailer = require("nodemailer");
 
   const transporter = nodemailer.createTransport({
     host: email.MAIL_HOST,

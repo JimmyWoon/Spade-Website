@@ -16,20 +16,20 @@
                 </p>
             </div>
             <div *ngIf="msg !== ''">
-                <div Class="error">
+                <div class="error">
                     <p >
                         {{msg}}
                     </p>
                 </div>
             </div>
 
-            <div Class="signupInputs">
+            <div class="signupInputs">
                 <div>
-                    <div Class="inputContainer">
+                    <div class="inputContainer">
                         <Label for="username" class="loginLabel">Username</Label>
                         <input type="text" name="username" formControlName="username" placeholder="Enter username" value="" class="loginInput" required>
                     </div>
-                    <div Class="">
+                    <div class="">
                         <div>
                             <Label for="role" class="loginLabel">Register As</Label>
                             <div *ngIf="user_information !== null; else elseBlock">
@@ -91,13 +91,13 @@
                     </div>
                 </div>
                 <div>
-                    <div Class="inputContainer">
+                    <div class="inputContainer">
                         <Label for="createpassword" class="loginLabel">Password</Label>
-                        <input type="password" name="createpassword" formControlName="password" placeholder="Password" Class="loginInput" required>
+                        <input type="password" name="createpassword" formControlName="password" placeholder="Password" class="loginInput" required>
                     </div>
-                    <div Class="inputContainer">
+                    <div class="inputContainer">
                         <Label for="confirmpassword" class="loginLabel">Confirm Password</Label>
-                        <input type="password" name="confirmpassword" formControlName="password_confirmation"  placeholder="Confirm Password" Class="loginInput" required>
+                        <input type="password" name="confirmpassword" formControlName="password_confirmation"  placeholder="Confirm Password" class="loginInput" required>
                     </div>
 
                 </div>
@@ -105,8 +105,8 @@
 
 
 
-            <div Class="loginButtons">
-                <Button Class="loginButton" name="submit" type="submit">Sign Up</Button>
+            <div class="loginButtons">
+                <Button class="loginButton" name="submit" type="submit">Sign Up</Button>
             </div>
         </form>
     </div>
