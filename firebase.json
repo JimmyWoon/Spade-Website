@@ -20,24 +20,20 @@
     }
   ],
   "hosting": {
-    "public": "dist/spade",
+    "public": "/dist/spade",
     "ignore": [
       "firebase.json",
       "**/.*",
       "**/node_modules/**"
-    ],
-    "redirects": [
-      {
-          "source": "/index.html",
-          "destination": "/src/app/pages/home/home.component.html",
-          "type": 301
-      },
-      {
-          "source": "/",
-          "destination": "/src/app/pages/home/home.component.html",
-          "type": 301
-      }
     ]
-    
-  }
+  },
+  "projects": {
+    "default": "Colus Website"
+  },
+  "rewrites" : [
+    {
+      "source": "**",
+      "destination": "/index.html"
+    }
+  ]
 }

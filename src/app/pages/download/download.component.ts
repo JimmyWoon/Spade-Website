@@ -86,9 +86,7 @@ export class DownloadComponent implements OnInit {
         // Create an anchor element to trigger the download
         const a = document.createElement('a');
         a.href = downloadURL;
-        console.log(a.href);
         a.download = this.spadeData.filename; 
-        console.log(a.download);
         // Trigger the click event to start the download
         a.click();
 

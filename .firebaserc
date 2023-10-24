@@ -1,5 +1,8 @@
 {
   "projects": {
-    "default": "spade-3cac3"
-  }
+    "default": "colus-website",
+    "staging": "colus-website"
+  },
+  "targets": {},
+  "etags": {}
 }
