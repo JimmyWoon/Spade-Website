@@ -9,9 +9,10 @@
 
 // import * as cors from 'cors';
 import {onRequest} from "firebase-functions/v2/https";
-import * as nodemailer from "nodemailer";
+// import * as nodemailer from "nodemailer";
 // import * as logger from "firebase-functions/logger";
 // const corsHandler = cors({ origin: true });
+const nodemailer = require('nodemailer');
 
 
 const email = {
@@ -27,6 +28,7 @@ const email = {
 // Start writing functions
 // https://firebase.google.com/docs/functions/typescript
 
+// const nodemailer = require('nodemailer');
 
 export const mailer = onRequest((request, response) => {
   // const nodemailer = require("nodemailer");
