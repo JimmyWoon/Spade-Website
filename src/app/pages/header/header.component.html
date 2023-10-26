@@ -38,6 +38,9 @@
                         <a [ngClass]="{'navLink': true, 'active-link': path === '/'}" (click)="linkAction()" routerLink="">Home</a>
                     </li>
                     <li class="navItem">
+                        <a [ngClass]="{'navLink': true, 'active-link': path === '/about'}" (click)="linkAction()" routerLink="about">About</a>
+                    </li>
+                    <li class="navItem">
                         <a [ngClass]="{'navLink': true, 'active-link': path === '/download'}" (click)="linkAction()" routerLink="download">Download</a>
                     </li>
                     <li class="navItem">
@@ -91,9 +94,9 @@
                         <a [ngClass]="{'navLink': true, 'active-link': path === '/login'}" (click)="linkAction()" routerLink="login">Log In</a>
                     </li>                    
                     
-                    <li *ngIf="user_information === null" class="navItem">
+                    <!-- <li *ngIf="user_information === null" class="navItem">
                         <a [ngClass]="{'navLink': true, 'active-link': path === '/email-verification'}" (click)="linkAction()" routerLink="email-verification">Sign Up</a>
-                    </li>
+                    </li> -->
 
                 </ul>
 

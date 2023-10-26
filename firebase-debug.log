@@ -184,3 +184,5 @@ Issues? Report them at https://github.com/firebase/firebase-tools/issues and att
 
 Issues? Report them at https://github.com/firebase/firebase-tools/issues and attach the *-debug.log files.
  
+[debug] [2023-10-25T14:37:53.036Z] Functions emulator received unknown request at path /spade-3cac3/us-central1/mailer
+[debug] [2023-10-25T14:52:48.684Z] Received signal SIGHUP 1

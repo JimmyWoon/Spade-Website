@@ -2,6 +2,9 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
 <link rel="stylesheet" href="/assets/css/Contact.css">
 
+
+<link rel="icon" type="image/x-icon" href="favicon.ico">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32x32.png">
 <body>
 
 
@@ -17,30 +20,34 @@
             <h1>Contact Us</h1>
         </header>
 
-        <section>
-            <h2>Contact Information</h2>
-            <ul>
-                <li>Email: <a href="mailto:contact@example.com">contact@example.com</a></li>
-                <li>Phone: <a href="tel:03-7880 7182">03-7880 7182</a></li>
-                <li>Address: C-16-03, Block C, 2, Jalan 19/1, Dataran 3 Dua, 46300, Petaling Jaya, Selangor, Malaysia</li>
-            </ul>
-        </section>
+        
+        <div style="display: flex; flex-direction: row;">
 
-        <section>
-            <h2>Contact Form</h2>
-            <form  [formGroup]="formGroup" (ngSubmit)="submit()">
-                <label for="name">Name:</label>
-                <input type="text" style="max-width: 1500px;" formControlName="name" id="name" name="name" required><br><br>
-
-                <label for="email">Email:</label>
-                <input type="email" style="max-width: 1500px;" formControlName="email"  id="email" name="email" required><br><br>
-
-                <label for="message">Message:</label><br>
-                <textarea id="message" style="max-width: 1500px;" formControlName="message"  name="message" rows="4" required></textarea><br><br>
-
-                <input type="submit" class="firstButton" value="Submit">
-            </form>
-        </section>
+            <section style="flex-grow: 1;">
+                <h2>Contact Form</h2>
+                <form  [formGroup]="formGroup" (ngSubmit)="submit()">
+                    <label for="name">Name:</label>
+                    <input type="text" style="max-width: 1500px;" formControlName="name" id="name" name="name" required><br><br>
+    
+                    <label for="email">Email:</label>
+                    <input type="email" style="max-width: 1500px;" formControlName="email"  id="email" name="email" required><br><br>
+    
+                    <label for="message">Message:</label><br>
+                    <textarea id="message" style="max-width: 1500px;" formControlName="message"  name="message" rows="4" required></textarea><br><br>
+    
+                    <input type="submit" class="firstButton" value="Submit">
+                </form>
+            </section>
+            <section style="flex-grow: 1;">
+                <h2>Contact Information</h2>
+                <ul>
+                    <li>Email: <a href="mailto:contact@example.com">contact@example.com</a></li>
+                    <li>Phone: <a href="tel:03-7880 7182">03-7880 7182</a></li>
+                    <li>Address: C-16-03, Block C, 2, Jalan 19/1, Dataran 3 Dua, 46300, Petaling Jaya, Selangor, Malaysia</li>
+                </ul>
+            </section>
+        </div>
+        
 
     </div>
 </body>   

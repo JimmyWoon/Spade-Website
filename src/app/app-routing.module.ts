@@ -19,6 +19,7 @@ import { ForgotPasswordComponent } from './pages/forgot-password/forgot-password
 import { ResetPasswordComponent } from './pages/reset-password/reset-password.component';
 import { MaterialEditComponent } from './pages/material-edit/material-edit.component';
 import { MaterialEditListComponent } from './pages/material-edit-list/material-edit-list.component';
+import { AboutComponent } from './pages/about/about.component';
 // import { AngularFireModule } from '@angular/fire';
 
 
@@ -99,6 +100,10 @@ const routes: Routes = [
     path:"material-edit-list",
     component:MaterialEditListComponent,
     canActivate:[AuthGuard]
+  },
+  {
+    path:"about",
+    component:AboutComponent
   }
   
   
