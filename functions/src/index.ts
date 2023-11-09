@@ -7,12 +7,13 @@
  * See a full list of supported triggers at https://firebase.google.com/docs/functions
  */
 
-// import * as cors from 'cors';
+import * as cors from 'cors';
 import {onRequest} from "firebase-functions/v2/https";
 // import * as nodemailer from "nodemailer";
 // import * as logger from "firebase-functions/logger";
 // const corsHandler = cors({ origin: true });
 const nodemailer = require('nodemailer');
+// const corsHandler = cors({ origin: true });
 
 
 const email = {
@@ -30,11 +31,12 @@ const email = {
 
 // const nodemailer = require('nodemailer');
 
-export const mailer = onRequest((request, response) => {
+export const mailer = onRequest(async (request, response) => {
   // const nodemailer = require("nodemailer");
 
-  const transporter = nodemailer.createTransport({
-    host: email.MAIL_HOST,
+  cors({ origin: true })(request, response, async () => {
+    const transporter = nodemailer.createTransport({    
+      host: email.MAIL_HOST,
     service: "gmail",
     port: email.MAIL_PORT,
     auth: {
@@ -63,3 +65,6 @@ export const mailer = onRequest((request, response) => {
 
   response.send("Hello from Firebase!");
 });
+
+});
+

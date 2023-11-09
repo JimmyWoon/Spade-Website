@@ -38,8 +38,8 @@ export class EmailVerificationComponent {
     if (emailControl?.value === '' || !emailControl?.valid) {
       this.msg = "Please enter email";
     }else{
-      // const url = "http://localhost:5001/spade-3cac3/us-central1/mailer";
-      const url = "http://localhost:3000";
+
+      const url ="http://localhost:5001/colus-website/us-central1/mailer";
 
       EmailVerificationComponent.otp = generateOTP(6);
 
