@@ -13,3 +13,42 @@
 
     }
 }
+
+#main_container{
+    margin-top: 15em;
+    max-width: 1440px;
+    align-items: center;  
+    margin-left: 1.5rem;
+    margin-right: 1.5rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+}
+
+@media (max-width: 640px) {
+    #main_container {
+       flex-direction: column;
+
+    }
+}
+
+@media screen and (max-width: 320px) {
+    .mainContainer {
+        margin-left: 1rem;
+        margin-right: 1rem;
+    }
+}
+
+.custom-list {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  /* Define custom bullet point style */
+  .custom-list li::before {
+    content: "\2022"; /* Unicode bullet point character */
+    color: #ff5733; /* Custom color for the bullet point */
+    font-size: 1.2em; /* Custom size for the bullet point */
+    margin-right: 5px; /* Adjust spacing between bullet point and text */
+  }
