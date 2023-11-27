@@ -190,7 +190,7 @@
 
 /*=============== BREAKPOINTS ===============*/
 /* For small devices */
-@media screen and (max-width: 360px) {
+@media screen and (max-device-width: 360px) {
   .loginImg {
     height: 100%;
   }

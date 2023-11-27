@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { AuthService } from "service/authentication.service"; 
 
 
 function generateOTP(length: number): string {
@@ -30,7 +31,7 @@ export class EmailVerificationComponent {
   })
   loading = false;
 
-  constructor(private http: HttpClient,private fireAuth: AngularFireAuth,private firestore: AngularFirestore){
+  constructor(private authService: AuthService, private http: HttpClient,private fireAuth: AngularFireAuth,private firestore: AngularFirestore){
   }
 
   async requestOTP(){
@@ -38,33 +39,39 @@ export class EmailVerificationComponent {
     if (emailControl?.value === '' || !emailControl?.valid) {
       this.msg = "Please enter email";
     }else{
+      console.log("enterd");
+      this.authService.sendVerificationEmail(emailControl.value).then(() => {
+        console.log("yes");
 
-      const url ="http://localhost:5001/colus-website/us-central1/mailer";
+      }).catch((error) =>{
+        console.log(error.message);
+      });
+      // const url ="http://localhost:5001/colus-website/us-central1/mailer";
 
-      EmailVerificationComponent.otp = generateOTP(6);
+      // EmailVerificationComponent.otp = generateOTP(6);
 
-      try{
-        const response = await this.http.post(url,{
-          to:this.formGroup.get('email')?.value,
-          subject:"Colus User Email Verification",
-          message:"Dear Valued Customer, Below is the verification code "+ EmailVerificationComponent.otp + " Please do not hesitate to connect with our friendly support staff via admin@cloudbasha.com should you have any queries or require further assistance. Thank you. Kind Regards, Colus Sdn. Bhd."
-        }).subscribe({
-          next: (response: any) => {
-            console.log('Response:', response);
-            // Process the response here
-          },
-          error: (error: any) => {
-            console.error('Error occurred:', error);
-            // Handle the error here
-          },
-          complete: () => {
-          }
-        });
-        this.msg='OTP sent.'
-      }catch(error){
-        console.error('Error occurred:', error);
+      // try{
+      //   const response = await this.http.post(url,{
+      //     to:this.formGroup.get('email')?.value,
+      //     subject:"Colus User Email Verification",
+      //     message:"Dear Valued Customer, Below is the verification code "+ EmailVerificationComponent.otp + " Please do not hesitate to connect with our friendly support staff via admin@cloudbasha.com should you have any queries or require further assistance. Thank you. Kind Regards, Colus Sdn. Bhd."
+      //   }).subscribe({
+      //     next: (response: any) => {
+      //       console.log('Response:', response);
+      //       // Process the response here
+      //     },
+      //     error: (error: any) => {
+      //       console.error('Error occurred:', error);
+      //       // Handle the error here
+      //     },
+      //     complete: () => {
+      //     }
+      //   });
+      //   this.msg='OTP sent.'
+      // }catch(error){
+      //   console.error('Error occurred:', error);
 
-      }
+      // }
 
     }
   }

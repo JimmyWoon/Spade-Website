@@ -25,15 +25,20 @@
       "firebase.json",
       "**/.*",
       "**/node_modules/**"
+    ],
+    "rewrites" : [
+      {
+        "source": "**",
+        "destination": "/index.html"
+      },
+      {
+        "source": "/signup/**",
+        "destination": "/index.html"
+      }
     ]
   },
   "projects": {
     "default": "Colus Website"
-  },
-  "rewrites" : [
-    {
-      "source": "**",
-      "destination": "/index.html"
-    }
-  ]
+  }
+
 }
