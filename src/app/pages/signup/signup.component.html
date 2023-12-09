@@ -4,7 +4,7 @@
 <body>
   <section class="container">
     <div class="signupContent">
-        <img src="/assets/image/bg-create_user.jpg" alt="login image" class="signupImg">
+        <img src="/assets/image/spade-bg-create_user.png" alt="login image" class="signupImg">
 
         <form [formGroup]="formGroup" (ngSubmit)="submit()" class="signupForm">
             <div>
@@ -15,9 +15,16 @@
                     Please enter your account details.
                 </p>
             </div>
-            <div *ngIf="msg !== ''">
+            <div *ngIf="msg !== '' && msg !== 'Email verification sent!'">
                 <div class="error">
                     <p >
+                        {{msg}}
+                    </p>
+                </div>
+            </div>
+            <div *ngIf="msg === 'Email verification sent!'">
+                <div class="success">
+                    <p>
                         {{msg}}
                     </p>
                 </div>
@@ -26,13 +33,19 @@
             <div class="signupInputs">
                 <div>
                     <div class="inputContainer">
+                        <Label for="email" class="loginLabel">Email</Label>
+                        <input type="email" name="email" formControlName="email" placeholder="Enter email" value="" class="loginInput" required>
+                    </div>
+                    <div class="inputContainer">
                         <Label for="username" class="loginLabel">Username</Label>
                         <input type="text" name="username" formControlName="username" placeholder="Enter username" value="" class="loginInput" required>
                     </div>
-                    <div class="">
+                    
+                   <!-- <div class="">
                         <div>
                             <Label for="role" class="loginLabel">Register As</Label>
                             <div *ngIf="user_information !== null; else elseBlock">
+                                <h1>{{user_information}}</h1>
                                 <div *ngIf="user_information?.data.role === 'Admin'; else elseBlock2">
                                     <input type="radio" formControlName="role"  name="role" value="Admin"> Admin
                                     <input type="radio" formControlName="role" name="role" value="Teacher"checked> Teacher
@@ -43,52 +56,14 @@
                                     <input type="radio" formControlName="role" name="role" value="Student"checked> Student
                                 </ng-template>
                             </div>
-                            <ng-template #elseBlock>
+                             <ng-template #elseBlock>
                                 <input type="radio" formControlName="role" name="role" value="Teacher"> Teacher
                                 <input type="radio" formControlName="role" name="role" value="Student" checked> Student
-                            </ng-template>
-                            <!-- @code
-                                If Session("user") IsNot Nothing Then
-                                    Dim user As User = Session("user")
-                                    If user.role = "Admin" Then
-                                        If Not String.IsNullOrEmpty(user.role) Then
-                                            If user.role = "Teacher" Then
-                                                @<input type="radio" name="role" value="Admin">@("Admin")
-                                                @<input type="radio" name="role" value="Teacher" checked>@("Teacher")
-                                                @<input type="radio" name="role" value="Student">@("Student")
-                                            ElseIf user.role = "Admin" Then
-                                                @<input type="radio" name="role" value="Admin" checked>@("Admin")
-                                                @<input type="radio" name="role" value="Teacher">@("Teacher")
-                                                @<input type="radio" name="role" value="Student">@("Student")
-                                            Else
-                                                @<input type="radio" name="role" value="Admin" >@("Admin")
-                                                @<input type="radio" name="role" value="Teacher">@("Teacher")
-                                                @<input type="radio" name="role" value="Student" checked>@("Student")
-                                            End If
-                                        Else
-                                            @<input type="radio" name="role" value="Teacher">@("Teacher")
-                                            @<input type="radio" name="role" value="Student" checked>@("Student")
-                                        End If
-                                    End If
-                                Else
-                                    If Not String.IsNullOrEmpty(role) Then
-                                        If role = "Teacher" Then
-                                            @<input type="radio" name="role" value="Teacher" checked>@("Teacher")
-                                            @<input type="radio" name="role" value="Student">@("Student")
-                                        Else
-                                            @<input type="radio" name="role" value="Teacher">@("Teacher")
-                                            @<input type="radio" name="role" value="Student" checked>@("Student")
-                                        End If
-                                    Else
-                                        @<input type="radio" name="role" value="Teacher">@("Teacher")
-                                        @<input type="radio" name="role" value="Student" checked>@("Student")
-                                    End If
-                                End If
-                            End Code -->
+                            </ng-template>                         
 
                         </div>
+                    </div>  -->
 
-                    </div>
                 </div>
                 <div>
                     <div class="inputContainer">

@@ -4,6 +4,7 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { getStorage, ref, uploadBytes } from 'firebase/storage';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-profile',
@@ -17,10 +18,11 @@ export class ProfileComponent implements OnInit{
   selectedImage: string | ArrayBuffer | null = '/assets/image/user.png'; // Set the default image path
   profilePicture: File | null = null;
 
+
   @ViewChild('fileInput') fileInput: ElementRef | undefined;
 
 
-  constructor(private firestore: AngularFirestore, private storage: AngularFireStorage,private fireAuth: AngularFireAuth, private formBuilder:FormBuilder,private el: ElementRef, private renderer: Renderer2){    
+  constructor(private cookieService: CookieService,private firestore: AngularFirestore, private storage: AngularFireStorage,private fireAuth: AngularFireAuth, private formBuilder:FormBuilder,private el: ElementRef, private renderer: Renderer2){    
     if (sessionStorage.getItem('user') !== null){
       const sessionData = JSON.parse(sessionStorage.getItem('user')!);
       this.user_information = sessionData;
@@ -28,7 +30,7 @@ export class ProfileComponent implements OnInit{
     this.formGroup = this.formBuilder.group({
       username: [this.user_information.data?.username,[Validators.required]],
       old_password: [''],
-      new_password: ['']
+      new_password: [''],
     })
     this.formGroup.controls['username'].disable();
   }
@@ -69,8 +71,8 @@ export class ProfileComponent implements OnInit{
     const passBtn = this.el.nativeElement.querySelector('#edit_password');
     const phtBtn = this.el.nativeElement.querySelector('#edit_photo');
 
-    const old_password_div = this.el.nativeElement.querySelector('#old_password_div');
-    const new_password_div = this.el.nativeElement.querySelector('#new_password_div');
+    // const old_password_div = this.el.nativeElement.querySelector('#old_password_div');
+    // const new_password_div = this.el.nativeElement.querySelector('#new_password_div');
 
     
     this.renderer.setStyle(saveBtn, 'display', 'none');
@@ -80,8 +82,8 @@ export class ProfileComponent implements OnInit{
 
     this.renderer.setStyle(editBtn, 'display', 'inline-block');
 
-    this.renderer.addClass(old_password_div, 'hidden');
-    this.renderer.addClass(new_password_div, 'hidden');
+    // this.renderer.addClass(old_password_div, 'hidden');
+    // this.renderer.addClass(new_password_div, 'hidden');
 
 
     this.formGroup.controls['username'].disable();
@@ -94,13 +96,33 @@ export class ProfileComponent implements OnInit{
 
   passwordClick(){
     const passBtn = this.el.nativeElement.querySelector('#edit_password');
-    const old_password_div = this.el.nativeElement.querySelector('#old_password_div');
-    const new_password_div = this.el.nativeElement.querySelector('#new_password_div');
+
+    const saveBtn = this.el.nativeElement.querySelector('#saveBtn');
+    const cancelBtn = this.el.nativeElement.querySelector('#cancelBtn');
+    const editBtn = this.el.nativeElement.querySelector('#editBtn');
+    const phtBtn = this.el.nativeElement.querySelector('#edit_photo');
+
+    // const old_password_div = this.el.nativeElement.querySelector('#old_password_div');
+    // const new_password_div = this.el.nativeElement.querySelector('#new_password_div');
     this.renderer.setStyle(passBtn, 'display', 'none');
+    this.renderer.setStyle(saveBtn, 'display', 'none');
+    this.renderer.setStyle(cancelBtn, 'display', 'none');
+    this.renderer.setStyle(phtBtn, 'visibility', 'hidden');
+
+    this.renderer.setStyle(editBtn, 'display', 'inline-block');
+
+
     this.formGroup.controls['old_password'].enable();
     this.formGroup.controls['new_password'].enable();
-    this.renderer.removeClass(old_password_div, 'hidden');
-    this.renderer.removeClass(new_password_div, 'hidden');
+    // this.renderer.removeClass(old_password_div, 'hidden');
+    // this.renderer.removeClass(new_password_div, 'hidden');
+
+    this.fireAuth.sendPasswordResetEmail(this.user_information.data.email)
+    .then(() => {
+      this.msg = 'Password reset email sent successfully!';
+      this.cookieService.set('reset-email', this.user_information.data.email, 0.5);  
+    })  
+   
   }
 
   async submit(){
@@ -120,8 +142,8 @@ export class ProfileComponent implements OnInit{
     
 
     this.fireAuth.signInWithEmailAndPassword(
-      "jimmyechunwoon@gmail.com",
-      "123456"
+      this.user_information.data.email ,
+      this.user_information.data.password
     ).then(async () => {
         try {
           const querySnapshot = await query.get();

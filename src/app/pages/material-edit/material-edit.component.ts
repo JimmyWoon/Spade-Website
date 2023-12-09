@@ -9,6 +9,7 @@ import { ActivatedRoute } from '@angular/router';
 import * as firebase from 'firebase/compat';
 import { Observable, map } from 'rxjs';
 
+
 @Component({
   selector: 'app-material-edit',
   templateUrl: './material-edit.component.html',
@@ -54,8 +55,8 @@ export class MaterialEditComponent implements OnInit {
     this.idParam = queryParams['id'];
     if (this.idParam !== null){
       this.fireAuth.signInWithEmailAndPassword(
-        "jimmyechunwoon@gmail.com",
-        "123456"
+        this.user_information.data.email ,
+      this.user_information.data.password
       ).then(() => {
 
           this.getTeachingMaterialById(this.idParam!).subscribe((teachingMaterial) => {
@@ -114,8 +115,8 @@ export class MaterialEditComponent implements OnInit {
     
     if (file !== null && this.formGroup.valid) {
       this.fireAuth.signInWithEmailAndPassword(
-        "jimmyechunwoon@gmail.com",
-        "123456"
+        this.user_information.data.email ,
+        this.user_information.data.password
       ).then(async() => {
         if (this.idParam !== undefined ){
           'update'

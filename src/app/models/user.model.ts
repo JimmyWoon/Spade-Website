@@ -14,6 +14,6 @@ export interface IUser {
     profile_picture:string | null;
     profile_name: string | null;
     profile_filetype:string| null;
-
+    uid:string|null;
   }
   

@@ -25,8 +25,6 @@ export class ContactComponent {
     const emailControl = this.formGroup.get('email');
     const messageControl = this.formGroup.get('message');
 
-
-
     if (emailControl && messageControl && nameControl && this.formGroup.valid) {
 
       this.fireAuth.signInWithEmailAndPassword(

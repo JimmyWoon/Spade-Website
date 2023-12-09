@@ -38,8 +38,8 @@ export class TeachingMaterialComponent implements OnInit {
     }
 
     this.fireAuth.signInWithEmailAndPassword(
-      "jimmyechunwoon@gmail.com",
-      "123456"
+      this.user_information.data.email ,
+      this.user_information.data.password
     ).then(() => {
       this.materialService.getMaterials(this.subjectParam!).subscribe((materials:IMaterial[]) => {
         this.material_list = materials;

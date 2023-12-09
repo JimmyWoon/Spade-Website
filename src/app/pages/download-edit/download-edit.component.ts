@@ -65,8 +65,8 @@ export class DownloadEditComponent{
     
     if (file !== null && this.formGroup.valid) {
       this.fireAuth.signInWithEmailAndPassword(
-        "jimmyechunwoon@gmail.com",
-        "123456"
+        this.user_information.data.email ,
+      this.user_information.data.password
       ).then(() => {
         const storage = getStorage();
         const storageRef = ref(storage, `spade/${this.fileName}`);

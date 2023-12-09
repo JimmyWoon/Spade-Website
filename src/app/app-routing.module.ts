@@ -80,7 +80,7 @@ const routes: Routes = [
     canActivate: [AuthGuard],
   },
   {
-    path:"signup/:email",
+    path:"signup",
     component:SignupComponent,
   },
   {

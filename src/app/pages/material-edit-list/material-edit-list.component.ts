@@ -49,8 +49,8 @@ export class MaterialEditListComponent {
       window.location.href='/material-list';
     }
     this.fireAuth.signInWithEmailAndPassword(
-      "jimmyechunwoon@gmail.com",
-      "123456"
+      this.user_information.data.email ,
+      this.user_information.data.password
     ).then(() => {
       this.materialService.getSelfMaterials(this.materialParam!).subscribe((materials:IMaterial[]) => {
         this.material_list = materials;
@@ -107,8 +107,8 @@ export class MaterialEditListComponent {
         changes = true;
         try {
           await this.fireAuth.signInWithEmailAndPassword(
-            "jimmyechunwoon@gmail.com",
-            "123456"
+            this.user_information.data.email ,
+            this.user_information.data.password
           );
   
           const documentRef = this.firestore.collection('teaching-material').doc(checkbox.value);

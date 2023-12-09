@@ -15,16 +15,22 @@
             </div>
         </div>
 
-        <div *ngIf="msg !== ''">
+        <div *ngIf="msg !== '' && msg !== 'Password reset email sent successfully!'">
             <div class="error">
                 <p style="text-align:center;" id="error_message">
                   {{msg}}
                 </p>
             </div>
         </div>
-        
-        <div style="display: flex; width: 100%; position: relative;">
-            <img [src]="selectedImage ? selectedImage : '/assets/image/user.png'" style="margin: auto;"  [ngStyle]="{ 'max-width': '70px', 'min-width': '70px' }">
+        <div *ngIf="msg == 'Password reset email sent successfully!'">
+            <div class="success">
+                <p style="text-align:center;" >
+                  {{msg}}
+                </p>
+            </div>
+        </div>
+        <div style="display: flex; width: 100%; position: relative; margin-top: 2em;">
+            <img [src]="selectedImage ? selectedImage : '/assets/image/user.png'" style="margin: auto;"  [ngStyle]="{ 'max-width': '100px', 'min-width': '100px' }">
 
     
             <input type="file" #fileInput style="display: none" (change)="onFileSelected($event)">
@@ -37,14 +43,14 @@
             <div class="information">
                 <i class="fa fa-address-card" aria-hidden="true"></i>
                 <label>Email </label>
-                <input type="text" disabled="true" required class="textB" name="email" id="email" value="{{user_information.data?.email}}">
+                <input type="text" disabled="true" required class="textB" name="email" id="email" value="{{user_information.data?.email}}" >
             </div>
             <input type="checkbox" id="edit_password_btn" name="edit_password_btn" style="display: none;" class="file-input">
             <label id="edit_password" (click)="passwordClick()" for="edit_password_btn" style="display: none; margin-top:1em; margin-bottom:1em;">
                 <i class="fa-solid fa-lock"></i> &nbsp; Edit password
             </label>
     
-            <div id="old_password_div" class="information hidden">
+            <!-- <div id="old_password_div" class="information hidden">
                 <i class="fa fa-lock" aria-hidden="true"></i>
                 <label>Old Passowrd </label>
                 <input type="text" formControlName="old_password" required class="textB"  name="oldpassword" id="oldpassword" value="">
@@ -53,7 +59,7 @@
                 <i class="fa fa-lock" aria-hidden="true"></i>
                 <label>New Passowrd </label>
                 <input type="text" formControlName="new_password" required class="textB" name="newpassword" id="newpassword" value="">
-            </div>
+            </div> -->
         </form>
     </div>
 </body>

@@ -8,7 +8,7 @@
 <body>
   <section class="container">
     <div class="loginContent">
-      <img src="/assets/image/bg-login.png" alt="login image" class="signupImg">
+      <img src="/assets/image/spade-bg-login.jpg" alt="login image" class="signupImg">
 
       <form [formGroup]="formGroup" (ngSubmit)="submit()" class="loginForm">
         <div>
@@ -19,7 +19,7 @@
             Welcome! Please login to continue.
           </p>
         </div>
-        <div *ngIf="msg !== '' && msg !== 'User registered successfully.' && msg !== 'Password changed.'; else elseBlock">
+        <div *ngIf="msg !== '' && msg !== 'User registered successfully.' && msg !== 'Password reset successfully!'; else elseBlock">
           <div class="error">
               <p id="error_message">
                 {{msg}}
@@ -56,7 +56,7 @@
           <div>
             <div class="loginButtons">
                 <button type="submit" name="submit" class="loginButton">Log In</button>
-                <a class="actionLink" class="loginButton  loginButton-ghost" routerLink="/email-verification" >Sign Up</a>
+                <a class="actionLink" class="loginButton  loginButton-ghost" routerLink="/signup" >Sign Up</a>
                 <!-- @Html.ActionLink("Sign Up", "Signup", "Account", Nothing, New With {.class = "loginButton loginButton-ghost"}) -->
             </div>
           </div>

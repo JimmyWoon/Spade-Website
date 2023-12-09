@@ -202,3 +202,19 @@ i {
         margin-bottom: 0 !important;
 
     }
+
+
+
+    
+@media screen and (max-width: 500px) {
+    .firstButton {
+        padding: 10px 0.5rem;
+    }
+
+    .cancel {
+        padding: 10px 0.5rem;
+    }
+    #edit_password {
+        padding: 10px 0.5rem;
+    }
+}

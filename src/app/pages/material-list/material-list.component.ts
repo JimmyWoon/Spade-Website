@@ -26,8 +26,8 @@ export class MaterialListComponent implements OnInit {
 
   async ngOnInit(){
     this.fireAuth.signInWithEmailAndPassword(
-      "jimmyechunwoon@gmail.com",
-      "123456"
+      this.user_information.data.email ,
+      this.user_information.data.password
     ).then(() => {
       this.firestore
       .collection('teaching-material')

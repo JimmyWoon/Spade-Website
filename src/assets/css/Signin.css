@@ -87,6 +87,10 @@
     gap: 2rem;
 }
 
+.forgotInputs {
+  display: grid;
+}
+
 .loginInputs {
   row-gap: 0.75rem;
   margin-bottom: 0.5rem;
@@ -215,9 +219,13 @@
     gap: 0;
   }
 
-    .signupContent {
-        min-height: 780px;
-    }
+  .forgotInputs {
+    display: flex;
+  }
+
+  .signupContent {
+      min-height: 780px;
+  }
 }
 
 /* For large devices */

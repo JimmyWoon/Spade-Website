@@ -21,14 +21,16 @@ export class DownloadComponent implements OnInit {
     if (sessionStorage.getItem('user') !== null) {
       const sessionData = JSON.parse(sessionStorage.getItem('user')!);
       this.user_information = sessionData;
+      
     }
   }
 
   ngOnInit(){
     this.fireAuth.signInWithEmailAndPassword(
-      "jimmyechunwoon@gmail.com",
-      "123456"
+      this.user_information.data.email ,
+      this.user_information.data.password
     ).then(() => {
+
       this.firestore.collection('spade', ref => ref.orderBy('date_added', 'desc').limit(1))
       .valueChanges()
       .subscribe((documents: any[]) => {
@@ -44,7 +46,7 @@ export class DownloadComponent implements OnInit {
     // Create an anchor element to trigger the download
     const a = document.createElement('a');
     a.href = url;
-    a.download = 'src/assets/image/bg-login.png'; // Replace with the desired file name
+    a.download = 'src/assets/image/spade-bg-login.jpg'; // Replace with the desired file name
     a.target = '_blank'; // Open in a new tab
     document.body.appendChild(a);
     a.click();
@@ -55,12 +57,12 @@ export class DownloadComponent implements OnInit {
     const filePath = "spade/19g6f1hcrtu";
 
     this.fireAuth.signInWithEmailAndPassword(
-      "jimmyechunwoon@gmail.com",
-      "123456"
+      this.user_information.data.email ,
+      this.user_information.data.password
     ).then(async (userCredential) => {
 
       const filePath = this.spadeData.fullPath;
-    
+      console.log(filePath);
       try {
       // const fileRef = this.storage.ref().child(`sapde/${this.spadeData.id}`);
 

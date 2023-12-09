@@ -46,8 +46,8 @@ export class ManageUserComponent{
 
   loadData() {
     this.fireAuth.signInWithEmailAndPassword(
-      "jimmyechunwoon@gmail.com",
-      "123456"
+      this.user_information.data.email ,
+      this.user_information.data.password
     ).then( () => {
       this.pagingService
       .getDataWithPagination('user', this.pageSize, this.currentPage, this.user_information.id)
@@ -72,8 +72,8 @@ export class ManageUserComponent{
   
   getTotalDocumentCount() {
     this.fireAuth.signInWithEmailAndPassword(
-      "jimmyechunwoon@gmail.com",
-      "123456"
+      this.user_information.data.email ,
+      this.user_information.data.password
     ).then( () => {    
       this.pagingService.filterDocumentsWithId('user',this.user_information.id).subscribe((count) => {
       this.totalDocuments = count;
@@ -97,8 +97,8 @@ export class ManageUserComponent{
         changes = true;
         try {
           await this.fireAuth.signInWithEmailAndPassword(
-            "jimmyechunwoon@gmail.com",
-            "123456"
+            this.user_information.data.email ,
+            this.user_information.data.password
           );
   
           const documentRef = this.firestore.collection('user').doc(checkbox.value);
