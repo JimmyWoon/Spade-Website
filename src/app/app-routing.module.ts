@@ -33,10 +33,10 @@ const routes: Routes = [
     path: "contact",
     component: ContactComponent
   },
-  {
-    path: "email-verification",
-    component: EmailVerificationComponent
-  },
+  // {
+  //   path: "email-verification",
+  //   component: EmailVerificationComponent
+  // },
   {
     path: "login",
     component: LoginComponent
@@ -101,10 +101,10 @@ const routes: Routes = [
     component:MaterialEditListComponent,
     canActivate:[AuthGuard]
   },
-  {
-    path:"about",
-    component:AboutComponent
-  }
+  // {
+  //   path:"about",
+  //   component:AboutComponent
+  // }
   
   
 ];
