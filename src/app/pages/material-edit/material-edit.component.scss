@@ -1,0 +1,25 @@
+@media screen and (max-width: 500px) {
+    .firstButton {
+        padding: 10px 0.5rem;
+    }
+
+    .cancel {
+        padding: 10px 0.5rem;
+    }
+    #edit_password {
+        padding: 10px 0.5rem;
+    }
+}
+
+
+.image-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px; /* Adjust the gap as needed */
+  }
+
+.thumbnail{
+    border: solid;
+    padding: 2px;
+    border-width: 1px;
+}

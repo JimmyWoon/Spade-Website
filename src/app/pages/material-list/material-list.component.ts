@@ -11,8 +11,6 @@ import { AngularFireAuth } from '@angular/fire/compat/auth';
 })
 export class MaterialListComponent implements OnInit {
   msg:String = ''
-  selectedFile: File | null = null;
-  material_list:IMaterial[] = [];
   user_information: any = null;
   items: string[] | undefined;
 
@@ -24,13 +22,15 @@ export class MaterialListComponent implements OnInit {
     }
   }
 
-  async ngOnInit(){
+  ngOnInit(){
     this.fireAuth.signInWithEmailAndPassword(
       this.user_information.data.email ,
       this.user_information.data.password
     ).then(() => {
       this.firestore
-      .collection('teaching-material')
+      .collection('teaching-material', (ref) => {
+        return ref.where('date_deleted', '==', null).where('exposure', '==', true);
+      })
       .get()
       .subscribe(
         (querySnapshot) => {
@@ -42,7 +42,6 @@ export class MaterialListComponent implements OnInit {
               subjectsSet.add(subject);
             }
           });
-
           this.items = Array.from(subjectsSet);
         },
         (error) => {

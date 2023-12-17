@@ -3,23 +3,14 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/clay/lib/css/atlas.css">
+<script src="https://cdn.jsdelivr.net/npm/clay/lib/js/clay.js"></script>
+
 <body>
-    <div class="form-group">
-        <label class="toggle-switch">
-            <input class="toggle-switch-check" type="checkbox" />
-            <span class="toggle-switch-label">Toggle Switch with data-label-on</span>
-            <span aria-hidden="true" class="toggle-switch-bar">
-                <span class="toggle-switch-handle" data-label-off="" data-label-on="ON">
-                </span>
-            </span>
-        </label>
-    </div>
-
-
     <div class="mainContainer">
         <div style="display:flex; justify-content:flex-end;">
             <input id="save" class="firstButton" name="save" form="form" type="submit" value="Save">
-            <a routerLink="/material-list" class="cancel">Cancel</a>
+            <a routerLink="/material-list" class="cancel" style="text-decoration: none;" onmouseover="this.style.color='white'" onmouseout="this.style.color='white'">Cancel</a>
         </div>
         <div *ngIf="msg !== '' ">
             <div class="error">
@@ -32,30 +23,58 @@
     
         </div>
         <form  [formGroup]="formGroup" (ngSubmit)="submit()" name="form" id="form"  enctype="multipart/form-data">
+            
+            <div class="information">
+                <label class="toggle-switch" style="font-weight: bold;">
+    
+                    <input formControlName="exposure"  [value]="material ? material.exposure : false" class="toggle-switch-check" type="checkbox" />
+                    <span class="toggle-switch-label" >Public/Private</span>
+                    <span aria-hidden="true" class="toggle-switch-bar">
+                        <span class="toggle-switch-handle" data-label-off="Private" data-label-on="Public">
+                        </span>
+                    </span>
+                </label>
+            </div>
+
             <div id="subject_div" class="information">
                 <i class="fa fa-bookmark" aria-hidden="true"></i>
                 <label>Subject</label>
-                <input type="text" style="cursor:pointer;" formControlName="subject" [value]="material ? material.material_subject : ''" required class="textB" name="subject" id="subject"  placeholder="Enter subject">
+                <input type="text" style="cursor:pointer;"  formControlName="subject" [value]="material ? material.material_subject : ''" required class="textB" name="subject" id="subject"  placeholder="Enter subject">
             </div>
     
             <div id="title_div" class="information">
                 <i class="fa fa-book" aria-hidden="true"></i>
                 <label>Title</label>
-                <input type="text" style="cursor:pointer;" formControlName="title" [value]="material ? material.material_title : ''" required class="textB" name="title" id="title"  placeholder="Enter title">
+                <input type="text" style="cursor:pointer;"  formControlName="title" [value]="material ? material.material_title : ''" required class="textB" name="title" id="title"  placeholder="Enter title">
             </div>
     
             <div id="description_div" class="information">
                 <i class="fa fa-file-text" aria-hidden="true"></i>
                 <label>Description </label>
-                <input type="text" class="textB" name="description" formControlName="description" [value]="material ? material.material_description : ''" id="description" placeholder="Enter description">
+                <input type="text" class="textB"  name="description" formControlName="description" [value]="material ? material.material_description : ''" id="description" placeholder="Enter description">
             </div>
-            <input type="text" name="id" id="id" formControlName="id" [value]="material ? material.id : ''" hidden />
+            <input type="text" name="id" id="id"  formControlName="id" [value]="material ? material.id : ''" hidden />
     
             <div id="file_upload_div" class="information">
                 <i class="fa fa-upload" aria-hidden="true"></i>
                 <label>File</label>
-                <input type="file" (change)="onFileSelected($event)" style="cursor:pointer;" formControlName="file" required class="textB" name="file" id="file">
+                <input type="file"  (change)="onFileSelected($event)" style="cursor:pointer;" formControlName="file" required class="textB" name="file" id="file">
             </div>
+
+            <div id="image_upload_div" class="information">
+                <i class="fa fa-file-image" aria-hidden="true"></i>
+                <label>Image</label>
+                <input type="file"  (change)="onImageSelected($event)" style="cursor:pointer;" formControlName="images" class="textB" name="image" id="image" multiple>
+                <div class="information">
+                    <label style=" width: 100%;">Selected Images:</label>
+                    <div class="image-container">
+                        <div *ngFor="let imageUrl of imageUrls">
+                            <img [src]="imageUrl" alt="Selected Image" style="max-width: 20em;" class="thumbnail">
+                        </div>
+                    </div>
+                </div>               
+            </div>
+
         </form>
     </div>
 

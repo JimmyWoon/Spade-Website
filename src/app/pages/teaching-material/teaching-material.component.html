@@ -19,12 +19,23 @@
                 <div class="information" style="position:relative;" *ngFor="let item of displayedMaterials">
                     <i class="fa fa-book" aria-hidden="true"></i>
                     <Label> {{item.material_title}} </Label>
-                    <div class="textB box">
-                        <label class="material_info">Field: {{item.material_subject}}</label>
-                        <label class="material_info" style="font-style:italic;">By: {{item.username}}</label>
-                        <label class="material_info">Register Date: {{item.date_added?.toDate() | date:'short'}}</label>
-                        <label class="material_info">{{item.material_description}}</label>
-                        <label style="cursor: pointer; color: var(--first-color);" (click)="download(item.id!)">{{item.material_file_name}}</label>
+                    <div class="textB material_information">
+                        <div class="label_div box">
+                            <label class="material_info">Field: {{item.material_subject}}</label>
+                            <label class="material_info" style="font-style:italic;">By: {{item.username}}</label>
+                            <label class="material_info">Register Date: {{item.date_added?.toDate() | date:'short'}}</label>
+                            <label class="material_info">Visibility: {{item.exposure ? 'Public' : 'Private' }}</label>
+                            <br>
+                            <label class="material_info">{{item.material_description}}</label>
+    
+                            <label style="cursor: pointer; color: var(--first-color);" (click)="download(item.id!)">{{item.material_file_name}}</label>
+                        </div>
+                        <div class="img_div" >
+                            <!-- Iterate through the thumbnails for each material -->
+                            <div  *ngFor="let imageUrl of item.thumbnail">
+                                <img [src]="imageUrl" alt="Selected Image" style="height: 200px; width: 200px; object-fit: cover;" class="thumbnail">
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="pagination">

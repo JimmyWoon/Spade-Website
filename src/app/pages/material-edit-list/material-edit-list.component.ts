@@ -21,7 +21,7 @@ export class MaterialEditListComponent {
   formGroup: FormGroup;
   materialParam :string | null = null;
 
-  perPage: number = 1; 
+  perPage: number = 5; 
   currentPage: number = 1;
   startIndex = (this.currentPage - 1) * this.perPage;
   endIndex = this.currentPage * this.perPage;
@@ -34,33 +34,29 @@ export class MaterialEditListComponent {
     }
     if(this.user_information.data.role == "Student" || this.user_information == null){
       window.location.href='/';
+      
     }
-    this.formGroup = this.formBuilder.group({
-      subject : ['',Validators.required],
-      title : ['',Validators.required],
-      file: [null, Validators.required],
-      id: [''],
-      description: ['']
-    })
+    this.formGroup = this.formBuilder.group({})
   }
   ngOnInit(): void {
     this.materialParam = this.user_information.id;
     if (this.materialParam === null){
       window.location.href='/material-list';
     }
-    this.fireAuth.signInWithEmailAndPassword(
-      this.user_information.data.email ,
-      this.user_information.data.password
-    ).then(() => {
-      this.materialService.getSelfMaterials(this.materialParam!).subscribe((materials:IMaterial[]) => {
-        this.material_list = materials;
-        this.displayedMaterials = this.material_list.slice(this.startIndex, this.endIndex);
+    try{
+      this.fireAuth.signInWithEmailAndPassword(
+        this.user_information.data.email ,
+        this.user_information.data.password
+      );
+    }catch{
+      window.location.href="/material-list";
+    }
 
-      })
+    this.materialService.getSelfMaterials(this.materialParam!).subscribe((materials:IMaterial[]) => {
+      this.material_list = materials;
+      this.displayedMaterials = this.material_list.slice(this.startIndex, this.endIndex);
     })
-    .catch((err)=>{
-      console.error(err);
-    });
+
 
   }
   previousPage() {
@@ -106,11 +102,6 @@ export class MaterialEditListComponent {
       if (checkbox.checked) {
         changes = true;
         try {
-          await this.fireAuth.signInWithEmailAndPassword(
-            this.user_information.data.email ,
-            this.user_information.data.password
-          );
-  
           const documentRef = this.firestore.collection('teaching-material').doc(checkbox.value);
           await documentRef.update({ 'date_deleted': new Date() });
         } catch (error) {

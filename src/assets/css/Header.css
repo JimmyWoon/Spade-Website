@@ -42,7 +42,11 @@
     cursor: pointer;
   }
   
-  @media screen and (max-width: 900px){
+  @media screen and (max-width: 1000px){
+    nav{
+      padding-bottom: 10px;
+
+    }
     .navMenu{
       position: fixed;
       background-color: #fff;
@@ -79,7 +83,7 @@
   }
 
   .navItem a{
-    text-decoration: none;
+    text-decoration: none !important;
   }
 
 
@@ -216,13 +220,13 @@
     object-fit: cover;
   }
 
-@media screen and (max-width: 800px) {
+@media screen and (max-width: 1000px) {
 
     .reverseinviItem {
         display: none;
     }
 }
-    @media screen and (min-width:900px) {
+    @media screen and (min-width:1000px) {
         .nav {
             column-gap: 3rem;
         }
@@ -252,3 +256,4 @@
             right: 10%;
         }
     }
+

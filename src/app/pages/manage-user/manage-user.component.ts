@@ -16,13 +16,17 @@ export class ManageUserComponent{
   formGroup: FormGroup;
   user_information:any = null;
 
-  pageSize = 2; // Adjust as needed
+  pageSize = 5; // Adjust as needed
   currentPage = 1;
   totalDocuments = 0;
 
   data:IUser[] = [];
-  selectedUsers: any[] = [];
-
+  changed_user:IUser[] = [];
+  role: string = "";
+  buttonClass:string = 'btn btn-primary';
+  buttondataBsToggle:string ='';
+  isButtonGroupDisabled:boolean = true;
+  
   constructor(private router: Router,private formBuilder:FormBuilder,private fireAuth: AngularFireAuth,private firestore: AngularFirestore,private pagingService: PagingService,private el: ElementRef, private renderer: Renderer2){
     if (sessionStorage.getItem('user') !== null){
       const sessionData = JSON.parse(sessionStorage.getItem('user')!);
@@ -37,32 +41,40 @@ export class ManageUserComponent{
       new_password: ['']
     })
   }
+  updateButtonText(item:IUser,selectedText: string): void {
+    item.role = selectedText;
+    this.changed_user.push(item);
+  }
 
   ngOnInit() {
+    try{
+      this.fireAuth.signInWithEmailAndPassword(
+        this.user_information.data.email ,
+        this.user_information.data.password
+      );
+    }catch{
+      window.location.href="/profile";
+    }
     this.loadData();
     this.getTotalDocumentCount();
   }
 
 
   loadData() {
-    this.fireAuth.signInWithEmailAndPassword(
-      this.user_information.data.email ,
-      this.user_information.data.password
-    ).then( () => {
-      this.pagingService
-      .getDataWithPagination('user', this.pageSize, this.currentPage, this.user_information.id)
-      .subscribe({
-        next:(data) =>{
-            this.data = [];
-            const startIndex = (this.currentPage-1)*this.pageSize;
-            const endIndex = startIndex + this.pageSize;
-            this.data = data.slice(startIndex, endIndex);
-        },
-        error: (error) => {
-          console.error("Error",error);
-        }
-      });
+    this.pagingService
+    .getDataWithPagination('user', this.pageSize, this.currentPage, this.user_information.id)
+    .subscribe({
+      next:(data) =>{
+          this.data = [];
+          const startIndex = (this.currentPage-1)*this.pageSize;
+          const endIndex = startIndex + this.pageSize;
+          this.data = data.slice(startIndex, endIndex);
+      },
+      error: (error) => {
+        console.error("Error",error);
+      }
     });
+
  
   }
   goToPage(pageNumber: number) {
@@ -71,16 +83,9 @@ export class ManageUserComponent{
   }
   
   getTotalDocumentCount() {
-    this.fireAuth.signInWithEmailAndPassword(
-      this.user_information.data.email ,
-      this.user_information.data.password
-    ).then( () => {    
       this.pagingService.filterDocumentsWithId('user',this.user_information.id).subscribe((count) => {
-      this.totalDocuments = count;
+        this.totalDocuments = count;
       });
-    });
-
-  
   }
 
   getPageNumbers(): number[] {
@@ -91,26 +96,32 @@ export class ManageUserComponent{
 
   async submit(){
     const checkboxes = this.el.nativeElement.querySelectorAll('.checkbox');
-    var changes = false;
-    for (const checkbox of checkboxes) {
-      if (checkbox.checked) {
-        changes = true;
-        try {
-          await this.fireAuth.signInWithEmailAndPassword(
-            this.user_information.data.email ,
-            this.user_information.data.password
-          );
-  
-          const documentRef = this.firestore.collection('user').doc(checkbox.value);
-          await documentRef.update({ 'date_deleted': new Date() });
-        } catch (error) {
-          console.error('Error updating document:', error);
+    var changes : boolean= false;
+
+    try{
+      for (const checkbox of checkboxes) {
+        if (checkbox.checked) {
+          changes = true;
+          this.firestore.collection('user').doc(checkbox.value).update({'date_deleted': new Date()});
+
         }
       }
+      
+      for (var user of this.changed_user){
+        changes = true;
+        console.log(user);
+        this.firestore.collection("user").doc(user.id).update({'date_updated': new Date(), 'role':user.role});
+      }
+    }catch{
+
     }
-    if (changes){    
+    
+    
+    
+    if (changes){
       window.location.href = '/manage-user';    
     }
+
   }
 
   editClick(){
@@ -127,6 +138,10 @@ export class ManageUserComponent{
       delete_btn[i].classList.remove('hidden');
       delete_btn[i].classList.add('show');
     }
+
+    this.buttonClass = 'btn btn-primary dropdown-toggle';
+    this.buttondataBsToggle ='dropdown';
+    this.isButtonGroupDisabled = false;
   }
   cancelClick(){
     const saveBtn = this.el.nativeElement.querySelector('#saveBtn');
@@ -155,6 +170,9 @@ export class ManageUserComponent{
       elements.forEach(function (element) {
           element.classList.remove('selected-div');
       });
+    this.buttonClass = 'btn btn-primary';
+    this.buttondataBsToggle ='';
+    this.isButtonGroupDisabled = true;
   }
 
   trashClick(){

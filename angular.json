@@ -96,12 +96,15 @@
             "inlineStyleLanguage": "scss",
             "assets": [
               "src/favicon.png",
-              "src/assets"
+              "src/assets",
+              "src/assets/script"
             ],
             "styles": [
               "src/styles.scss"
             ],
-            "scripts": []
+            "scripts": [
+              "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"
+            ]
           }
         }
       }

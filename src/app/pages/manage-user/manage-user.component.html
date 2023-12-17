@@ -1,10 +1,13 @@
 <link rel="stylesheet" href="/assets/css/ManageUser.css">
 <link rel="stylesheet" href="/assets/css/Global.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+
+
+
 <body>
 <div class="mainContainer">
-    <div style="display:flex;justify-content:space-between;">
-        <a [ngClass]="{'firstButton': true}" routerLink="/email-verification">Add</a>
+    <div style="display:flex;justify-content: flex-end;">
+        <!-- <a [ngClass]="{'firstButton': true}" routerLink="/email-verification">Add</a> -->
 
         <div *ngIf="data.length > 0">
             <div style="display:flex; justify-content:flex-end;">
@@ -30,8 +33,30 @@
                     <i class="fa fa-user" aria-hidden="true"></i>
                     <Label> {{item.username}} </Label>
                     <i id="{{item.id}}" (click)="trashClick()" class="fa fa-trash hidden" style="cursor:pointer; position: absolute;top: 15px;right: 15px;" aria-hidden="true"></i>
-                    <label class="textB">Role: {{item.role}}</label>
+                    <!-- <label class="textB">Role: {{item.role}} -->
+                        <div class="textB">
+                            <div class="btn-group " role="group">
+                                <button id="dropdownButton"  [innerText]="item.role" type="button"  
+                                    [class]="buttonClass"
+                                    [attr.data-bs-toggle]="buttondataBsToggle"
+                                    [attr.disabled]="isButtonGroupDisabled ? true : null"
+                                    aria-expanded="false" style="display: block; background-color: var(--first-color); border-color: var(--second-color); border-radius: 5px;">
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li><label class="dropdown-item" (click)="updateButtonText(item,'Admin')">Admin</label></li>
+                                    <li><label class="dropdown-item" (click)="updateButtonText(item,'Teacher')">Teacher</label></li>      
+                                    <li><label class="dropdown-item" (click)="updateButtonText(item,'Student')">Student</label></li>
+                                </ul>
+                              </div>
+                        </div>
+                        
+                    <!-- </label> -->
                     <label class="textB">Email: {{item.email}}</label>
+                    <label class="textB">First Name: {{item.first_name}}</label>
+                    <label class="textB">Last Name: {{item.last_name}}</label>
+                    <label class="textB">DOB:  {{item.dob!.toDate() | date:'dd/MM/yyyy'}}</label>
+                    <label class="textB">{{item.country}} - {{item.state}} </label>
+
                     <label class="textB">Register Date: {{item.date_added.toDate() | date:'short'}}</label>
                     <input type="checkbox"  hidden value="{{item.id}}" class="checkbox" id="{{item.id}}" name="selectedCheckboxes">
                 </div>

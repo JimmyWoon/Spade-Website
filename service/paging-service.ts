@@ -1,4 +1,5 @@
 // firestore.service.ts
+import { state } from '@angular/animations';
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Observable, map, switchMap } from 'rxjs';
@@ -39,10 +40,15 @@ export class PagingService {
               const date_added = data.date_added;
               const email = data.email;
               const verified = data.verified;
+              const first_name = data.first_name;
+              const last_name = data.last_name;
+              const dob =data.dob;
+              const country = data.country;
+              const state = data.state;
               // if(){
               //   return null
               // }
-              return { id, username,role,date_added,email,verified }as IUser;
+              return { id, username,role,date_added,email,verified, first_name,last_name,country,state,dob }as IUser;
             })
         )
       );

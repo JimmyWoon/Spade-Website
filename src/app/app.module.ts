@@ -35,6 +35,7 @@ import { ResetPasswordComponent } from './pages/reset-password/reset-password.co
 import { MaterialEditComponent } from './pages/material-edit/material-edit.component';
 import { MaterialEditListComponent } from './pages/material-edit-list/material-edit-list.component';
 import { AboutComponent } from './pages/about/about.component';
+import { DatePipe } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -73,7 +74,7 @@ import { AboutComponent } from './pages/about/about.component';
     AngularFireModule.initializeApp(environment.firebase),
     HttpClientModule,
   ],
-  providers: [UserService],
+  providers: [UserService,DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

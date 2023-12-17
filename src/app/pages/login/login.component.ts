@@ -6,12 +6,16 @@ import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { user } from 'firebase-functions/v1/auth';
 import { CookieService } from 'ngx-cookie-service';
+import { Timestamp } from '@firebase/firestore-types';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
+
+
+
 export class LoginComponent implements OnInit  {
   msg: String = '';
   formGroup: FormGroup;
@@ -25,8 +29,14 @@ export class LoginComponent implements OnInit  {
   password : string  = '';
   username : string = '';
   uid : string = '';
+  dob: Date|undefined = undefined;
+  first_name:string = "";
+  last_name :string ="";
+  country :string ="";
+  state :string = "";
 
 
+  
   constructor(private cookieService: CookieService,private router: Router, private formBuilder: FormBuilder,private firestore: AngularFirestore, private fireAuth: AngularFireAuth, private userService: UserService) {
     
     if (sessionStorage.getItem('msg') !== null) {
@@ -53,11 +63,22 @@ export class LoginComponent implements OnInit  {
           this.username =    this.cookieService.get('newuser-username') || '';
           this.uid =    this.cookieService.get('newuser-uid') || '';
 
+          this.first_name = this.cookieService.get('newuser-first-name');  
+          this.last_name = this.cookieService.get('newuser-last-name');          
+          this.dob = new Date(this.cookieService.get('newuser-dob'));  
+          this.state = this.cookieService.get('newuser-state');  
+          this.country = this.cookieService.get('newuser-country');  
+
+
+
           this.cookieService.delete('newuser-email');
           this.cookieService.delete('newuser-password');
           this.cookieService.delete('newuser-username');
-          this.cookieService.delete('newuser-uid');
-
+          this.cookieService.delete('newuser-first-name');
+          this.cookieService.delete('newuser-last-name');        
+          this.cookieService.delete('newuser-dob');        
+          this.cookieService.delete('newuser-country');
+          this.cookieService.delete('newuser-state');
           if (this.username !==  '' || this.email !== '' || this.password !== '' || this.uid !== ''){
             // Email verified successfully.
 
@@ -69,6 +90,11 @@ export class LoginComponent implements OnInit  {
               date_added: new Date(),
               date_upadated: new Date(),
               date_deleted: null,
+              country:this.country,
+              state:this.state,
+              dob: this.dob,
+              first_name:this.first_name,
+              last_name: this.last_name,
               uid: this.uid
             }
 

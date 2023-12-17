@@ -85,8 +85,8 @@ export class ResetPasswordComponent {
 
         }else{
           this.msg='Password must be at least 6 characters long.';
-        passControl?.setValue('');
-        pass_confirmControl?.setValue('');
+          passControl?.setValue('');
+          pass_confirmControl?.setValue('');
         }
       }else{
         this.msg='Password not match.';

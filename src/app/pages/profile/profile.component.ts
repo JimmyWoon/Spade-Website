@@ -5,6 +5,7 @@ import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { getStorage, ref, uploadBytes } from 'firebase/storage';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { CookieService } from 'ngx-cookie-service';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-profile',
@@ -22,20 +23,24 @@ export class ProfileComponent implements OnInit{
   @ViewChild('fileInput') fileInput: ElementRef | undefined;
 
 
-  constructor(private cookieService: CookieService,private firestore: AngularFirestore, private storage: AngularFireStorage,private fireAuth: AngularFireAuth, private formBuilder:FormBuilder,private el: ElementRef, private renderer: Renderer2){    
+  constructor(private datePipe : DatePipe, private cookieService: CookieService,private firestore: AngularFirestore, private storage: AngularFireStorage,private fireAuth: AngularFireAuth, private formBuilder:FormBuilder,private el: ElementRef, private renderer: Renderer2){    
     if (sessionStorage.getItem('user') !== null){
       const sessionData = JSON.parse(sessionStorage.getItem('user')!);
       this.user_information = sessionData;
     }
     this.formGroup = this.formBuilder.group({
       username: [this.user_information.data?.username,[Validators.required]],
-      old_password: [''],
-      new_password: [''],
     })
     this.formGroup.controls['username'].disable();
   }
 
   async ngOnInit() {
+    if (this.user_information.data.dob !== null){
+      const milliseconds = this.user_information.data.dob.seconds * 1000 + Math.floor(this.user_information.data.dob.nanoseconds / 1e6);
+      const dateObject = new Date(milliseconds);
+      this.user_information.data.dob = this.datePipe.transform(dateObject, 'dd/MM/yyyy') || '';
+    }
+
     if (this.user_information.data.profile_picture !== undefined){
       const imagePath = this.user_information.data.profile_picture; // Replace with your image path
     
@@ -87,11 +92,11 @@ export class ProfileComponent implements OnInit{
 
 
     this.formGroup.controls['username'].disable();
-    this.formGroup.controls['old_password'].disable();
-    this.formGroup.controls['new_password'].disable();
+    // this.formGroup.controls['old_password'].disable();
+    // this.formGroup.controls['new_password'].disable();
     this.formGroup.controls['username'].setValue(this.user_information.data?.username);
-    this.formGroup.controls['old_password'].setValue('');
-    this.formGroup.controls['new_password'].setValue('');
+    // this.formGroup.controls['old_password'].setValue('');
+    // this.formGroup.controls['new_password'].setValue('');
   }
 
   passwordClick(){
@@ -112,8 +117,8 @@ export class ProfileComponent implements OnInit{
     this.renderer.setStyle(editBtn, 'display', 'inline-block');
 
 
-    this.formGroup.controls['old_password'].enable();
-    this.formGroup.controls['new_password'].enable();
+    // this.formGroup.controls['old_password'].enable();
+    // this.formGroup.controls['new_password'].enable();
     // this.renderer.removeClass(old_password_div, 'hidden');
     // this.renderer.removeClass(new_password_div, 'hidden');
 
@@ -127,8 +132,8 @@ export class ProfileComponent implements OnInit{
 
   async submit(){
     const username = this.formGroup.controls['username'].value;
-    const old_password = this.formGroup.controls['old_password'].value;
-    const new_password = this.formGroup.controls['new_password'].value;
+    // const old_password = this.formGroup.controls['old_password'].value;
+    // const new_password = this.formGroup.controls['new_password'].value;
 
     
     // check name have exist
@@ -159,7 +164,7 @@ export class ProfileComponent implements OnInit{
         if (existed){
           this.msg='Username exist.';
         }else{
-          if(old_password === "" && new_password === ""){
+          // if(old_password === "" && new_password === ""){
             try {
               const documentRef = this.firestore.collection('user').doc(this.user_information.id);
               await documentRef.update({ 'username': username, 'date_updated': new Date() });
@@ -196,53 +201,53 @@ export class ProfileComponent implements OnInit{
               console.error('Error updating document:', error);
             }
           
-          }else{
+          // }else{
     
-            if(this.user_information.data?.password === old_password ){
-              try {
-                const documentRef = this.firestore.collection('user').doc(this.user_information.id);
-                await documentRef.update({ 'username': username, 'password': new_password, 'date_updated': new Date() });
-                this.user_information.data.username = username;
-                this.user_information.data.password = new_password;
+            // if(this.user_information.data?.password === old_password ){
+            //   try {
+            //     const documentRef = this.firestore.collection('user').doc(this.user_information.id);
+            //     await documentRef.update({ 'username': username, 'password': new_password, 'date_updated': new Date() });
+            //     this.user_information.data.username = username;
+            //     this.user_information.data.password = new_password;
     
-                this.user_information.data.date_updated = new Date();
-                // Add the file upload logic here
-                if (this.profilePicture !== null) {
-                  const storage = getStorage();
-                  const uniqueID =   this.generateRandomId(10);
-                  const storageRef = ref(storage, `profile-picture/${uniqueID}`);
-                  const uploadTask = uploadBytes(storageRef, this.profilePicture!);
+            //     this.user_information.data.date_updated = new Date();
+            //     // Add the file upload logic here
+            //     if (this.profilePicture !== null) {
+            //       const storage = getStorage();
+            //       const uniqueID =   this.generateRandomId(10);
+            //       const storageRef = ref(storage, `profile-picture/${uniqueID}`);
+            //       const uploadTask = uploadBytes(storageRef, this.profilePicture!);
 
-                  await uploadTask.then((s) => {
-                    if (this.user_information.data.profile_picture !== undefined){
-                      const storageRef = this.storage.ref(this.user_information.data.profile_picture);
-                      storageRef.delete();
-                    }
+            //       await uploadTask.then((s) => {
+            //         if (this.user_information.data.profile_picture !== undefined){
+            //           const storageRef = this.storage.ref(this.user_information.data.profile_picture);
+            //           storageRef.delete();
+            //         }
 
-                    documentRef.update({ 'profile_picture': s.metadata.fullPath, 'date_updated': new Date() , 'profile_name':this.profilePicture?.name, 'profile_filetype': this.profilePicture?.type});
-                    this.user_information.data.profile_picture = s.metadata.fullPath;
-                    this.user_information.data.profile_name = this.profilePicture?.name;
-                    this.user_information.data.profile_filetype = this.profilePicture?.type;
-                    this.user_information.data.date_updated = new Date();
-                    sessionStorage.setItem('user',JSON.stringify(this.user_information) );
+            //         documentRef.update({ 'profile_picture': s.metadata.fullPath, 'date_updated': new Date() , 'profile_name':this.profilePicture?.name, 'profile_filetype': this.profilePicture?.type});
+            //         this.user_information.data.profile_picture = s.metadata.fullPath;
+            //         this.user_information.data.profile_name = this.profilePicture?.name;
+            //         this.user_information.data.profile_filetype = this.profilePicture?.type;
+            //         this.user_information.data.date_updated = new Date();
+            //         sessionStorage.setItem('user',JSON.stringify(this.user_information) );
 
-                  });
-                }
-                sessionStorage.setItem('user',JSON.stringify(this.user_information));
-                window.location.href='/profile';
+            //       });
+            //     }
+            //     sessionStorage.setItem('user',JSON.stringify(this.user_information));
+            //     window.location.href='/profile';
   
-              } catch (error) {
-                console.error('Error updating document with password:', error);
-              }
+            //   } catch (error) {
+            //     console.error('Error updating document with password:', error);
+            //   }
       
-            }else{
-              this.msg = 'Incorrect';
-              this.formGroup.controls['username'].setValue(this.user_information.data?.username);
-              this.formGroup.controls['old_password'].setValue('');
-              this.formGroup.controls['new_password'].setValue('');
-              this.cancelClick()
-            }
-          }
+            // }else{
+            //   this.msg = 'Incorrect';
+            //   this.formGroup.controls['username'].setValue(this.user_information.data?.username);
+            //   this.formGroup.controls['old_password'].setValue('');
+            //   this.formGroup.controls['new_password'].setValue('');
+            //   this.cancelClick()
+            // }
+          // }
         }
     });  
  

@@ -27,8 +27,8 @@ export class DownloadComponent implements OnInit {
 
   ngOnInit(){
     this.fireAuth.signInWithEmailAndPassword(
-      this.user_information.data.email ,
-      this.user_information.data.password
+      'jimmyechunwoon@gmail.com' ,
+      '987654'
     ).then(() => {
 
       this.firestore.collection('spade', ref => ref.orderBy('date_added', 'desc').limit(1))
@@ -57,8 +57,8 @@ export class DownloadComponent implements OnInit {
     const filePath = "spade/19g6f1hcrtu";
 
     this.fireAuth.signInWithEmailAndPassword(
-      this.user_information.data.email ,
-      this.user_information.data.password
+      'jimmyechunwoon@gmail.com' ,
+      '987654'
     ).then(async (userCredential) => {
 
       const filePath = this.spadeData.fullPath;

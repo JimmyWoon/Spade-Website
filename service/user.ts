@@ -18,8 +18,9 @@ export class UserService {
       .then((querySnapshot) =>{
         if (!querySnapshot.empty){
             const userData:any = [];
-
+            
             querySnapshot.forEach((doc)=>{
+   
               userData.push({ id: doc.id, data: doc.data() });
             })
             return userData;
