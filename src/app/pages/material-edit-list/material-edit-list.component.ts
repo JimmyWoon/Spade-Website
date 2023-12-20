@@ -38,7 +38,7 @@ export class MaterialEditListComponent {
     }
     this.formGroup = this.formBuilder.group({})
   }
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
     this.materialParam = this.user_information.id;
     if (this.materialParam === null){
       window.location.href='/material-list';
@@ -52,7 +52,7 @@ export class MaterialEditListComponent {
       window.location.href="/material-list";
     }
 
-    this.materialService.getSelfMaterials(this.materialParam!).subscribe((materials:IMaterial[]) => {
+    this.materialService.getSelfMaterials(this.materialParam!).subscribe((materials: IMaterial[]) => {
       this.material_list = materials;
       this.displayedMaterials = this.material_list.slice(this.startIndex, this.endIndex);
     })
@@ -135,6 +135,9 @@ export class MaterialEditListComponent {
       pencil_btn[i].classList.remove('hidden');
       pencil_btn[i].classList.add('show');
     }
+
+    this.trashClick();
+
   }
   cancelClick(){
     const saveBtn = this.el.nativeElement.querySelector('#saveBtn');
@@ -173,6 +176,7 @@ export class MaterialEditListComponent {
 
     trashButtons.forEach((trashBtn: HTMLInputElement) => {
       trashBtn.addEventListener('click', (event:Event) => {
+
         // Find the parent div of the clicked trash button
         const targetElement = event.target as Element;
 

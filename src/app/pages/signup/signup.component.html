@@ -300,7 +300,7 @@
     <div class="signupContent">
         <img src="/assets/image/spade-bg-create_user.png" alt="login image" class="signupImg">
 
-        <form [formGroup]="formGroup" (ngSubmit)="submit()" class="signupForm">
+        <form [formGroup]="formGroup" (ngSubmit)="submit()" class="signupForm" style="z-index: 9;">
             <div>
                 <h1 class="loginTitle">
                     <span>Register</span> Account
@@ -378,7 +378,7 @@
                     </div>
                     <div class="inputContainer">
                         <Label for="dob" class="loginLabel">Date Of Birth</Label>
-                        <input type="date" name="dob" formControlName="dob" placeholder="Enter DOB" value="" class="loginInput" required>
+                        <input type="date" name="dob" formControlName="dob"  value="" class="loginInput" required>
                     </div>
                     <div class="inputContainer">
                         <Label class="loginLabel">Country/State</Label>

@@ -1,0 +1,15 @@
+[debug] [2023-12-18T13:33:45.366Z] ----------------------------------------------------------------------
+[debug] [2023-12-18T13:33:45.370Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\acer\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js functions:shell
+[debug] [2023-12-18T13:33:45.370Z] CLI Version:   12.8.1
+[debug] [2023-12-18T13:33:45.371Z] Platform:      win32
+[debug] [2023-12-18T13:33:45.371Z] Node Version:  v16.17.0
+[debug] [2023-12-18T13:33:45.373Z] Time:          Mon Dec 18 2023 21:33:45 GMT+0800 (Malaysia Time)
+[debug] [2023-12-18T13:33:45.373Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2023-12-18T13:33:45.493Z] Object "" in "firebase.json" has unknown property: {"additionalProperty":"projects"}
+[debug] [2023-12-18T13:33:45.501Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2023-12-18T13:33:45.502Z] > authorizing via signed-in user (jimmyechunwoon@gmail.com)
+[debug] [2023-12-18T13:33:45.502Z] [iam] checking project colus-website for permissions ["firebase.projects.get"]
+[debug] [2023-12-18T13:33:45.506Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/colus-website:testIamPermissions [none]
+[debug] [2023-12-18T13:33:45.506Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/colus-website:testIamPermissions x-goog-quota-user=projects/colus-website
+[debug] [2023-12-18T13:33:45.507Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/colus-website:testIamPermissions {"permissions":["firebase.projects.get"]}

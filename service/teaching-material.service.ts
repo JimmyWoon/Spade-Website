@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { user } from 'firebase-functions/v1/auth';
 import { combineLatest, Observable, of } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 import { IMaterial } from 'src/app/models/material.model';
@@ -62,6 +63,7 @@ import { IMaterial } from 'src/app/models/material.model';
                 
                 return combineLatest([username$]).pipe(
                   map(([username]) => {
+                    console.log(username);
                     return { id, username, exposure:data.exposure ,fullPath:data.fullPath, date_added:data.date_updated,  material_description:data.material_description, material_file_name:data.material_filename, material_subject:data.material_subject,material_title:data.material_title, thumbnail:thumbnails} as IMaterial;
                   })
                 );

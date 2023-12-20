@@ -99,24 +99,48 @@ export class ManageUserComponent{
     var changes : boolean= false;
 
     try{
+      const updatePromises: any[] = [];
+
       for (const checkbox of checkboxes) {
         if (checkbox.checked) {
           changes = true;
-          this.firestore.collection('user').doc(checkbox.value).update({'date_deleted': new Date()});
+          //this.firestore.collection('user').doc(checkbox.value).update({'date_deleted': new Date()});
+          const userUpdatePromise = this.firestore.collection('user').doc(checkbox.value).update({ 'date_deleted': new Date() });
+          updatePromises.push(userUpdatePromise);
+          
+          // Update spade collection
+          const spadeCollection = this.firestore.collection('spade');
+          const query = spadeCollection.ref.where('user_id', '==', checkbox.value);
+          const spadeSnapshot = await query.get();
+          spadeSnapshot.forEach((doc) => {
+            const spadeUpdatePromise = spadeCollection.doc(doc.id).update({ date_deleted: new Date() });
+            updatePromises.push(spadeUpdatePromise);
+          });
 
+
+          // Update teaching-material collection
+          const materialCollection = this.firestore.collection('teaching-material');
+          const materialQuery = materialCollection.ref.where('user_id', '==', checkbox.value);
+          const materialSnapshot = await materialQuery.get();
+          materialSnapshot.forEach((doc) => {
+            const materialUpdatePromise = materialCollection.doc(doc.id).update({ date_deleted: new Date() });
+            updatePromises.push(materialUpdatePromise);
+          });
         }
       }
       
       for (var user of this.changed_user){
         changes = true;
-        console.log(user);
-        this.firestore.collection("user").doc(user.id).update({'date_updated': new Date(), 'role':user.role});
+        const userUpdatePromise = this.firestore.collection("user").doc(user.id).update({ 'date_updated': new Date(), 'role': user.role });
+        updatePromises.push(userUpdatePromise);
+
       }
+
+      await Promise.all(updatePromises);
+
     }catch{
 
     }
-    
-    
     
     if (changes){
       window.location.href = '/manage-user';    
@@ -142,6 +166,8 @@ export class ManageUserComponent{
     this.buttonClass = 'btn btn-primary dropdown-toggle';
     this.buttondataBsToggle ='dropdown';
     this.isButtonGroupDisabled = false;
+    this.trashClick();
+
   }
   cancelClick(){
     const saveBtn = this.el.nativeElement.querySelector('#saveBtn');
