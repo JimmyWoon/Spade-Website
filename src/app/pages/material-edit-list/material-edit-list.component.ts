@@ -26,6 +26,7 @@ export class MaterialEditListComponent {
   startIndex = (this.currentPage - 1) * this.perPage;
   endIndex = this.currentPage * this.perPage;
   displayedMaterials: IMaterial[] = [];
+  isDataLoaded: boolean = false;
 
   constructor(private el: ElementRef, private renderer: Renderer2,private materialService: MaterialService,private fireAuth: AngularFireAuth,private formBuilder: FormBuilder,private fileUploadService: FileUploadService,private storage: AngularFireStorage,private firestore: AngularFirestore){
     if (sessionStorage.getItem('user') !== null) {
@@ -37,6 +38,10 @@ export class MaterialEditListComponent {
       
     }
     this.formGroup = this.formBuilder.group({})
+  }
+ onImageLoad() {
+    // Image has loaded, set the flag to true
+    this.isDataLoaded = true;
   }
   async ngOnInit(): Promise<void> {
     this.materialParam = this.user_information.id;
@@ -52,7 +57,7 @@ export class MaterialEditListComponent {
       window.location.href="/material-list";
     }
 
-    this.materialService.getSelfMaterials(this.materialParam!).subscribe((materials: IMaterial[]) => {
+    this.materialService.getSelfMaterials(this.materialParam!, this.user_information.data.role).subscribe((materials: IMaterial[]) => {
       this.material_list = materials;
       this.displayedMaterials = this.material_list.slice(this.startIndex, this.endIndex);
     })

@@ -36,9 +36,11 @@ export class ProfileComponent implements OnInit{
 
   async ngOnInit() {
     if (this.user_information.data.dob !== null){
-      const milliseconds = this.user_information.data.dob.seconds * 1000 + Math.floor(this.user_information.data.dob.nanoseconds / 1e6);
-      const dateObject = new Date(milliseconds);
-      this.user_information.data.dob = this.datePipe.transform(dateObject, 'dd/MM/yyyy') || '';
+      if ( typeof this.user_information.data.dob !== 'string'){
+        const milliseconds = this.user_information.data.dob.seconds * 1000 + Math.floor(this.user_information.data.dob.nanoseconds / 1e6);
+        const dateObject = new Date(milliseconds);
+        this.user_information.data.dob = this.datePipe.transform(dateObject, 'dd/MM/yyyy') || '';
+      }
     }
 
     if (this.user_information.data.profile_picture !== undefined){
@@ -131,126 +133,79 @@ export class ProfileComponent implements OnInit{
   }
 
   async submit(){
-    const username = this.formGroup.controls['username'].value;
-    // const old_password = this.formGroup.controls['old_password'].value;
-    // const new_password = this.formGroup.controls['new_password'].value;
+    try{
+      const username = this.formGroup.controls['username'].value;
+      // check name have exist
+      const collectionRef = this.firestore.collection('user');
+      const query = collectionRef.ref
+      .where('username', '==', username)
+      .where('__name__', '!=', this.user_information.id)
+      .where('date_deleted', '==', 'null');
 
-    
-    // check name have exist
-    const collectionRef = this.firestore.collection('user');
-    const query = collectionRef.ref
-    .where('username', '==', username)
-    .where('__name__', '!=', this.user_information.id)
-    .where('date_deleted', '==', 'null');
+      let existed = false;
 
-    let existed = false;
-    
-
-    this.fireAuth.signInWithEmailAndPassword(
-      this.user_information.data.email ,
-      this.user_information.data.password
-    ).then(async () => {
-        try {
-          const querySnapshot = await query.get();
-      
-          if (!querySnapshot.empty) {
-            existed = true;
+      await this.fireAuth.signInWithEmailAndPassword(
+        this.user_information.data.email,
+        this.user_information.data.password
+      );
+      try {
+        const querySnapshot = await query.get();
+  
+        if (!querySnapshot.empty) {
+          existed = true;
+        }
+      } catch (error) {
+        this.msg = "Error";
+        console.error('Error querying Firestore:', error);
+      }
+  
+      if (existed) {
+        this.msg = 'Username exists.';
+      } else {
+        const documentRef = this.firestore.collection('user').doc(this.user_information.id);
+  
+        await documentRef.update({
+          'username': username,
+          'date_updated': new Date()
+        });
+  
+        this.user_information.data.username = username;
+        this.user_information.data.date_updated = new Date();
+  
+        // Add the file upload logic here
+        if (this.profilePicture !== null) {
+          const storage = getStorage();
+          const uniqueID = this.generateRandomId(10);
+          const storageRef = ref(storage, `profile-picture/${uniqueID}`);
+          const uploadTask = uploadBytes(storageRef, this.profilePicture!);
+  
+          const uploadSnapshot = await uploadTask;
+  
+          if (this.user_information.data.profile_picture !== undefined) {
+            const storageRef = this.storage.ref(this.user_information.data.profile_picture);
+            await storageRef.delete();
           }
-        } catch (error) {
-          this.msg="Error";
-          console.error('Error querying Firestore:', error);
-        }
-      
-        if (existed){
-          this.msg='Username exist.';
-        }else{
-          // if(old_password === "" && new_password === ""){
-            try {
-              const documentRef = this.firestore.collection('user').doc(this.user_information.id);
-              await documentRef.update({ 'username': username, 'date_updated': new Date() });
-              this.user_information.data.username = username;
-              this.user_information.data.date_updated = new Date();
-
-              // Add the file upload logic here
-              if (this.profilePicture !== null) {
-                const storage = getStorage();
-                const uniqueID =   this.generateRandomId(10);
-                const storageRef = ref(storage, `profile-picture/${uniqueID}`);
-                const uploadTask = uploadBytes(storageRef, this.profilePicture!);
-
-                await uploadTask.then((s) => {
-                  if (this.user_information.data.profile_picture !== undefined){
-                    const storageRef = this.storage.ref(this.user_information.data.profile_picture);
-                    storageRef.delete();
-                  }
-                  
-
-                  documentRef.update({ 'profile_picture': s.metadata.fullPath, 'date_updated': new Date() , 'profile_name':this.profilePicture?.name, 'profile_filetype': this.profilePicture?.type});
-                  this.user_information.data.profile_picture = s.metadata.fullPath;
-                  this.user_information.data.profile_name = this.profilePicture?.name;
-                  this.user_information.data.profile_filetype = this.profilePicture?.type;
-                  this.user_information.data.date_updated = new Date();
-
-                });
-              }
-              sessionStorage.setItem('user',JSON.stringify(this.user_information) );
-
-              window.location.href='/profile';
   
-            } catch (error) {
-              console.error('Error updating document:', error);
-            }
-          
-          // }else{
-    
-            // if(this.user_information.data?.password === old_password ){
-            //   try {
-            //     const documentRef = this.firestore.collection('user').doc(this.user_information.id);
-            //     await documentRef.update({ 'username': username, 'password': new_password, 'date_updated': new Date() });
-            //     this.user_information.data.username = username;
-            //     this.user_information.data.password = new_password;
-    
-            //     this.user_information.data.date_updated = new Date();
-            //     // Add the file upload logic here
-            //     if (this.profilePicture !== null) {
-            //       const storage = getStorage();
-            //       const uniqueID =   this.generateRandomId(10);
-            //       const storageRef = ref(storage, `profile-picture/${uniqueID}`);
-            //       const uploadTask = uploadBytes(storageRef, this.profilePicture!);
-
-            //       await uploadTask.then((s) => {
-            //         if (this.user_information.data.profile_picture !== undefined){
-            //           const storageRef = this.storage.ref(this.user_information.data.profile_picture);
-            //           storageRef.delete();
-            //         }
-
-            //         documentRef.update({ 'profile_picture': s.metadata.fullPath, 'date_updated': new Date() , 'profile_name':this.profilePicture?.name, 'profile_filetype': this.profilePicture?.type});
-            //         this.user_information.data.profile_picture = s.metadata.fullPath;
-            //         this.user_information.data.profile_name = this.profilePicture?.name;
-            //         this.user_information.data.profile_filetype = this.profilePicture?.type;
-            //         this.user_information.data.date_updated = new Date();
-            //         sessionStorage.setItem('user',JSON.stringify(this.user_information) );
-
-            //       });
-            //     }
-            //     sessionStorage.setItem('user',JSON.stringify(this.user_information));
-            //     window.location.href='/profile';
+          await documentRef.update({
+            'profile_picture': uploadSnapshot.metadata.fullPath,
+            'date_updated': new Date(),
+            'profile_name': this.profilePicture?.name,
+            'profile_filetype': this.profilePicture?.type
+          });
   
-            //   } catch (error) {
-            //     console.error('Error updating document with password:', error);
-            //   }
-      
-            // }else{
-            //   this.msg = 'Incorrect';
-            //   this.formGroup.controls['username'].setValue(this.user_information.data?.username);
-            //   this.formGroup.controls['old_password'].setValue('');
-            //   this.formGroup.controls['new_password'].setValue('');
-            //   this.cancelClick()
-            // }
-          // }
+          this.user_information.data.profile_picture = uploadSnapshot.metadata.fullPath;
+          this.user_information.data.profile_name = this.profilePicture?.name;
+          this.user_information.data.profile_filetype = this.profilePicture?.type;
+          this.user_information.data.date_updated = new Date();
         }
-    });  
- 
+  
+        sessionStorage.setItem('user', JSON.stringify(this.user_information));
+        window.location.href = '/profile';
+      }
+    }catch (error){
+      
+    }
+   
   }
   generateRandomId(length:number) {
     const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';

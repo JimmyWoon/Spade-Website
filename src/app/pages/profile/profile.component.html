@@ -29,8 +29,8 @@
                 </p>
             </div>
         </div>
-        <div style="display: flex; width: 100%; position: relative; margin-top: 2em;">
-            <img [src]="selectedImage ? selectedImage : '/assets/image/user.png'" style="margin: auto;"  [ngStyle]="{ 'max-width': '100px', 'min-width': '100px' }">
+        <div style="display: flex; width: 100%; position: relative; margin-top: 2em; margin-bottom: 0.5em;">
+            <img [src]="selectedImage ? selectedImage : '/assets/image/user.png'" style="margin: auto;" [ngStyle]="{ 'max-width': '100px', 'min-width': '100px' }">
 
     
             <input type="file" #fileInput style="display: none" (change)="onFileSelected($event)">

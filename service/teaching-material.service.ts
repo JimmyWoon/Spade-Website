@@ -82,11 +82,11 @@ import { IMaterial } from 'src/app/models/material.model';
       );
     }
 
-    getSelfMaterials(userid: string): Observable<IMaterial[]> {
+    getSelfMaterials(userid: string, role:string): Observable<IMaterial[]> {
       return this.firestore.collection('teaching-material', (ref) =>
         ref
           .where('date_deleted', '==', null)
-          .where('user_id', '==', userid)
+          .where(role === 'Admin' ? 'user_id' : 'user_id', role === 'Admin' ? '!=' : '==', role === 'Admin' ? null: userid)
       ).snapshotChanges().pipe(
         switchMap((actions) => 
           combineLatest(

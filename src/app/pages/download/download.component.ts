@@ -26,10 +26,10 @@ export class DownloadComponent implements OnInit {
   }
 
   ngOnInit(){
-    this.fireAuth.signInWithEmailAndPassword(
-      'jimmyechunwoon@gmail.com' ,
-      '987654'
-    ).then(() => {
+    // this.fireAuth.signInWithEmailAndPassword(
+    //   'jimmyechunwoon@gmail.com' ,
+    //   '987654'
+    // ).then(() => {
 
       this.firestore.collection('spade', ref => ref.orderBy('date_added', 'desc').limit(1))
       .valueChanges()
@@ -39,7 +39,7 @@ export class DownloadComponent implements OnInit {
           this.spadeData = {fullPath:document.fullPath,filename:document.filename,description:document.description,filetype:document.filetype};
         }
       });
-    })
+    // })
   }
 
   download(url: string) {
@@ -54,12 +54,12 @@ export class DownloadComponent implements OnInit {
   }
   
   async downloadSpade(){
-    const filePath = "spade/19g6f1hcrtu";
+    // const filePath = "spade/19g6f1hcrtu";
 
-    this.fireAuth.signInWithEmailAndPassword(
-      'jimmyechunwoon@gmail.com' ,
-      '987654'
-    ).then(async (userCredential) => {
+    // this.fireAuth.signInWithEmailAndPassword(
+    //   'jimmyechunwoon@gmail.com' ,
+    //   '987654'
+    // ).then(async (userCredential) => {
 
       const filePath = this.spadeData.fullPath;
       console.log(filePath);
@@ -124,11 +124,11 @@ export class DownloadComponent implements OnInit {
       } catch (error) {
         console.error('Error downloading file:', error);
       }
-    })
-    .catch((error) => {
-      // Handle authentication errors
-      console.error('Authentication Error: ', error);
-    });
+    // })
+    // .catch((error) => {
+    //   // Handle authentication errors
+    //   console.error('Authentication Error: ', error);
+    // });
   }
   editpage(){
     window.location.href='/download-edit';

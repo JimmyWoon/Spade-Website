@@ -5,9 +5,9 @@
 <body>
 
     <div class="mainContainer">
-        <div style="display:flex;justify-content:space-between;">
-            <a routerLink="/material-edit" class="firstButton">Add</a>
-            <div style="display:flex; justify-content:flex-end;">
+        <div style="display:flex;justify-content:space-between;" *ngIf="isDataLoaded">
+            <a  routerLink="/material-edit" class="firstButton">Add</a>
+            <div style="display:flex; justify-content:flex-end;" >
                 <input id="editBtn" (click)="editClick();" class="firstButton" name="edit" type="button" value="Edit">
                 <input id="saveBtn" class="firstButton" name="save" form="form" type="submit" value="Save">
                 <button id="cancelBtn" (click)="cancelClick();" class="cancel">Cancel</button>
@@ -45,8 +45,9 @@
                         </div>
                         <div class="img_div" >
                             <!-- Iterate through the thumbnails for each material -->
-                            <div  *ngFor="let imageUrl of item.thumbnail">
-                                <img [src]="imageUrl" alt="Selected Image" style="height: 200px; width: 200px; object-fit: cover;" class="thumbnail">
+                            <div *ngFor="let imageUrl of item.thumbnail">
+                                <img  (load)="onImageLoad()"
+                                [src]="imageUrl" alt="Selected Image" style="height: 200px; width: 200px; object-fit: cover;" class="thumbnail">
                             </div>
                         </div>
                     </div>

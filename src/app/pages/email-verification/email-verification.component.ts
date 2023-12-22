@@ -77,43 +77,43 @@ export class EmailVerificationComponent {
   }
     
   submit(){
-    const emailControl = this.formGroup.get('email');
-    const otpControl = this.formGroup.get('otp');
+    // const emailControl = this.formGroup.get('email');
+    // const otpControl = this.formGroup.get('otp');
 
-    if (emailControl?.value !== undefined && emailControl?.valid && otpControl?.value !== undefined){
-      if(otpControl.value === EmailVerificationComponent.otp){
+    // if (emailControl?.value !== undefined && emailControl?.valid && otpControl?.value !== undefined){
+    //   if(otpControl.value === EmailVerificationComponent.otp){
 
-        this.fireAuth.signInWithEmailAndPassword(
-          "jimmyechunwoon@gmail.com",
-          "123456"
-        ).then( () => {
+    //     this.fireAuth.signInWithEmailAndPassword(
+    //       "jimmyechunwoon@gmail.com",
+    //       "987654"
+    //     ).then( () => {
           
-          this.firestore.collection('user', ref => 
-            ref.where('email', '==', emailControl.value)
-              .where('date_deleted', '==', null)
-              .limit(1) // Limit to 1 document, assuming there should be at most one matching document
-          ).get().subscribe(querySnapshot => {
-            if (!querySnapshot.empty) {
-              this.msg=' This email is already registered.'
-              emailControl.setValue('');
-              otpControl.setValue('');
-            } else {
-              var email = {email:emailControl.value};
-              sessionStorage.setItem('email', JSON.stringify(email));
-              window.location.href='/signup';
-            }
-          })
-        });
+    //       this.firestore.collection('user', ref => 
+    //         ref.where('email', '==', emailControl.value)
+    //           .where('date_deleted', '==', null)
+    //           .limit(1) // Limit to 1 document, assuming there should be at most one matching document
+    //       ).get().subscribe(querySnapshot => {
+    //         if (!querySnapshot.empty) {
+    //           this.msg=' This email is already registered.'
+    //           emailControl.setValue('');
+    //           otpControl.setValue('');
+    //         } else {
+    //           var email = {email:emailControl.value};
+    //           sessionStorage.setItem('email', JSON.stringify(email));
+    //           window.location.href='/signup';
+    //         }
+    //       })
+    //     });
         
         
 
-      }else{
-        this.msg='Wrong OTP entered';
-        otpControl.setValue('');
-      }
+    //   }else{
+    //     this.msg='Wrong OTP entered';
+    //     otpControl.setValue('');
+    //   }
 
-    }else{
-      this.msg='Please enter requried information.'
-    }
+    // }else{
+    //   this.msg='Please enter requried information.'
+    // }
   }
 }

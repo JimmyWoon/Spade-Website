@@ -39,7 +39,7 @@ export class MaterialEditComponent implements OnInit {
       window.location.href='/';
     }
     this.formGroup = this.formBuilder.group({
-      exposure: ['',Validators.required],
+      exposure: [false,Validators.required],
       subject : ['',Validators.required],
       title : ['',Validators.required],
       file: ['', Validators.required],
@@ -48,7 +48,7 @@ export class MaterialEditComponent implements OnInit {
       images: ['']
     });  
   }
-
+ 
 
 updateImageUrls() {
   this.imageUrls =[];
@@ -213,43 +213,51 @@ ngOnInit(){
 
       if (this.idParam !== undefined ){
         'update'
-        this.firestore.collection("teaching-material").doc(this.idParam!).update({
-          material_description: description,
-          material_filename: this.fileName,
-          material_filetype: this.fileType,
-          material_title:title,
-          material_subject:subject,
-          date_updated:new Date(),
-          exposure: exposure
+        const storage = getStorage();
+        const storageRef = ref(storage, `material/${this.idParam}/${this.fileName}`);
+        const uploadTask = uploadBytes(storageRef, file);
+        let imageUploadPromises: Promise<void>[] = [];
+        uploadTask.then((s) => {
+          // Update document fields in Firestore
+          return this.firestore.collection("teaching-material").doc(this.idParam!).update({
+            material_description: description,
+            material_filename: this.fileName,
+            material_filetype: this.fileType,
+            material_title: title,
+            material_subject: subject,
+            date_updated: new Date(),
+            exposure: exposure,
+            bucket: s.metadata.bucket,
+            fullPath: s.metadata.fullPath,
+          });
         })
         .then(() => {
-          const storage = getStorage();
-          const storageRef = ref(storage, `material/${this.idParam}/${this.fileName}`);
-          const uploadTask = uploadBytes(storageRef, file);
-
-          uploadTask.then((s)=>{
-            this.firestore.collection("teaching-material").doc(this.idParam!).update({
-              bucket:s.metadata.bucket,
-              fullPath: s.metadata.fullPath,
-            });
-            // if no images selected will become no image
-            this.fileUpload.ClearPreviousImageReference(this.idParam!);
-            this.selectedImages.forEach((img) => {
-              this.fileUpload.uploadImage(img, this.idParam!).then(() => {
-                  // Continue with other operations or redirect
-              }).catch((error) => {
-                  console.error('Error occurred during image upload: ', error);
+          // Clear previous image references
+          this.fileUpload.ClearPreviousImageReference(this.idParam!);
+        
+          // Upload each selected image
+          this.selectedImages.forEach((img) => {
+            const imageUploadPromise = this.fileUpload.uploadImage(img, this.idParam!)
+              .then(() => {
+                // Continue with other operations or redirect
+              })
+              .catch((error) => {
+                console.error('Error occurred during image upload: ', error);
               });
-            });
-            
-          },err => {
-            console.error(err);
-          })
-          window.location.href="/material-edit-list";
+        
+            imageUploadPromises.push(imageUploadPromise);
+          });
+        
+          // Wait for all image uploads to complete
+          return Promise.all(imageUploadPromises);
         })
-        .catch(error => {
-          console.error('Error updating document field:', error);
-        });      
+        .then(() => {
+          // Redirect after all uploads are complete
+          window.location.href = "/material-edit-list";
+        })
+        .catch((error) => {
+          console.error('Error:', error);
+        });     
       
       }else{
         'insert'
@@ -276,38 +284,46 @@ ngOnInit(){
                     
             const uploadTask = uploadBytes(storageRef, file);
           
-            uploadTask.then((s)=>{
-              this.firestore.collection("teaching-material").doc(materialId).update({
+            return uploadTask.then((s)=>{
+              return this.firestore.collection("teaching-material").doc(materialId).update({
                 bucket:s.metadata.bucket,
                 fullPath: s.metadata.fullPath,
-              }).then(() =>{
-
-              }).catch((err) =>{
-                console.log(err);
-
               });
-              // if no images selected will become no image
-              this.fileUpload.ClearPreviousImageReference(this.idParam!);
-              this.selectedImages.forEach((img) => {
-                this.fileUpload.uploadImage(img, materialId).then(() => {
-                    // Continue with other operations or redirect
-                }).catch((error) => {
-                    console.error('Error occurred during image upload: ', error);
+            }).then(() =>{
+                this.fileUpload.ClearPreviousImageReference(this.idParam!);
+
+                // Upload each selected image
+                const imageUploadPromises: Promise<void>[] = this.selectedImages.map((img) => {
+                  return this.fileUpload.uploadImage(img, materialId)
+                    .then(() => {
+                      // Continue with other operations or redirect
+                    })
+                    .catch((error) => {
+                      console.error('Error occurred during image upload: ', error);
+                    });
                 });
-              });
-              
-            },err => {
-                this.msg =err;
-            })
+          
+                // Wait for all image uploads to complete
+                return Promise.all(imageUploadPromises);
 
-            window.location.href ="/material-list";
-          })
-          .catch((error) =>{
-            console.error('Error occurred: ', error);
-          });        
+              });
+
+
+            }).then(() => {
+              window.location.href = "/material-edit-list";
+            }).catch((error) =>{
+              window.location.href = "/material-edit-list";
+              //console.error('Error : ', error);
+
+            });
+                
         }  
     } else {
       this.msg = 'Please select a file and fill in required information.';
     }
   }
 }
+function then(arg0: () => void) {
+  throw new Error('Function not implemented.');
+}
+

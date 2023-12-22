@@ -27,10 +27,10 @@ export class ContactComponent {
 
     if (emailControl && messageControl && nameControl && this.formGroup.valid) {
 
-      this.fireAuth.signInWithEmailAndPassword(
-        "jimmyechunwoon@gmail.com",
-        "123456"
-      ).then(() => {
+      // this.fireAuth.signInWithEmailAndPassword(
+      //   "jimmyechunwoon@gmail.com",
+      //   "987654"
+      // ).then(() => {
         const data = {
           name: nameControl.value,
           email:emailControl.value,
@@ -44,7 +44,7 @@ export class ContactComponent {
           .catch((error) =>{
             console.error('Error occurred: ', error);
           });
-      });
+      // });
       
     }else{
       this.msg='Please enter valid information.';
