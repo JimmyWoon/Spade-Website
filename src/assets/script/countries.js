@@ -301,7 +301,7 @@ function print_state(state_id, state_index){
 // buttonHandler.js
 function handleButtonClick() {
 	// Your JavaScript function logic here
-	console.log('Button clicked!');
+	// console.log('Button clicked!');
   }
   
   // Attach the function to the button click event

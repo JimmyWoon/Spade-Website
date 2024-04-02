@@ -2,59 +2,103 @@
     margin-top: var(--header-height);
 }
 .full_width_container {
-    background: linear-gradient(180deg, var(--second-color), var(--first-color-lighten));
+    /* background-color: lightgray; */
+    /* background: linear-gradient(180deg, var(--second-color), var(--first-color-lighten)); */
     position: relative;
+    border-radius: 15px;
 }
+
+
 .innerContainer{
     margin-top: 1em;
     display:flex;
-    flex-direction:column;
-    max-width:70%;
+    flex-direction:row;
     margin-left:auto;
     margin-right:auto;
     align-items:center;
-    grid-gap:1em;
+    grid-gap:2em;
     padding-bottom:3em;
+    justify-content: center;
+    flex-wrap: wrap;
 }
 h2 {
     color: var(--first-color);
 }
 
 .firstButton {
-    padding: 14px 2rem;
+    font-family			: 'Arial';
+	padding				: 10px 20px;
+	background-color	: #eb4549;
+	color				: #ffffff;
+	border				: 0px;
+    cursor: pointer;
+    /* padding: 14px 2rem;
     border-radius: 6px;
     display: inline-block;
     background: linear-gradient(180deg, var(--first-color), var(--second-color));
     color: #fff;
     font-size: var(--small-font-size);
-    font-weight: var(--font-semi-bold);
-    box-shadow: 0 6px 24px hsla(244, 75%, 48%, 0.5);
+    box-shadow: 0 6px 10px #23aae5;
     cursor: pointer;
     margin: 1.5em 1em 0.5em 0;
-    transition: transform 0.3s ease; /* Add a smooth transition */
+    transition: transform 0.3s ease; */
 }
 .selectionButton {
-    text-align: center;
-    width: 70%;
-    padding: 14px 15em;
-    border-radius: 6px;
+    /* text-align: center; */
+    /* padding: 3em 2em; */
+    border-radius: 5px;
     color: var(--first-color);
-    background-color: hsla(244, 16%, 92%, 0.6);
-    font-size: var(--small-font-size);
+    background-color: white;
+    font-size: var(--normal-font-size);
     font-weight: var(--font-semi-bold);
     cursor: pointer;
-    margin: 1.5em 0 0.5em 0;
+    margin: 1.5em 0 1.5em 0;
     box-sizing: border-box;
-    transition: 0.3s;
-    border: 1px solid;
-    flex: 1;
+    transition: transform 0.3s ease;
+    /* border: 1px solid; */
+    width: 12em;
+    height: 12em;
+    /* white-space: nowrap; */
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+    /* transform:
+      rotateX(51deg)
+      rotateZ(0deg);
+    transform-style: preserve-3d; */
+    border-radius: 32px;
+    /* box-shadow:
+      1px 1px 0 1px #f9f9fb,
+      -1px 0 28px 0 rgba(34, 33, 81, 0.01),
+      28px 28px 28px 0 rgba(34, 33, 81, 0.25); */
+    box-shadow: 0 6px 10px lightgray;
+
+    /* transition:
+      .4s ease-in-out transform,
+      .4s ease-in-out box-shadow;
+  
+    &:hover {
+      transform:
+        translate3d(0px, -16px, 0px)
+        rotateX(51deg)
+        rotateZ(0deg);
+      box-shadow:
+        1px 1px 0 1px #f9f9fb,
+        -1px 0 28px 0 rgba(34, 33, 81, 0.01),
+        54px 54px 28px -10px rgba(34, 33, 81, 0.15);
+    } */
 }
+
+
+/* 
 .firstButton:hover {
-    transform: scale(1.15); /* Increase size by 20% on hover */
-}
+    transform: scale(1.15); 
+} */
 .selectionButton:hover {
-    background-color: var(--second-color);
-    color: lightgray;
+    /* background: linear-gradient(180deg, var(--second-color), var(--first-color-lighten)); */
+    /* color: white; */
+    transform: scale(1.05); /* Increase size by 20% on hover */
+
 }
 
 
@@ -64,33 +108,45 @@ h2 {
 
 
 .cancel {
-    padding: 14px 2rem;
+    font-family			: 'Arial';
+	padding				: 10px 20px;
+	background-color	: #777777;
+	color				: #ffffff;
+	border				: 0px;
+    cursor: pointer;
+    margin-bottom: 1em;
+    margin-right: 1em;
+    /* padding: 14px 2rem;
     border-radius: 6px;
     background: linear-gradient(180deg, var(--text-color), var(--text-color));
     color: #fff;
     font-size: var(--small-font-size);
-    font-weight: var(--font-semi-bold);
-    box-shadow: 0 6px 24px grey;
+    box-shadow: 0 6px 10px grey;
     margin-bottom: 1rem;
     cursor: pointer;
-    margin-right: 1em;
+    margin-right: 1em; */
 }
 
 #edit_password {
-    padding: 14px 2rem;
+    font-family			: 'Arial';
+	padding				: 10px 20px;
+	background-color	: #eb4549;
+	color				: #ffffff;
+	border				: 0px;
+
+    /* padding: 14px 2rem;
     border-radius: 6px;
     background: linear-gradient(180deg, var(--first-color), var(--second-color));
     color: #fff;
     font-size: var(--small-font-size);
-    font-weight: var(--font-semi-bold);
-    box-shadow: 0 6px 24px hsla(244, 75%, 48%, 0.5);
+    box-shadow: 0 6px 10px #23aae5;
     margin-bottom: 1rem;
-    cursor: pointer;
+    cursor: pointer; */
 }
 
-    #edit_password:hover {
+    /* #edit_password:hover {
         transform: scale(1.05);
-    }
+    } */
 
 .textB {
     /* margin-left: 1em;
@@ -159,22 +215,6 @@ h2 {
     display: none;
 }
 
-#edit_password {
-    padding: 14px 2rem;
-    border-radius: 6px;
-    background: linear-gradient(180deg, var(--first-color), var(--second-color));
-    color: #fff;
-    font-size: var(--small-font-size);
-    font-weight: var(--font-semi-bold);
-    box-shadow: 0 6px 24px hsla(244, 75%, 48%, 0.5);
-    margin-bottom: 1rem;
-    cursor: pointer;
-}
-
-    #edit_password:hover {
-        transform: scale(1.05);
-    }
-
 .hidden {
     display: none !important;
 }
@@ -191,20 +231,21 @@ h2 {
     border-radius: 5px;
 }
 
-    .error p {
-        color: hsl(0, 100%, 70%);
-        margin-bottom: 0 !important;
+.error p {
+    color: hsl(0, 100%, 70%);
+    margin-bottom: 0 !important;
 
-    }
+}
 
-@media (max-width: 1300px) {
+@media (max-width: 800px) {
     .selectionButton {
-        padding: 14px 5em;
+        width: 10em;
+        height: 10em;
+        font-size:var(--smaller-font-size);
     }
 }
-@media (max-width: 500px) {
-    .selectionButton {
-        padding: 14px 2em;
-        font-size:smaller;
+@media (max-width: 200px) {
+    .innerContainer{
+        grid-gap:0.5em;
     }
 }

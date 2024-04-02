@@ -25,9 +25,10 @@
                 </div>
             </div>
 
-            <div class="mainContainer">
+            <div class="mainContainer" >
                 <div class="innerContainer" *ngIf="items">
-                    <button class="selectionButton" *ngFor="let item of items" (click)="redirectpage(item)" >{{item}}  </button>
+                    <!-- <div class="selectionTextDiv"></div> -->
+                    <button class="selectionButton" *ngFor="let item of items" (click)="redirectpage(item)" >{{item}} </button>
                 </div>
             </div>
         </div>

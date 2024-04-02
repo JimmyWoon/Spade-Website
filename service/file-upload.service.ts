@@ -39,10 +39,10 @@ export class FileUploadService {
           // Use set with merge option to update each document
           thumbnailsCollection.doc(doc.id).set(newData, { merge: true })
             .then(() => {
-              console.log(`Document ${doc.id} successfully updated!`);
+              // console.log(`Document ${doc.id} successfully updated!`);
             })
             .catch((error) => {
-              console.error(`Error updating document ${doc.id}: `, error);
+              // console.error(`Error updating document ${doc.id}: `, error);
             });
         });
       })

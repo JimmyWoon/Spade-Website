@@ -154,24 +154,35 @@
 }
 
 .loginButton {
+  font-family			: 'Arial';
+	padding				: 10px 20px;
+	background-color	: #eb4549;
+	color				: #ffffff;
+	border				: 0px;
   width: 100%;
-  padding: 14px 2rem;
+  text-align: center;
+ /* padding: 14px 2rem;
   border-radius: 6px;
   background: linear-gradient(180deg, var(--first-color), var(--second-color));
   color: #fff;
   font-size: var(--small-font-size);
-  font-weight: var(--font-semi-bold);
-  box-shadow: 0 6px 24px hsla(244, 75%, 48%, 0.5);
+  box-shadow: 0 6px 10px #23aae5;
   margin-bottom: 1rem;
-  cursor: pointer;
+  cursor: pointer; */
 }
 
 .loginButton-ghost {
-  background: hsla(244, 16%, 92%, 0.6);
+  font-family			: 'Arial';
+	padding				: 10px 20px;
+	background-color	: #777777;
+	color				: #ffffff;
+	border				: 0px;
+  text-align: center;
+  /* background: hsla(244, 16%, 92%, 0.6);
   border: 2px solid var(--first-color);
   color: var(--first-color);
   box-shadow: none;
-  text-align: center;
+   */
 }
 
 .error p {
@@ -264,12 +275,12 @@
 
   .loginImg {
     border-radius: 3.5rem;
-    box-shadow: 0 24px 48x hsla(244, 75%, 36%, 0.45);
+    box-shadow: 0 24px 48x #23aae5;
   }
 
   .signupImg {
     border-radius: 3.5rem;
-    box-shadow: 0 24px 48x hsla(244, 75%, 36%, 0.45);
+    box-shadow: 0 24px 48x #23aae5;
   }
 
   .loginForm {
@@ -322,7 +333,7 @@
   }
 
   .loginButton-ghost {
-    border: 2.5px solid var(--first-color);
+    /* border: 2.5px solid var(--first-color); */
   }
 }
 

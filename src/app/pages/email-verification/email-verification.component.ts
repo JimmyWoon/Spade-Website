@@ -39,39 +39,12 @@ export class EmailVerificationComponent {
     if (emailControl?.value === '' || !emailControl?.valid) {
       this.msg = "Please enter email";
     }else{
-      console.log("enterd");
       this.authService.sendVerificationEmail(emailControl.value).then(() => {
-        console.log("yes");
 
       }).catch((error) =>{
-        console.log(error.message);
+        // console.log(error.message);
       });
-      // const url ="http://localhost:5001/colus-website/us-central1/mailer";
-
-      // EmailVerificationComponent.otp = generateOTP(6);
-
-      // try{
-      //   const response = await this.http.post(url,{
-      //     to:this.formGroup.get('email')?.value,
-      //     subject:"Colus User Email Verification",
-      //     message:"Dear Valued Customer, Below is the verification code "+ EmailVerificationComponent.otp + " Please do not hesitate to connect with our friendly support staff via admin@cloudbasha.com should you have any queries or require further assistance. Thank you. Kind Regards, Colus Sdn. Bhd."
-      //   }).subscribe({
-      //     next: (response: any) => {
-      //       console.log('Response:', response);
-      //       // Process the response here
-      //     },
-      //     error: (error: any) => {
-      //       console.error('Error occurred:', error);
-      //       // Handle the error here
-      //     },
-      //     complete: () => {
-      //     }
-      //   });
-      //   this.msg='OTP sent.'
-      // }catch(error){
-      //   console.error('Error occurred:', error);
-
-      // }
+      
 
     }
   }

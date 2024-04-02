@@ -17,7 +17,7 @@ export class TeachingMaterialComponent implements OnInit {
   user_information: any = null;
   subjectParam: string | null = null;
 
-  perPage: number = 1; 
+  perPage: number = 10; 
   currentPage: number = 1;
   startIndex = (this.currentPage - 1) * this.perPage;
   endIndex = this.currentPage * this.perPage;

@@ -92,7 +92,8 @@ export class DownloadEditComponent{
             user_id:this.user_information.id,
             date_added:new Date(),
             date_deleted: null,
-            date_updated:new Date()
+            date_updated:new Date(),
+            download_counter:0
           }
           
           this.firestore.collection('spade').add(fileData)

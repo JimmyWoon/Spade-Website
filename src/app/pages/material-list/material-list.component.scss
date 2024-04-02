@@ -1,7 +1,9 @@
-.selectionButton{
-    text-overflow: ellipsis ;
-    white-space: nowrap; /* Prevent text from wrapping to the next line */
+.selectionTextDiv{
+
+  white-space: nowrap;
   overflow: hidden;
+  text-overflow: ellipsis;
+  /* max-width: 200px; */
 }
 .innerContainer{
     overflow: hidden;

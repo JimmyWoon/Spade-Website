@@ -1,29 +1,34 @@
 ﻿
 .panel{
-    background-color:var(--first-color-lighten);
+    background-color:hsla(244, 16%, 92%, 0.6);
     border-radius:15px;
     padding:2%;
 }
 .firstButton {
-    padding: 14px 2rem;
+    font-family			: 'Arial';
+	padding				: 10px 20px;
+	background-color	: #eb4549;
+	color				: #ffffff;
+	border				: 0px;
+    margin-bottom: 1em;
+    margin-right: 1em;
+    cursor: pointer;
+    /* padding: 14px 2rem;
     border-radius: 6px;
     background: linear-gradient(180deg, var(--first-color), var(--second-color));
     color: #fff;
     font-size: var(--small-font-size);
-    font-weight: var(--font-semi-bold);
-    box-shadow: 0 6px 24px hsla(244, 75%, 48%, 0.5);
-    cursor: pointer;
-    margin-bottom: 1rem;
-    margin-right: 1em;
+    box-shadow: 0 6px 10px #23aae5;
+     */
 }
 .input__field {
-    color: var(--first-color);
+    
     box-sizing: border-box;
     display: block;
     width: 100%;
     border-bottom: 1px solid currentColor;
     padding: calc(var(--size-bezel) * 1.2) var(--size-bezel);
-    background: hsla(244, 16%, 92%, 0.6);
+    /* background: hsla(244, 16%, 92%, 0.6); */
     border-radius: var(--size-radius);
 }
 
@@ -75,33 +80,46 @@
 }
 
 .cancel {
-    padding: 14px 2rem;
+    font-family			: 'Arial';
+	padding				: 10px 20px;
+	background-color	: #777777;
+	color				: #ffffff;
+	border				: 0px;
+    margin-bottom: 1em;
+    margin-right: 1em;
+    cursor: pointer;
+    /* padding: 14px 2rem;
     border-radius: 6px;
     background: linear-gradient(180deg, var(--text-color), var(--text-color));
     color: #fff;
     font-size: var(--small-font-size);
-    font-weight: var(--font-semi-bold);
-    box-shadow: 0 6px 24px grey;
+    box-shadow: 0 6px 10px grey;
     margin-bottom: 1rem;
     cursor: pointer;
-    margin-right: 1em;
+    margin-right: 1em; */
 }
 
 #edit_password {
-    padding: 14px 2rem;
+    font-family			: 'Arial';
+	padding				: 10px 20px;
+	background-color	: #eb4549;
+	color				: #ffffff;
+	border				: 0px;
+    cursor: pointer;
+    margin-bottom: 1em;
+    /* padding: 14px 2rem;
     border-radius: 6px;
     background: linear-gradient(180deg, var(--first-color), var(--second-color));
     color: #fff;
     font-size: var(--small-font-size);
-    font-weight: var(--font-semi-bold);
-    box-shadow: 0 6px 24px hsla(244, 75%, 48%, 0.5);
+    box-shadow: 0 6px 10px #23aae5;
     margin-bottom: 1rem;
-    cursor: pointer;
+    cursor: pointer; */
 }
-
+/* 
     #edit_password:hover {
         transform: scale(1.05);
-    }
+    } */
 
 .textB {
     /* margin-left: 1em;
@@ -171,21 +189,7 @@ i {
     display: none;
 }
 
-#edit_password {
-    padding: 14px 2rem;
-    border-radius: 6px;
-    background: linear-gradient(180deg, var(--first-color), var(--second-color));
-    color: #fff;
-    font-size: var(--small-font-size);
-    font-weight: var(--font-semi-bold);
-    box-shadow: 0 6px 24px hsla(244, 75%, 48%, 0.5);
-    margin-bottom: 1rem;
-    cursor: pointer;
-}
 
-    #edit_password:hover {
-        transform: scale(1.05);
-    }
 .hidden {
     display: none;
 }
@@ -207,7 +211,7 @@ i {
 
     
 @media screen and (max-width: 500px) {
-    .firstButton {
+    /* .firstButton {
         padding: 10px 0.5rem;
     }
 
@@ -216,5 +220,5 @@ i {
     }
     #edit_password {
         padding: 10px 0.5rem;
-    }
+    } */
 }

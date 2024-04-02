@@ -7,10 +7,14 @@
   --footer-height: 130px;
   /*========== Colors ==========*/
   /*Color mode HSL(hue, saturation, lightness)*/
-  --first-color: hsl(244, 75%, 57%);
-  --first-color-light: hsl(244, 60%, 50%);
+  --first-color: #23aae5;
+  --first-color-light: #48b9ea;
+  --first-color-lighten:#5fc2ec;
+  --second-color:#33ccff;
+  /* --first-color: hsl(244, 75%, 57%); */
+  /* --first-color-light: hsl(244, 60%, 50%);
   --first-color-lighten: hsl(244, 100%, 97%);
-  --second-color: hsl(249, 64%, 47%);
+  --second-color: hsl(249, 64%, 47%); */
   --title-color: hsl(244, 4%, 15%);
   --text-color: hsl(244, 4%, 36%);
   --text-color-light: hsl(244, 12%, 75%);
@@ -19,7 +23,7 @@
 
   /*========== Font and typography ==========*/
   /*.5rem = 8px | 1rem = 16px ...*/
-  --body-font: "Poppins", sans-serif;
+  --body-font: "Fredoka";  
   --h1-font-size: 1.5rem;
   --h2-font-size: 1.25rem;
   --normal-font-size: 0.938rem;
@@ -73,6 +77,8 @@ body {
   margin: calc(var(--header-height) + 1.5rem) 0 0 0;
   background-color: var(--body-color);
   color: var(--text-color);
+  min-height: calc(100vh - 4rem);;
+
 }
 
 .bodyContainer {

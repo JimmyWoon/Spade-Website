@@ -7,6 +7,7 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    position: relative;
 }
 .topRightContainer{
     display: flex;
@@ -14,21 +15,23 @@
     // align-items: center;
     justify-content: center;
 }
-.photoContainer{
-    display: flex;
-    flex-direction: row;
-}
+// .photoContainer{
+//     display: flex;
+//     flex-direction: row;
+// }
 .imageTop{
     align-items: center;
-    height: 13rem;
+    //height: 13rem;
 }
-#spade_text{
-    font-weight:900;
-    font-size: xx-large;
-    color: var(--first-color);
-}
+// #spade_text{
+//     font-weight:900;
+//     font-size: 3.5em;
+//     color: var(--first-color);
+// }
 #interactive_text{
     font-size: large;
+    font-size: 3.0em; 
+    font-weight	: 800; 
 }
 
 .middleContainer{
@@ -94,14 +97,14 @@
   }
 
 @media screen and (min-width: 1500px) {
-.mainContainer {
-    margin-left: auto;
-    margin-right: auto;
-}
-.middleInnerContainer{
-    margin-left: auto;
-    margin-right: auto;
-}
+    .mainContainer {
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .middleInnerContainer{
+        margin-left: auto;
+        margin-right: auto;
+    }
 
 }
 
@@ -135,3 +138,35 @@
         flex-direction: column;
     }
 }
+
+@media screen and (max-width:600px){
+    .topContainer{
+        flex-direction: column;
+        flex-direction: column-reverse;
+    }
+    .topRightContainer{
+        margin-top: 3em;
+    }
+}
+
+.firstButton {
+    font-family			: 'Arial';
+	padding				: 10px 20px;
+	background-color	: #eb4549;
+	color				: #ffffff;
+	border				: 0px;
+    // padding: 14px 2rem;
+    // border-radius: 6px;
+    // display:inline-block;
+    // background: linear-gradient(180deg, var(--first-color), var(--second-color));
+    // color: #fff;
+    // font-size: var(--small-font-size);
+    // box-shadow: 0 6px 10px #23aae5;
+    // cursor: pointer;
+    // margin: 1.5em 1em 0.5em 0;
+    // transition: transform 0.3s ease; /* Add a smooth transition */
+}
+
+// .firstButton:hover {
+//     transform: scale(1.15); /* Increase size by 20% on hover */
+// }

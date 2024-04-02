@@ -46,7 +46,11 @@ export class ContactComponent {
           });
       // });
       
-    }else{
+    }else if(this.formGroup.get('email')?.invalid){
+      this.msg='Please enter valid email.';
+      emailControl?.reset();
+    }
+    else{
       this.msg='Please enter valid information.';
     }
   }

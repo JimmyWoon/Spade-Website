@@ -65,8 +65,7 @@
                 <button
                 *ngFor="let pageNumber of getPageNumbers()"
                 (click)="goToPage(pageNumber)"
-                [class.active]="currentPage === pageNumber"
-              >
+                [class.active]="currentPage === pageNumber">
                 {{ pageNumber }}
               </button>
             </div>

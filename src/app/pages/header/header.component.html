@@ -35,7 +35,7 @@
             <div id="nav-menu" [ngClass]="{'navMenu':true,'show-menu': isMenuVisible}">
                 <ul class="navList">
                     <li class="navItem">
-                        <a [ngClass]="{'navLink': true, 'active-link': path === '/'}" (click)="linkAction()" routerLink="">Home</a>
+                        <a [ngClass]="{'navLink': true, 'active-link': path === '/'}" (click)="linkAction()"  href="https://spademy.com">Home</a>
                     </li>
                     <!-- <li class="navItem">
                         <a [ngClass]="{'navLink': true, 'active-link': path === '/about'}" (click)="linkAction()" routerLink="about">About</a>
@@ -63,7 +63,7 @@
                     <div *ngIf="isAuthenticated" [ngClass]="{'subMenuWrap':true,'open-menu':isOpenMenu}" id="subMenu">
                          <div class="subMenu">
                              <div class="userInfo">
-                                 <h2> {{user_information?.data?.username}}</h2>
+                                 <h2 class="truncate-text"> {{user_information?.data?.username}}</h2>
                              </div>
                              <hr>
 
@@ -78,7 +78,7 @@
                             </div>
 
                              <div class="inviItem" style="display:flex">
-                                 <i style="color:red; display:flex; align-items:center; margin-right:1em" class="ri-logout-box-line"></i>
+                                 <i style="color:red; display:flex; align-items:center; margin-right:1em;" class="ri-logout-box-line"></i>
                                  <a ngClass="subMenuLink logout" (click)="linkAction()" routerLink="logout">Log Out</a>
                              </div>
 

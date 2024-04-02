@@ -103,7 +103,7 @@
 
   .subMenu {
     border-radius: 20px;
-    background: var(--first-color);
+    background: var(--first-color-light);
     padding: 20px;
     margin: 10px;
   }
@@ -140,7 +140,7 @@
   .subMenuLink {
     display: flex;
     align-items: center;
-    text-decoration: none;
+    text-decoration: none !important;
     color: #fff;
     margin: 12px 0;
   }
@@ -160,10 +160,16 @@
 
   .subMenuLink:hover {
     font-weight: var(--font-semi-bold);
+    text-decoration: none !important;
+    color: white !important;
   } 
 
   .logout {
-    color: hsl(0, 87%, 43%);
+    color: #eb4549 ;
+  }
+
+  .logout:hover {
+    color: #eb4549 !important;
   }
   
   .navLink{

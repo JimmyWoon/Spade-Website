@@ -4,39 +4,50 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
 
 <body>
-    <div *ngIf="user_information?.data.role == 'Admin'">
-        <div style="display:flex; justify-content:flex-end;">
-            <label (click)="editpage()" id="edit_icon" class="firstButton">
-                <i class="fa fa-pencil" aria-hidden="true"></i>
-            </label>
-        </div>
-    </div>
-<div class="full_width_container">
-    <div *ngIf="msg !== '' ">
-        <div class="error">
-            <p id="error_message" style="text-align:center;">
-              {{msg}}
-            </p>
-        </div>
-    </div>
-    <div class="mainContainer">
-        <h2 style="padding-top:1em;" >Download latest SPADE version</h2>
-        <button (click)="downloadSpade()" class="firstButton">Download {{spadeData.filename}}</button>
-        <h5>{{spadeData.description}}</h5>
-        <!-- @code
-            If Model IsNot Nothing Then
-                @<a href="@Url.Action("Downloading", "Spade")" class="firstButton">Download @Model.file_name</a>
-                @<h5>@Model.description</h5>
-            End If
-        End Code -->
-        <div style="color: white; font-style: italic;">
-            Download the SPADE application (Windows only).
-            Sign up and get access to various resources. 
-        </div>
-        <br>
 
-        <h1>Step to <span style="color:var(--second-color)">Download</span></h1>
+    <div class="full_width_container">
+        <div *ngIf="msg !== '' ">
+            <div class="error">
+                <p id="error_message" style="text-align:center;">
+                {{msg}}
+                </p>
+            </div>
+        </div>
+        <div *ngIf="user_information?.data.role == 'Admin'">
+            <div style="display:flex; justify-content:flex-end;">
+                <label (click)="editpage()" id="edit_icon" class="firstButton">
+                    <i class="fa fa-pencil" aria-hidden="true"></i>
+                </label>
+            </div>
+        </div>
+        <div id="main_container">
+            <div id="left_container">
+                <h2 style="padding-top:1em; color: #777777;" >Download the<br>SPADE application</h2>
+                <label>(Window only)</label>
+                <br>
+                <button (click)="downloadSpade()" class="firstButton">Download {{spadeData.filename}}</button>
+                <br>
+                <h5>{{spadeData.description}}</h5>
+                <!-- @code
+                    If Model IsNot Nothing Then
+                        @<a href="@Url.Action("Downloading", "Spade")" class="firstButton">Download @Model.file_name</a>
+                        @<h5>@Model.description</h5>
+                    End If
+                End Code -->
+                <div style="color: gray; font-style: italic;">
+                    Sign up and get access to various resources. 
+                </div>
+                <br>
+    
+                <!-- <h1 style="color: #777777;">Step to <span style="color:var(--second-color)">Download</span></h1> -->
+    
+            </div>
+
+            <div id="right_container">
+                <img src="assets/image/backgroud-03.png" alt="img" class='imageTop'>
+            </div>
+        </div>
+  
     </div>
-</div>
 
 </body>

@@ -16,7 +16,7 @@ export class ManageUserComponent{
   formGroup: FormGroup;
   user_information:any = null;
 
-  pageSize = 5; // Adjust as needed
+  pageSize = 10; // Adjust as needed
   currentPage = 1;
   totalDocuments = 0;
 
@@ -27,7 +27,7 @@ export class ManageUserComponent{
   buttondataBsToggle:string ='';
   isButtonGroupDisabled:boolean = true;
   
-  constructor(private router: Router,private formBuilder:FormBuilder,private fireAuth: AngularFireAuth,private firestore: AngularFirestore,private pagingService: PagingService,private el: ElementRef, private renderer: Renderer2){
+  constructor(private deleteUserAuth: AngularFireAuth,private router: Router,private formBuilder:FormBuilder,private fireAuth: AngularFireAuth,private firestore: AngularFirestore,private pagingService: PagingService,private el: ElementRef, private renderer: Renderer2){
     if (sessionStorage.getItem('user') !== null){
       const sessionData = JSON.parse(sessionStorage.getItem('user')!);
       this.user_information = sessionData;
@@ -107,7 +107,8 @@ export class ManageUserComponent{
           //this.firestore.collection('user').doc(checkbox.value).update({'date_deleted': new Date()});
           const userUpdatePromise = this.firestore.collection('user').doc(checkbox.value).update({ 'date_deleted': new Date() });
           updatePromises.push(userUpdatePromise);
-          
+
+         
           // Update spade collection
           const spadeCollection = this.firestore.collection('spade');
           const query = spadeCollection.ref.where('user_id', '==', checkbox.value);
@@ -126,6 +127,53 @@ export class ManageUserComponent{
             const materialUpdatePromise = materialCollection.doc(doc.id).update({ date_deleted: new Date() });
             updatePromises.push(materialUpdatePromise);
           });
+          const docRef = this.firestore.collection('user').doc(checkbox.value);
+          var email:string;
+          var password:string;
+          
+          const deleteUserPromise = docRef.get().toPromise()
+          .then(async (docSnapshot) => {
+            if (docSnapshot!.exists) {
+              const userData = docSnapshot!.data() as IUser;
+              email = userData.email;
+              password = userData.password || ''; // Use an empty string if password is undefined
+        
+              // Use async/await to handle asynchronous operations
+              try {
+                await this.deleteUserAuth.signInWithEmailAndPassword(
+                  email,
+                  password
+                );
+                // console.log(this.deleteUserAuth.currentUser);
+                const user = this.deleteUserAuth.currentUser;
+
+                if (user) {
+                  user.then((userData) => {
+                    userData!.delete().then(() => {
+                      // console.log('User record deleted successfully.');
+
+                    }).catch((error) => {
+                      // console.error('Error deleting user record:', error);
+                    });
+                  });
+                } else {
+                  // console.error('No user is currently authenticated.');
+                }
+                
+              } catch (error) {
+                // window.location.href = '/profile';
+              }
+            } else {
+              // console.log('Document does not exist');
+            }
+          })
+          .catch((error) => {
+            // console.error('Error getting document:', error);
+            // Handle error as needed
+          });
+
+          updatePromises.push(deleteUserPromise);
+          
         }
       }
       
@@ -143,7 +191,9 @@ export class ManageUserComponent{
     }
     
     if (changes){
-      window.location.href = '/manage-user';    
+      setTimeout(() => {
+              window.location.href = '/manage-user';
+            }, 2000);    
     }
 
   }

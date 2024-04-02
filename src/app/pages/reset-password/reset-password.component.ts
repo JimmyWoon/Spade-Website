@@ -54,7 +54,7 @@ export class ResetPasswordComponent {
             ).then((userCredential)=>{
               const uid = userCredential.user?.uid;
 
-              console.log(uid);
+              // console.log(uid);
               this.firestore
               .collection('user').ref
               .where('uid', '==', uid).where("date_deleted","==", null)

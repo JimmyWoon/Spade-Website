@@ -3,7 +3,7 @@
 }
 .full_width_container {
     padding-top:2em;
-    background: linear-gradient(180deg, var(--second-color), var(--first-color-lighten));
+    /* background: linear-gradient(180deg, var(--second-color), var(--first-color-lighten)); */
     position: relative;
     padding-bottom: 2em;
 }
@@ -66,19 +66,23 @@ textarea {
     resize: vertical;
 }
 
-.firstButton:hover {
-    transform: scale(1.15); /* Increase size by 20% on hover */
-}
+/* .firstButton:hover {
+    transform: scale(1.15); 
+} */
 .firstButton {
-    padding: 14px 2rem;
+    font-family			: 'Arial';
+	padding				: 10px 20px;
+	background-color	: #eb4549;
+	color				: #ffffff;
+	border				: 0px;
+    /* padding: 14px 2rem;
     border-radius: 6px;
     display: inline-block;
     background: linear-gradient(180deg, var(--first-color), var(--second-color));
     color: #fff;
     font-size: var(--small-font-size);
-    font-weight: var(--font-semi-bold);
-    box-shadow: 0 6px 24px hsla(244, 75%, 48%, 0.5);
+    box-shadow: 0 6px 10px #23aae5;
     cursor: pointer;
     margin: 1.5em 1em 0.5em 0;
-    transition: transform 0.3s ease; /* Add a smooth transition */
+    transition: transform 0.3s ease;  */
 }

@@ -9,7 +9,7 @@ export interface IUser {
     date_added: Timestamp;
     date_updated: Timestamp | null;
     date_deleted: Timestamp | null;
-    password: String | null;
+    password: string | null;
     verified:boolean ;
     profile_picture:string | null;
     profile_name: string | null;

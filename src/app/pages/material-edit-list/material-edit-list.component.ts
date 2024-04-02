@@ -21,7 +21,7 @@ export class MaterialEditListComponent {
   formGroup: FormGroup;
   materialParam :string | null = null;
 
-  perPage: number = 5; 
+  perPage: number = 10; 
   currentPage: number = 1;
   startIndex = (this.currentPage - 1) * this.perPage;
   endIndex = this.currentPage * this.perPage;
@@ -57,13 +57,26 @@ export class MaterialEditListComponent {
       window.location.href="/material-list";
     }
 
-    this.materialService.getSelfMaterials(this.materialParam!, this.user_information.data.role).subscribe((materials: IMaterial[]) => {
-      this.material_list = materials;
-      this.displayedMaterials = this.material_list.slice(this.startIndex, this.endIndex);
-    })
-
+    const NoRecord = await this.materialService.checkRecord(this.materialParam!, this.user_information.data.role);
+    if (NoRecord) {
+      this.onImageLoad();
+    } else {
+      this.materialService.getSelfMaterials(this.materialParam!, this.user_information.data.role).subscribe((materials: IMaterial[]) => {  
+        this.material_list = materials;
+        this.displayedMaterials = this.material_list.slice(this.startIndex, this.endIndex);
+  
+        const hasMaterialWithNonEmptyThumbnails = this.displayedMaterials.some(material => material.thumbnail.length > 0);
+  
+        if (!hasMaterialWithNonEmptyThumbnails ) {
+          this.onImageLoad();
+        }
+  
+      });
+    } 
 
   }
+
+
   previousPage() {
     if (this.currentPage > 1) {
       this.currentPage--;

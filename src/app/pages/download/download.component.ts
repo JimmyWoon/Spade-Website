@@ -2,9 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
-import { Observable } from 'rxjs';
+import { Observable, take } from 'rxjs';
 import { FileService } from 'service/download.service';
-
 
 @Component({
   selector: 'app-download',
@@ -14,7 +13,7 @@ import { FileService } from 'service/download.service';
 export class DownloadComponent implements OnInit {
   user_information:any = null;
   downloadURL: Observable<string> | null = null;
-  spadeData:any = {filename:"",fullPath:"",description: "",filetype:""};
+  spadeData:any = {filename:"",fullPath:"",description: "",filetype:"",id: ""};
   msg:String = "";
 
   constructor( private firestore: AngularFirestore, public storage: AngularFireStorage,private fireAuth: AngularFireAuth, private fileService:FileService) {
@@ -31,14 +30,22 @@ export class DownloadComponent implements OnInit {
     //   '987654'
     // ).then(() => {
 
-      this.firestore.collection('spade', ref => ref.orderBy('date_added', 'desc').limit(1))
-      .valueChanges()
-      .subscribe((documents: any[]) => {
-        if (documents.length > 0) {
-          const document = documents[0];
-          this.spadeData = {fullPath:document.fullPath,filename:document.filename,description:document.description,filetype:document.filetype};
-        }
-      });
+    this.firestore.collection('spade', ref => ref.orderBy('date_added', 'desc').limit(1))
+    .snapshotChanges() // Use snapshotChanges() instead of valueChanges()
+    .subscribe((documents: any[]) => {
+      if (documents.length > 0) {
+        const document = documents[0].payload.doc.data();
+        const id = documents[0].payload.doc.id;
+  
+        this.spadeData = {
+          fullPath: document.fullPath,
+          filename: document.filename,
+          description: document.description,
+          filetype: document.filetype,
+          id: id  // Include the document ID
+        };
+      }
+    });
     // })
   }
 
@@ -62,7 +69,6 @@ export class DownloadComponent implements OnInit {
     // ).then(async (userCredential) => {
 
       const filePath = this.spadeData.fullPath;
-      console.log(filePath);
       try {
       // const fileRef = this.storage.ref().child(`sapde/${this.spadeData.id}`);
 
@@ -81,8 +87,36 @@ export class DownloadComponent implements OnInit {
       // downloadLink.click();
 
 
-        const fileRef = this.storage.ref(filePath);
+      const query = this.firestore.collection('spade', ref => ref.orderBy('date_added', 'desc').limit(1));
 
+      query.valueChanges({ idField: 'id' })
+        .pipe(take(1))
+        .subscribe((documents: any[]) => {
+          if (documents.length > 0) {
+            const document = documents[0];
+            const documentId = document.id;
+
+            // Update the download_counter field
+            const updatedDownloadCounter = (document.download_counter || 0) + 1;
+
+            // Update the document in Firestore
+            this.firestore.collection('spade').doc(documentId).update({
+              download_counter: updatedDownloadCounter
+            })
+            .then(() => {
+              // console.log('Download counter updated successfully.');
+            })
+            .catch(error => {
+              // console.error('Error updating download counter:', error);
+            });
+
+          } else {
+            // console.log('No documents found.');
+          }
+        });
+
+        
+        const fileRef = this.storage.ref(filePath);         
         const downloadURL = await fileRef.getDownloadURL().toPromise();
 
         // Create an anchor element to trigger the download
